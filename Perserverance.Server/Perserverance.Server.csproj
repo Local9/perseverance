@@ -42,4 +42,6 @@
     <Exec Command="xcopy /f /r /y /i bin\Server ..\build\server" />
   </Target>
 
+  <Import Project="..\Perserverance.Shared\Perserverance.Shared.projitems" Label="Shared" />
+
 </Project>

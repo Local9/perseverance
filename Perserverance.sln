@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perserverance.Client", "Per
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perserverance.Server", "Perserverance.Server\Perserverance.Server.csproj", "{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Perserverance.Shared", "Perserverance.Shared\Perserverance.Shared.shproj", "{C5E4391F-33D8-48A9-AADC-128ACF991B1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,5 +29,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A28BA43A-20EA-4419-96E6-3E35A9531A17}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Perserverance.Shared\Perserverance.Shared.projitems*{27f05021-b34a-4080-8c92-79756cdc4a6d}*SharedItemsImports = 5
+		Perserverance.Shared\Perserverance.Shared.projitems*{c5e4391f-33d8-48a9-aadc-128acf991b1b}*SharedItemsImports = 13
+		Perserverance.Shared\Perserverance.Shared.projitems*{e7b1ecc0-ab62-4bce-9b1c-8b3eb1e1fff1}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

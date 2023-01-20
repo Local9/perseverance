@@ -46,4 +46,6 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /f /r /y /i bin\Client ..\build\client" />
   </Target>
+
+  <Import Project="..\Perserverance.Shared\Perserverance.Shared.projitems" Label="Shared" />
 </Project>
