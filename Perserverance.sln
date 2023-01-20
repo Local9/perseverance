@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perserverance.Client", "Perserverance.Client\Perserverance.Client.csproj", "{27F05021-B34A-4080-8C92-79756CDC4A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perserverance.Server", "Perserverance.Server\Perserverance.Server.csproj", "{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27F05021-B34A-4080-8C92-79756CDC4A6D}.Debug|Any CPU.ActiveCfg = CLIENT|Any CPU
+		{27F05021-B34A-4080-8C92-79756CDC4A6D}.Debug|Any CPU.Build.0 = CLIENT|Any CPU
+		{27F05021-B34A-4080-8C92-79756CDC4A6D}.Release|Any CPU.ActiveCfg = CLIENT|Any CPU
+		{27F05021-B34A-4080-8C92-79756CDC4A6D}.Release|Any CPU.Build.0 = CLIENT|Any CPU
+		{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}.Debug|Any CPU.ActiveCfg = Server|Any CPU
+		{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}.Debug|Any CPU.Build.0 = Server|Any CPU
+		{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}.Release|Any CPU.ActiveCfg = Server|Any CPU
+		{E7B1ECC0-AB62-4BCE-9B1C-8B3EB1E1FFF1}.Release|Any CPU.Build.0 = Server|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A28BA43A-20EA-4419-96E6-3E35A9531A17}
+	EndGlobalSection
+EndGlobal
