@@ -1,5 +1,5 @@
 ﻿using Logger;
-using Perserverance.Shared.Models;
+using Perserverance.Server.Models;
 
 namespace Perserverance.Server
 {

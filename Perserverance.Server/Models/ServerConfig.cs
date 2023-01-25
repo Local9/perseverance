@@ -1,4 +1,4 @@
-﻿namespace Perserverance.Shared.Models
+﻿namespace Perserverance.Server.Models
 {
     [DataContract]
     public class ServerConfig
