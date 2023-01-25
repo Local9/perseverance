@@ -13,6 +13,21 @@ namespace Perserverance.Server
             Instance = this;
             Logger = new();
             PlayerList = Players;
+
+            Load();
+        }
+
+        private async void Load()
+        {
+            bool databaseTest = await Database.DapperDatabase<bool>.GetSingleAsync("select 1;");
+            if (databaseTest)
+            {
+                Logger.Info($"Database Connection Test Successful!");
+            }
+            else
+            {
+                Logger.Error($"Database Connection Test Failed!");
+            }
         }
 
         /// <summary>
