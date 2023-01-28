@@ -21,8 +21,9 @@ namespace Perserverance.Server
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{Log.DARK_RED}Server Configuration was unable to be loaded.");
-                Debug.WriteLine($"{ex}");
+                Main.Logger.Error($"Server Configuration was unable to be loaded.");
+                Main.Logger.Info($"{ex}");
+                Main.Logger.Error($"---------------------------------------------.");
                 return (ServerConfig)default!;
             }
         }
