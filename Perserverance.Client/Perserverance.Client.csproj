@@ -6,7 +6,7 @@
     <PackageId>$(AssemblyName).net</PackageId>
     <LangVersion>latest</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Configurations>Debug;Release;Client</Configurations>
+    <Configurations>Debug;Release;Local</Configurations>
     <BaseOutputPath></BaseOutputPath>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
@@ -25,11 +25,8 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SERVER|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Local|AnyCPU'">
     <DefineConstants>$(DefineConstants)TRACE;Client</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Client|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
@@ -44,7 +41,9 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /f /r /y /i bin\Client ..\build\client" />
+    <Exec Command="xcopy /f /r /y /i bin\Debug ..\build\client" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="xcopy /f /r /y /i bin\Release ..\build\client" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="xcopy /f /r /y /i bin\Local $(FIVEM_SERVER_PATH_CH)\resources\[perseverance-framework]\perseverance\client" Condition="'$(Configuration)' == 'Local'" />
   </Target>
 
   <Import Project="..\Perserverance.Shared\Perserverance.Shared.projitems" Label="Shared" />
