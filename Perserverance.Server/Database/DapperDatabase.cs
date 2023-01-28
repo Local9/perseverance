@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Logger; // FxEvents on NuGet
 using MySqlConnector;
-using Perserverance.Shared.Models;
+using Perserverance.Server.Models;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
