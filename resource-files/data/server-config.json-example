@@ -1,0 +1,21 @@
+{
+  "database": {
+    "server": "CURRENTLY_NOT_REQUIRED",
+    "databaseName": "CURRENTLY_NOT_REQUIRED",
+    "username": "CURRENTLY_NOT_REQUIRED",
+    "password": "CURRENTLY_NOT_REQUIRED",
+    "port": 3306
+  },
+  "discord": {
+    "botKey": "",
+    "botname": "FiveM Server Discord BOT",
+    "guildId": 0,
+    "url": "",
+    "whitelist": [],
+    "webhooks": {
+      "server-debug": "",
+      "server-error": "",
+      "server-player-log": ""
+    }
+  }
+}
