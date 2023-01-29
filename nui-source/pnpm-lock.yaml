@@ -1,10 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@fortawesome/fontawesome-svg-core': ^6.2.1
-  '@fortawesome/free-brands-svg-icons': ^6.2.1
-  '@fortawesome/free-solid-svg-icons': ^6.2.1
-  '@fortawesome/svelte-fontawesome': ^0.2.0
   '@sveltejs/vite-plugin-svelte': ^1.4.0
   '@tsconfig/svelte': ^3.0.0
   iconify-icon: ^1.0.3
@@ -16,10 +12,6 @@ specifiers:
   vite: ^3.2.5
 
 devDependencies:
-  '@fortawesome/fontawesome-svg-core': 6.2.1
-  '@fortawesome/free-brands-svg-icons': 6.2.1
-  '@fortawesome/free-solid-svg-icons': 6.2.1
-  '@fortawesome/svelte-fontawesome': 0.2.0_zgk5iltucizajf2u3vbuqhxfja
   '@sveltejs/vite-plugin-svelte': 1.4.0_svelte@3.55.1+vite@3.2.5
   '@tsconfig/svelte': 3.0.0
   iconify-icon: 1.0.3
@@ -49,46 +41,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@fortawesome/fontawesome-common-types/6.2.1:
-    resolution: {integrity: sha512-Sz07mnQrTekFWLz5BMjOzHl/+NooTdW8F8kDQxjWwbpOJcnoSg4vUDng8d/WR1wOxM0O+CY9Zw0nR054riNYtQ==}
-    engines: {node: '>=6'}
-    requiresBuild: true
-    dev: true
-
-  /@fortawesome/fontawesome-svg-core/6.2.1:
-    resolution: {integrity: sha512-HELwwbCz6C1XEcjzyT1Jugmz2NNklMrSPjZOWMlc+ZsHIVk+XOvOXLGGQtFBwSyqfJDNgRq4xBCwWOaZ/d9DEA==}
-    engines: {node: '>=6'}
-    requiresBuild: true
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 6.2.1
-    dev: true
-
-  /@fortawesome/free-brands-svg-icons/6.2.1:
-    resolution: {integrity: sha512-L8l4MfdHPmZlJ72PvzdfwOwbwcCAL0vx48tJRnI6u1PJXh+j2f3yDoKyQgO3qjEsgD5Fr2tQV/cPP8F/k6aUig==}
-    engines: {node: '>=6'}
-    requiresBuild: true
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 6.2.1
-    dev: true
-
-  /@fortawesome/free-solid-svg-icons/6.2.1:
-    resolution: {integrity: sha512-oKuqrP5jbfEPJWTij4sM+/RvgX+RMFwx3QZCZcK9PrBDgxC35zuc7AOFsyMjMd/PIFPeB2JxyqDr5zs/DZFPPw==}
-    engines: {node: '>=6'}
-    requiresBuild: true
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 6.2.1
-    dev: true
-
-  /@fortawesome/svelte-fontawesome/0.2.0_zgk5iltucizajf2u3vbuqhxfja:
-    resolution: {integrity: sha512-ri61lOqne8JtftoTW1AEnFAAlrTnKg0JvC8MiUJiEWhLu3wcbh7QwIytfs6YFRImVYOmK/OxcA9EWj+Ei8NM4g==}
-    peerDependencies:
-      '@fortawesome/fontawesome-svg-core': ~1 || ~6
-      svelte: '>=3.x'
-    dependencies:
-      '@fortawesome/fontawesome-svg-core': 6.2.1
-      svelte: 3.55.1
-    dev: true
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
