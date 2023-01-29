@@ -11,4 +11,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\TickHandler.cs" />
+  </ItemGroup>
 </Project>

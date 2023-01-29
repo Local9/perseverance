@@ -1,4 +1,6 @@
-﻿namespace Perserverance.Server.Models
+﻿using System.Security.Cryptography;
+
+namespace Perserverance.Server.Models.Config
 {
     [DataContract]
     public class ServerConfig
@@ -8,5 +10,8 @@
 
         [DataMember(Name = "discord")]
         public Discord Discord;
+
+        [DataMember(Name = "snailycad")]
+        public SnailyCad SnailyCad;
     }
 }

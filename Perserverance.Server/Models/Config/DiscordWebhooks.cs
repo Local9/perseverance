@@ -1,4 +1,4 @@
-﻿namespace Perserverance.Server.Models
+﻿namespace Perserverance.Server.Models.Config
 {
     [DataContract]
     public class DiscordWebhooks

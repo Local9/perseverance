@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Logger; // FxEvents on NuGet
 using MySqlConnector;
-using Perserverance.Server.Models;
+using Perserverance.Server.Models.Config;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -12,14 +12,14 @@ namespace Perserverance.Server.Database
 {
     internal class DapperDatabase<T>
     {
-        private static string _connectionString;
+        static string connectionString;
 
-        private static string ConnectionString()
+        static string ConnectionString()
         {
-            if (!string.IsNullOrEmpty(_connectionString))
-                return _connectionString;
+            if (!string.IsNullOrEmpty(connectionString))
+                return connectionString;
 
-            DatabaseConfig databaseConfig = ServerConfiguration.GetDatabaseConfig;
+            Models.Config.DatabaseConfig databaseConfig = Main.ServerConfiguration.GetDatabaseConfig;
 
             MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
             mySqlConnectionStringBuilder.ApplicationName = databaseConfig.ApplicationName;
@@ -34,10 +34,10 @@ namespace Perserverance.Server.Database
             mySqlConnectionStringBuilder.MinimumPoolSize = databaseConfig.MinimumPoolSize;
             mySqlConnectionStringBuilder.ConnectionTimeout = databaseConfig.ConnectionTimeout;
 
-            return _connectionString = mySqlConnectionStringBuilder.ToString();
+            return connectionString = mySqlConnectionStringBuilder.ToString();
         }
 
-        public static async Task<List<T>> GetListAsync(string query, DynamicParameters args = null)
+        internal static async Task<List<T>> GetListAsync(string query, DynamicParameters args = null)
         {
             var watch = Stopwatch.StartNew();
             try
@@ -59,7 +59,7 @@ namespace Perserverance.Server.Database
             return null;
         }
 
-        public static async Task<T> GetSingleAsync(string query, DynamicParameters args = null)
+        internal static async Task<T> GetSingleAsync(string query, DynamicParameters args = null)
         {
             var watch = Stopwatch.StartNew();
             try
@@ -81,7 +81,7 @@ namespace Perserverance.Server.Database
             return default(T);
         }
 
-        public static async Task<bool> ExecuteAsync(string query, DynamicParameters args = null)
+        internal static async Task<bool> ExecuteAsync(string query, DynamicParameters args = null)
         {
             var watch = Stopwatch.StartNew();
             try
@@ -102,7 +102,7 @@ namespace Perserverance.Server.Database
             return false;
         }
 
-        private static void SqlExceptionHandler(string query, string exceptionMessage, long elapsedMilliseconds)
+        internal static void SqlExceptionHandler(string query, string exceptionMessage, long elapsedMilliseconds)
         {
             StringBuilder sb = new();
             sb.Append("** SQL Exception **\n");
@@ -112,14 +112,14 @@ namespace Perserverance.Server.Database
             Debug.WriteLine($"{Log.DARK_RED}{sb}");
         }
 
-        private static void SetupTypeMap()
+        internal static void SetupTypeMap()
         {
             var map = new CustomPropertyTypeMap(typeof(T), (type, columnName) =>
                                 type.GetProperties().FirstOrDefault(prop => GetDescriptionFromAttribute(prop) == columnName.ToLower()));
             SqlMapper.SetTypeMap(typeof(T), map);
         }
 
-        public static string GetDescriptionFromAttribute(MemberInfo member)
+        internal static string GetDescriptionFromAttribute(MemberInfo member)
         {
             if (member == null) return null;
 

@@ -1,23 +1,22 @@
-﻿using Logger;
-using Perserverance.Server.Models;
+﻿using Perserverance.Server.Models.Config;
 
 namespace Perserverance.Server
 {
-    static class ServerConfiguration
+    internal class ServerConfiguration
     {
         const string SERVER_CONFIG_LOCATION = $"/data/server-config.json";
-        private static ServerConfig _serverConfig = null;
+        ServerConfig serverConfig = null;
 
-        private static ServerConfig GetConfig()
+        ServerConfig GetConfig()
         {
             try
             {
-                if (_serverConfig is not null)
-                    return _serverConfig;
+                if (serverConfig is not null)
+                    return serverConfig;
 
                 string serverConfigFile = LoadResourceFile(GetCurrentResourceName(), SERVER_CONFIG_LOCATION);
-                _serverConfig = JsonConvert.DeserializeObject<ServerConfig>(serverConfigFile);
-                return _serverConfig;
+                serverConfig = JsonConvert.DeserializeObject<ServerConfig>(serverConfigFile);
+                return serverConfig;
             }
             catch (Exception ex)
             {
@@ -28,8 +27,9 @@ namespace Perserverance.Server
             }
         }
 
-        public static ServerConfig GetServerConfig => GetConfig();
-        public static DatabaseConfig GetDatabaseConfig => GetServerConfig.Database;
-        public static Discord GetDiscordConfig => GetServerConfig.Discord;
+        internal ServerConfig GetServerConfig => GetConfig();
+        internal DatabaseConfig GetDatabaseConfig => GetServerConfig.Database;
+        internal Discord GetDiscordConfig => GetServerConfig.Discord;
+        internal SnailyCad GetSnailyCadConfig => GetServerConfig.SnailyCad;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Perserverance.Server.Models
+﻿namespace Perserverance.Server.Models.Config
 {
     [DataContract]
     public class DatabaseConfig
@@ -11,7 +11,7 @@
 
         [DataMember(Name = "databaseName")]
         public string DatabaseName;
-        
+
         [DataMember(Name = "port")]
         public uint Port;
 
