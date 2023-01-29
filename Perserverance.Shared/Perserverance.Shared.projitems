@@ -9,6 +9,7 @@
     <Import_RootNamespace>Perserverance.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
   <ItemGroup>

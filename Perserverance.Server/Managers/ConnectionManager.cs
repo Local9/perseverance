@@ -11,14 +11,14 @@ namespace Perserverance.Server.Managers
             Event("playerJoining", new Action<Player, string>(OnPlayerJoiningAsync));
             Event("playerDropped", new Action<Player, string>(OnPlayerDropped));
             Event("onResourceStop", new Action<string>(OnResourceStop));
-            
+
             EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
         }
 
         internal async void OnPlayerConnectingAsync([FromSource] Player player, string name, CallbackDelegate denyWithReason, dynamic deferrals)
         {
             await Main.IsReadyAsync();
-            
+
             deferrals.defer();
             Logger.Debug($"Player {player.Name} is connecting...");
         }

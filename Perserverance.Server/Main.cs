@@ -1,4 +1,5 @@
-﻿using Logger;
+﻿using FxEvents;
+using Logger;
 using Perserverance.Server.Managers;
 using Perserverance.Server.Models;
 using Perserverance.Shared.Attributes;
@@ -217,6 +218,11 @@ namespace Perserverance.Server
             {
                 await BaseScript.Delay(100);
             }
+        }
+
+        internal static void SendAll(string eventName, params object[] args)
+        {
+            EventDispatcher.Send(PlayerList, eventName, args);
         }
 
         [TickHandler]
