@@ -7,6 +7,7 @@ namespace Perserverance.Server
         public static Main Instance { get; private set; }
         public static Log Logger { get; private set; }
         public static PlayerList PlayerList { get; private set; }
+        public static Random Random = new Random(DateTime.UtcNow.Millisecond);
 
         public Main()
         {
