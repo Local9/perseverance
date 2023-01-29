@@ -1,29 +1,31 @@
 <script lang="ts">
-  import { visibility } from "../store/stores";
+  // import { visibility } from "../store/stores";
   import { fetchNui } from "../utils/fetchNui";
   import "iconify-icon";
 
+  let username: string;
+  let password: string;
+
   const handleClientData = () => {
-    fetchNui("getClientData")
+    fetchNui("authenticate", { username, password })
       .then((returnData) => {})
       .catch((e) => {});
   };
 
-  const closeDialog = () => {
-    visibility.set(false);
-    fetchNui("hideUI");
-  };
+  // const closeDialog = (e: KeyboardEvent) => {
+  //   if (e.type === "keydown" && e.key !== "Escape") return;
+  //   visibility.set(false);
+  //   fetchNui("hideUI");
+  // };
 </script>
 
 <div>
-  <iconify-icon
-    class="close"
-    icon="mdi:close"
-    width="24"
-    height="24"
-    on:click={closeDialog}
-  />
+  <form on:submit|preventDefault={handleClientData}>
+    <input type="text" placeholder="Username" bind:value={username} />
+    <input type="password" placeholder="Password" bind:value={password} />
+    <button type="submit">Login</button>
+  </form>
 </div>
 
-<style>
+<style type="scss">
 </style>

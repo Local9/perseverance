@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [svelte()],
   base: './',
   build: {
-    outDir: 'build',
+    outDir: '%FIVEM_SERVER_PATH_CH%/resources/[perseverance-framework]/perseverance/nui-client',
   },
   optimizeDeps: {
     include: ['@picocss/pico'],
