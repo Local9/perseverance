@@ -18,40 +18,33 @@ namespace Perserverance.Server.Managers
 
             EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
 
-            EventDispatcher.Mount("server:authenticate", new Func<PerserveranceUser, int, CadAuthenitcation, Task<dynamic>>(OnServerAuthenticateAsync));
+            EventDispatcher.Mount("server:authenticate", new Func<Player, int, CadAuthenitcation, Task<dynamic>>(OnServerAuthenticateAsync));
         }
         
         // TODO: fix issue with first param
-        private async Task<dynamic> OnServerAuthenticateAsync(PerserveranceUser user, int serverId, CadAuthenitcation cadAuthenitcation)
+        private async Task<dynamic> OnServerAuthenticateAsync([FromSource] Player user, int serverId, CadAuthenitcation cadAuthenitcation)
         {
             try
             {
-                Logger.Info($"dataBytes {cadAuthenitcation.Username}");
-                
-                if (user.Handle != serverId) return new { success = false };
+                PerserveranceUser perserveranceUser = Main.ToPerserveranceUser(user.Handle);
+
+                if (perserveranceUser == null)
+                {
+                    Logger.Error($"Could not find user with handle {user.Handle}");
+                    return null;
+                }
+
+                if (perserveranceUser.Handle != serverId) return new { success = false };
                 Logger.Info($"Player {user.Handle} is attempting to authenticate with username {cadAuthenitcation.Username}");
                 
-                //CadAuthenitcation authenitcation = dataBytes.FromBytes<CadAuthenitcation>();
+                Dictionary<int, string> result = new Dictionary<int, string>();
 
-                //Logger.Debug($"[ConnectionManager] Authenticating {authenitcation?.Username}...");
-
-                //Dictionary<int, string> result = new Dictionary<int, string>();
-
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-                Logger.Info("Oi... Hello...");
-
-                // HttpResponseMessage httpResponseMessage = await HttpHandler.OnSnailyCadAsync(HttpMethod.Post, HttpHandler.SNAILY_CAD_AUTH_LOGIN, new { username = data.username, password = data.password });
+                HttpResponseMessage httpResponseMessage = await HttpHandler.OnSnailyCadAsync(HttpMethod.Post, HttpHandler.SNAILY_CAD_AUTH_LOGIN, new { username = cadAuthenitcation.Username, password = cadAuthenitcation.Password });
 
                 // convert cookies into a dictionary
-                //Dictionary<string, string> cookies = HttpHandler.GetCookies(httpResponseMessage);
-
-                //Logger.Debug($"Cookies: {cookies.ToJson()}");
+                Dictionary<string, string> cookies = HttpHandler.GetCookies(httpResponseMessage);
+                
+                Logger.Debug($"Cookies: {cookies.ToJson()}");
 
 
                 return new { success = false };

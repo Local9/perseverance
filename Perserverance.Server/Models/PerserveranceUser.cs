@@ -4,9 +4,9 @@ namespace Perserverance.Server.Models
 {
     public partial class PerserveranceUser : ISource
     {
-        public int Handle { get; private set; }
+        public int Handle { get; set; }
         internal Player Player { get => Main.PlayerList[Handle]; }
-        internal PerserveranceUser User;
+        internal PerserveranceUser User { get; private set; }
         internal Dictionary<string, string> Cookies { get; private set; }
 
         public PerserveranceUser()
@@ -18,7 +18,7 @@ namespace Perserverance.Server.Models
         {
             Handle = handle;
             if (handle > 0)
-                Main.ActiveSessions.TryGetValue(Handle, out User);
+                User = Main.ToPerserveranceUser(handle);
         }
 
         public override string ToString()

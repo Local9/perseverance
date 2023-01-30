@@ -27,13 +27,16 @@ namespace Perserverance.Server
         {
             try
             {
-                var baseAddress = new Uri(Main.SnailyCadUrl);
+                var baseAddress = new Uri($"{Main.SnailyCadUrl}/v1");
                 using (var handler = new HttpClientHandler { UseCookies = false })
                 using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
                 {
-                    var message = new HttpRequestMessage(httpMethod, $"/{endpoint}");
+                    var message = new HttpRequestMessage(httpMethod, endpoint);
+                    message.Headers.Add("accept", "*/*");
                     message.Headers.Add("snaily-cad-api-token", Main.SnailyCadApiKey);
-                    message.Headers.Add("content-type", "application/json");
+                    message.Headers.Add("is-from-dispatch", "false");
+                    
+                    // message.Headers.Add("Content-Type", "application/json");
 
                     if (data is not null)
                         message.Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json");
@@ -48,14 +51,16 @@ namespace Perserverance.Server
                         message.Headers.Add("Cookie", cookieString);
                     }
                     var result = await client.SendAsync(message);
+                    Main.Logger.Info($"HTTP {result.StatusCode} {result.ReasonPhrase} {result.RequestMessage.RequestUri}");
+                    Main.Logger.Info($"HTTP {result.Content.ReadAsStringAsync().Result}");
                     return result.EnsureSuccessStatusCode();
                 }
             }
             catch (Exception ex)
             {
-                Main.Logger.Error($"HTTP Handler was unable to post to {endpoint}.");
+                Main.Logger.Error($"HTTP Handler was unable to {httpMethod} to {Main.SnailyCadUrl}/{endpoint}");
                 Main.Logger.Info($"{ex}");
-                Main.Logger.Error($"---------------------------------------------.");
+                Main.Logger.Error($"---------------------------------------------");
                 return null;
             }
         }

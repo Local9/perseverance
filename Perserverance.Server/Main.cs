@@ -231,5 +231,15 @@ namespace Perserverance.Server
             GameTime = GetGameTimer();
             await Task.FromResult(0);
         }
+
+        public static PerserveranceUser ToPerserveranceUser(string handle)
+        {
+            return ToPerserveranceUser(int.Parse(handle));
+        }
+
+        public static PerserveranceUser ToPerserveranceUser(int handle)
+        {
+            return ActiveSessions.TryGetValue(handle, out PerserveranceUser user) ? user : null;
+        }
     }
 }
