@@ -51,8 +51,6 @@ namespace Perserverance.Server
                         message.Headers.Add("Cookie", cookieString);
                     }
                     var result = await client.SendAsync(message);
-                    Main.Logger.Info($"HTTP {result.StatusCode} {result.ReasonPhrase} {result.RequestMessage.RequestUri}");
-                    Main.Logger.Info($"HTTP {result.Content.ReadAsStringAsync().Result}");
                     return result.EnsureSuccessStatusCode();
                 }
             }
