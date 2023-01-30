@@ -2,13 +2,12 @@
 
 namespace Perserverance.Server.Models
 {
-    internal class PerserveranceUser : ISource
+    public partial class PerserveranceUser : ISource
     {
         public int Handle { get; private set; }
         internal Player Player { get => Main.PlayerList[Handle]; }
         internal PerserveranceUser User;
-
-        internal string Cookie { get; private set; }
+        internal Dictionary<string, string> Cookies { get; private set; }
 
         public PerserveranceUser()
         {

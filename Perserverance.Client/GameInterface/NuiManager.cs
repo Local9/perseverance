@@ -1,22 +1,25 @@
-﻿using FxEvents.Shared;
+﻿using CitizenFX.Core.Native;
+using FxEvents.Shared;
 using FxEvents.Shared.TypeExtensions;
+using Perserverance.Client.GameInterface.Events;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 
 namespace Perserverance.Client.GameInterface
 {
-    internal class NuiManager
+    public class NuiManager
     {
         private bool _hasFocus;
 
         /// <summary>
         /// true if focus is active.
         /// </summary>
-        internal bool IsNuiFocusOn => _hasFocus;
+        public bool IsNuiFocusOn => _hasFocus;
 
         /// <summary>
         /// Returns cursor position with nui on
         /// </summary>
-        internal Point NuiCursorPosition
+        public Point NuiCursorPosition
         {
             get
             {
@@ -32,7 +35,7 @@ namespace Perserverance.Client.GameInterface
         /// </summary>
         /// <param name="hasFocus">to enable / disable focus</param>
         /// <param name="showCursor">to show or not the mouse cursor</param>
-        internal void SetFocus(bool hasFocus, bool showCursor = true)
+        public void SetFocus(bool hasFocus, bool showCursor = true)
         {
             SetNuiFocus(hasFocus, showCursor);
             _hasFocus = hasFocus;
@@ -42,7 +45,7 @@ namespace Perserverance.Client.GameInterface
         /// Enable/disable html game interface (NUI) keeping the input for the game
         /// </summary>
         /// <param name="keepInput">if true input is for the game</param>
-        internal void SetFocusKeepInput(bool keepInput)
+        public void SetFocusKeepInput(bool keepInput)
         {
             SetNuiFocusKeepInput(keepInput);
             if (!_hasFocus) _hasFocus = true;
@@ -52,7 +55,7 @@ namespace Perserverance.Client.GameInterface
         /// sends a nui message
         /// </summary>
         /// <param name="data">object that will be serialized</param>
-        internal void SendMessage(object data)
+        public void SendMessage(object data)
         {
             SendNuiMessage(data.ToJson()); //use any json serialization you want
         }
@@ -61,7 +64,7 @@ namespace Perserverance.Client.GameInterface
         /// sends a nui message
         /// </summary>
         /// <param name="data">an already serialized object</param>
-        internal void SendMessage(string data)
+        public void SendMessage(string data)
         {
             SendNuiMessage(data);
         }
@@ -71,7 +74,7 @@ namespace Perserverance.Client.GameInterface
         /// </summary>
         /// <param name="@event">name of the nui event callback</param>
         /// <param name="action">the callback</param>
-        internal void RegisterCallback(string @event, Action action)
+        public void RegisterCallback(string @event, Action action)
         {
             RegisterNuiCallbackType(@event);
             Main.Instance.AddEventHandler($"__cfx_nui:{@event}", new Action<IDictionary<string, object>, CallbackDelegate>((data, callback) =>
@@ -87,12 +90,12 @@ namespace Perserverance.Client.GameInterface
         /// </summary>
         /// <param name="@event">name of the nui event callback</param>
         /// <param name="action">the callback</param>
-        internal void RegisterCallback<T>(string @event, Action<T> action)
+        public void RegisterCallback<T>(string @event, Action<T> action)
         {
             RegisterNuiCallbackType(@event);
             Main.Instance.AddEventHandler($"__cfx_nui:{@event}", new Action<IDictionary<string, object>, CallbackDelegate>((data, callback) =>
             {
-                Main.Logger.Debug($"Chiamato NUI Callback {@event} con Payload {data.ToJson()} di tipo {typeof(T)}");
+                Main.Logger.Debug($"Called NUI Callback {@event} with Payload {data.ToJson()} and type {typeof(T)}");
                 T typedData = data.Count == 1 ? TypeCache<T>.IsSimpleType ? (T)data.Values.ElementAt(0) : data.Values.ElementAt(0).ToJson().FromJson<T>() : data.ToJson().FromJson<T>();
                 action(typedData);
                 callback("ok");
@@ -104,12 +107,12 @@ namespace Perserverance.Client.GameInterface
         /// </summary>
         /// <param name="@event">name of the nui event callback</param>
         /// <param name="action">the callback</param>
-        internal void RegisterCallback<TReturn>(string @event, Func<TReturn> action)
+        public void RegisterCallback<TReturn>(string @event, Func<TReturn> action)
         {
             RegisterNuiCallbackType(@event);
             Main.Instance.AddEventHandler($"__cfx_nui:{@event}", new Action<IDictionary<string, object>, CallbackDelegate>((data, callback) =>
             {
-                Main.Logger.Debug($"Chiamato NUI Callback {@event} con Payload {data.ToJson()}");
+                Main.Logger.Debug($"Called NUI Callback {@event} with Payload {data.ToJson()}");
                 TReturn result = action();
                 callback(result.ToJson());
             }));
@@ -120,7 +123,7 @@ namespace Perserverance.Client.GameInterface
         /// </summary>
         /// <param name="@event">name of the nui event callback</param>
         /// <param name="action">the callback</param>
-        internal void RegisterCallback<T, TReturn>(string @event, Func<T, TReturn> action)
+        public void RegisterCallback<T, TReturn>(string @event, Func<T, TReturn> action)
         {
             RegisterNuiCallbackType(@event);
             Main.Instance.AddEventHandler($"__cfx_nui:{@event}", new Action<IDictionary<string, object>, CallbackDelegate>((data, callback) =>
@@ -129,6 +132,48 @@ namespace Perserverance.Client.GameInterface
                 T typedData = data.Count == 1 ? TypeCache<T>.IsSimpleType ? (T)data.Values.ElementAt(0) : data.Values.ElementAt(0).ToJson().FromJson<T>() : data.ToJson().FromJson<T>();
                 TReturn result = action(typedData);
                 callback(result.ToJson());
+            }));
+        }
+
+        public void AttachNuiHandler(string pipe, EventCallback callback)
+        {
+            // Logger.Info($"[NUI]: {pipe}");
+            API.RegisterNuiCallbackType(pipe);
+
+            Main.Instance.AddEventHandler($"__cfx_nui:{pipe}", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
+            {
+                var metadata = new Events.EventMetadata();
+                
+                if (body != null)
+                {
+                    foreach (var entry in body)
+                    {
+                        if (!int.TryParse(entry.Key, out var index))
+                        {
+                            Main.Logger.Info($"[Nui] [{pipe}] Payload `{entry.Key}` is not a number and therefore not written to.");
+
+                            continue;
+                        }
+
+                        if (entry.Value is null)
+                        {
+                            Main.Logger.Error($"[Nui] [{pipe}]  Payload `{entry.Key}` value is null. Ending message.");
+                            result(new { success = false });
+                            return;
+                        }
+
+                        metadata.Write(index, entry.Value);
+                    }
+                }
+
+                if (callback.GetType() == typeof(AsyncEventCallback))
+                {
+                    result(await ((AsyncEventCallback)callback).AsyncTask(metadata));
+                }
+                else
+                {
+                    result(callback.Task(metadata));
+                }
             }));
         }
     }

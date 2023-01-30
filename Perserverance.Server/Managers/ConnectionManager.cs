@@ -1,5 +1,9 @@
 ﻿using FxEvents;
+using FxEvents.Shared;
+using FxEvents.Shared.EventSubsystem;
 using Perserverance.Server.Models;
+using Perserverance.Shared.Models;
+using System.Net.Http;
 
 namespace Perserverance.Server.Managers
 {
@@ -13,6 +17,49 @@ namespace Perserverance.Server.Managers
             Event("onResourceStop", new Action<string>(OnResourceStop));
 
             EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
+
+            EventDispatcher.Mount("server:authenticate", new Func<PerserveranceUser, int, CadAuthenitcation, Task<dynamic>>(OnServerAuthenticateAsync));
+        }
+        
+        // TODO: fix issue with first param
+        private async Task<dynamic> OnServerAuthenticateAsync(PerserveranceUser user, int serverId, CadAuthenitcation cadAuthenitcation)
+        {
+            try
+            {
+                Logger.Info($"dataBytes {cadAuthenitcation.Username}");
+                
+                if (user.Handle != serverId) return new { success = false };
+                Logger.Info($"Player {user.Handle} is attempting to authenticate with username {cadAuthenitcation.Username}");
+                
+                //CadAuthenitcation authenitcation = dataBytes.FromBytes<CadAuthenitcation>();
+
+                //Logger.Debug($"[ConnectionManager] Authenticating {authenitcation?.Username}...");
+
+                //Dictionary<int, string> result = new Dictionary<int, string>();
+
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+                Logger.Info("Oi... Hello...");
+
+                // HttpResponseMessage httpResponseMessage = await HttpHandler.OnSnailyCadAsync(HttpMethod.Post, HttpHandler.SNAILY_CAD_AUTH_LOGIN, new { username = data.username, password = data.password });
+
+                // convert cookies into a dictionary
+                //Dictionary<string, string> cookies = HttpHandler.GetCookies(httpResponseMessage);
+
+                //Logger.Debug($"Cookies: {cookies.ToJson()}");
+
+
+                return new { success = false };
+            }
+            catch
+            {
+                return new { success = false };
+            }
         }
 
         internal async void OnPlayerConnectingAsync([FromSource] Player player, string name, CallbackDelegate denyWithReason, dynamic deferrals)

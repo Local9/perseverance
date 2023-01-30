@@ -7,7 +7,7 @@
   let password: string;
 
   const handleClientData = () => {
-    fetchNui("authenticate", { username, password })
+    fetchNui("authenticate", { 0: username, 1: password })
       .then((returnData) => {})
       .catch((e) => {});
   };
