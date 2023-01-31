@@ -1,13 +1,13 @@
 ﻿namespace Perserverance.Shared.Models
 {
-    public partial class CadAuthenitcation
+    public partial class Authenitcation
     {
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public CadAuthenitcation() { }
+        public Authenitcation() { }
 
-        internal CadAuthenitcation(string username, string password)
+        internal Authenitcation(string username, string password)
         {
             Username = username;
             Password = password;

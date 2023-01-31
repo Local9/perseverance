@@ -1,9 +1,9 @@
 ﻿using FxEvents;
-using FxEvents.Shared;
-using FxEvents.Shared.EventSubsystem;
 using Perserverance.Server.Models;
+using Perserverance.Server.SnailyCAD.Controllers;
+using Perserverance.Server.SnailyCAD.Domain;
 using Perserverance.Shared.Models;
-using System.Net.Http;
+using Perserverance.Shared.Models.SnailyCAD;
 
 namespace Perserverance.Server.Managers
 {
@@ -18,40 +18,30 @@ namespace Perserverance.Server.Managers
 
             EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
 
-            EventDispatcher.Mount("server:authenticate", new Func<Player, int, CadAuthenitcation, Task<dynamic>>(OnServerAuthenticateAsync));
+            EventDispatcher.Mount("server:authenticate", new Func<PerserveranceUser, int, Authenitcation, Task<Rootobject>>(OnServerAuthenticateAsync));
         }
         
-        // TODO: fix issue with first param
-        private async Task<dynamic> OnServerAuthenticateAsync([FromSource] Player user, int serverId, CadAuthenitcation cadAuthenitcation)
+        private async Task<Rootobject> OnServerAuthenticateAsync([FromSource] PerserveranceUser user, int serverId, Authenitcation auth)
         {
             try
             {
-                PerserveranceUser perserveranceUser = Main.ToPerserveranceUser(user.Handle);
-
-                if (perserveranceUser == null)
-                {
-                    Logger.Error($"Could not find user with handle {user.Handle}");
-                    return null;
-                }
-
-                if (perserveranceUser.Handle != serverId) return new { success = false };
-                Logger.Info($"Player {user.Handle} is attempting to authenticate with username {cadAuthenitcation.Username}");
+                if (user.Handle != serverId) return null;
+                Logger.Debug($"Player {user.Handle} is attempting to authenticate with username {auth.Username}");
                 
-                Dictionary<int, string> result = new Dictionary<int, string>();
-
-                HttpResponseMessage httpResponseMessage = await HttpHandler.OnSnailyCadAsync(HttpMethod.Post, HttpHandler.SNAILY_CAD_AUTH_LOGIN, new { username = cadAuthenitcation.Username, password = cadAuthenitcation.Password });
-
-                // convert cookies into a dictionary
-                Dictionary<string, string> cookies = HttpHandler.GetCookies(httpResponseMessage);
+                SnailyCadAuthenticationDetails result = await AuthController.Authenticate(auth.Username, auth.Password);
+                user.SetSnailyAuth(result);
                 
-                Logger.Debug($"Cookies: {cookies.ToJson()}");
+                Logger.Debug($"Player {user.Handle} has successfully authenticated with username {auth.Username}");
 
+                Rootobject citizen = await CitizenController.GetCitizens(user.SnailyAuth.Cookies);
 
-                return new { success = false };
+                Logger.Debug($"Player {user.Handle} has successfully retrieved their citizens: {citizen.totalCount}");
+
+                return citizen;
             }
             catch
             {
-                return new { success = false };
+                return null;
             }
         }
 

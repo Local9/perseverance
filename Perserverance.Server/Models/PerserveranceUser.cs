@@ -1,4 +1,5 @@
 ﻿using FxEvents.Shared.EventSubsystem;
+using Perserverance.Server.SnailyCAD.Domain;
 
 namespace Perserverance.Server.Models
 {
@@ -7,7 +8,7 @@ namespace Perserverance.Server.Models
         public int Handle { get; set; }
         internal Player Player { get => Main.PlayerList[Handle]; }
         internal PerserveranceUser User { get; private set; }
-        internal Dictionary<string, string> Cookies { get; private set; }
+        internal SnailyCadAuthenticationDetails SnailyAuth { get; private set; }
 
         public PerserveranceUser()
         {
@@ -19,6 +20,11 @@ namespace Perserverance.Server.Models
             Handle = handle;
             if (handle > 0)
                 User = Main.ToPerserveranceUser(handle);
+        }
+
+        internal void SetSnailyAuth(SnailyCadAuthenticationDetails snailyAuthentication)
+        {
+            SnailyAuth = snailyAuthentication;
         }
 
         public override string ToString()

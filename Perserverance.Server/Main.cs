@@ -2,6 +2,7 @@
 using Logger;
 using Perserverance.Server.Managers;
 using Perserverance.Server.Models;
+using Perserverance.Server.SnailyCAD;
 using Perserverance.Shared.Attributes;
 using System.Collections.Concurrent;
 using System.Net;
@@ -67,7 +68,7 @@ namespace Perserverance.Server
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
                 
-                HttpResponseMessage httpResponseMessage = await HttpHandler.HttpResponseMessageAsync(HttpMethod.Get, SnailyCadUrl);
+                HttpResponseMessage httpResponseMessage = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, SnailyCadUrl);
                 if (httpResponseMessage is not null)
                 {
                     if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.OK)
