@@ -7,6 +7,7 @@
   let password: string;
 
   const handleClientData = () => {
+    console.log();
     authenticate(username, password);
   };
 

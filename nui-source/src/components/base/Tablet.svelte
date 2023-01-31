@@ -1,32 +1,49 @@
 <script lang="ts">
+  import { fly, fade } from "svelte/transition";
+  import { cubicIn, cubicOut, quadOut } from "svelte/easing";
+
+  import { isAuthenticated } from "../../store/auth";
   import Login from "./Login.svelte";
+  import TabletScreen from "./TabletScreen.svelte";
+
+  let isAuthed = false;
+
+  isAuthenticated.subscribe((authenticate) => {
+    isAuthed = authenticate;
+  });
 </script>
 
-<div class="tablet">
+<div
+  class="tablet"
+  in:fly={{ y: 1000, duration: 500, easing: cubicOut }}
+  out:fly={{ y: 1000, duration: 500, easing: cubicIn }}
+>
+  {#if !isAuthed}
+    <div transition:fade>
+      <Login />
+    </div>
+  {:else}
+    <div transition:fade>
+      <TabletScreen />
+    </div>
+  {/if}
   <!-- if not logged in, show login -->
-  <Login />
   <!-- if logged in, show the tablet options -->
-  <div>options</div>
 </div>
 
 <style type="scss">
   // initial inspiration taken from JL-Laptop: https://github.com/JustLazzy/jl-laptop
   // honestly is some amazing work and inspired this project
-  .tablet {
-    overflow: hidden;
-    width: 90%;
-    height: 90%;
-    bottom: -40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .tablet,
+  .tablet div {
     position: absolute;
+    width: 85vw;
+    height: calc(var(--sizeVar) * 0.77);
     background-color: var(--thumb-background-color);
-    border: 5px solid var(--card-border-color);
-    border-radius: 5px;
-    background-size: cover;
-    background-position: center;
-    opacity: 1;
-    transition: 1s;
-    z-index: -1;
+    border-radius: calc(var(--sizeVar) / 24);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 calc(var(--sizeVar) / 200) #9d9ea0;
   }
 </style>
