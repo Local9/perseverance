@@ -10,6 +10,8 @@
 </div>
 
 <style type="scss">
+  // initial inspiration taken from JL-Laptop: https://github.com/JustLazzy/jl-laptop
+  // honestly is some amazing work and inspired this project
   .tablet {
     overflow: hidden;
     width: 90%;
