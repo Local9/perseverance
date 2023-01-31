@@ -1,24 +1,5 @@
 ﻿namespace Perserverance.Shared.Models.SnailyCAD
 {
-
-    public class Rootobject
-    {
-        public Citizen[] citizens { get; set; }
-        public int totalCount { get; set; }
-    }
-
-    public class Citizen
-    {
-        public string name { get; set; }
-        public string surname { get; set; }
-        public object imageId { get; set; }
-        public object imageBlurData { get; set; }
-        public string id { get; set; }
-        public string userId { get; set; }
-        public string socialSecurityNumber { get; set; }
-        public User user { get; set; }
-    }
-
     public class User
     {
         public string id { get; set; }
@@ -52,5 +33,4 @@
         public DateTime updatedAt { get; set; }
         public DateTime lastSeen { get; set; }
     }
-
 }
