@@ -38,7 +38,7 @@
   .tablet div {
     position: absolute;
     width: 85vw;
-    height: calc(var(--sizeVar) * 0.77);
+    height: calc(var(--sizeVar) * 0.87);
     background-color: var(--thumb-background-color);
     border-radius: calc(var(--sizeVar) / 24);
     left: 50%;
