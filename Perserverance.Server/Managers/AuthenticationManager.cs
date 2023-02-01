@@ -22,8 +22,8 @@
 
                 return new EventMessage
                 {
-                    Success = true,
-                    Message = "Successfully authenticated",
+                    success = true,
+                    message = "Successfully authenticated",
                 };
             }
             catch

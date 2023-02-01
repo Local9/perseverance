@@ -1,8 +1,4 @@
-﻿using FxEvents.Shared;
-using Perserverance.Server.SnailyCAD.Domain;
-using System.Net.Http;
-
-namespace Perserverance.Server.SnailyCAD.Controllers
+﻿namespace Perserverance.Server.SnailyCAD.Controllers
 {
     internal class AuthController
     {
@@ -18,7 +14,7 @@ namespace Perserverance.Server.SnailyCAD.Controllers
             {
                 snailyAuthentication.Cookies = HttpHandler.GetCookies(resp);
 
-                Dictionary<string, string> userId = resp.Content.ReadAsStringAsync().Result.FromJson<Dictionary<string, string>>();
+                Dictionary<string, string> userId = await resp.OnGetObjectFromResponseContentAsync<Dictionary<string, string>>();
                 snailyAuthentication.UserId = userId["userId"];
 
                 return snailyAuthentication;

@@ -1,4 +1,5 @@
 import { writable } from "svelte/store";
+import { fetchNui } from "@utils/fetchNui";
 
 export const isAuthenticated = writable(false);
 

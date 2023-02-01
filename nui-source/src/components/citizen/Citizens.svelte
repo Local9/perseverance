@@ -19,6 +19,7 @@
   <h2>Citizens</h2>
   {#if myCitizens.length === 0}
     <p>No citizens found</p>
+    <button on:click={getCitizens}>Try Again</button>
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}

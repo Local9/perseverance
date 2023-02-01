@@ -41,7 +41,7 @@ namespace Perserverance.Server
             Load();
         }
 
-        private async void Load()
+        private async Task Load()
         {
             ServerConfiguration = new ServerConfiguration();
             
@@ -66,8 +66,8 @@ namespace Perserverance.Server
             }
             else
             {
-                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
-                
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
                 HttpResponseMessage httpResponseMessage = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, SnailyCadUrl);
                 if (httpResponseMessage is not null)
                 {

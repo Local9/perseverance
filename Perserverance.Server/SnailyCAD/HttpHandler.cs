@@ -4,6 +4,7 @@
     {
         internal static async Task<HttpResponseMessage> OnHttpResponseMessageAsync(HttpMethod httpMethod, string endpoint = "", object data = null, Dictionary<string, string> cookies = null)
         {
+            Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() is attempting to send a {httpMethod} request to {endpoint}");
             try
             {
                 var baseAddress = new Uri($"{Main.SnailyCadUrl}/v1");
@@ -14,8 +15,6 @@
                     message.Headers.Add("accept", "*/*");
                     // message.Headers.Add("snaily-cad-api-token", Main.SnailyCadApiKey); // this ignores authentication
                     message.Headers.Add("is-from-dispatch", "false");
-
-                    // message.Headers.Add("Content-Type", "application/json");
 
                     if (data is not null)
                         message.Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json");
@@ -29,8 +28,12 @@
                         }
                         message.Headers.Add("Cookie", cookieString);
                     }
-                    var result = await client.SendAsync(message);
-                    return result.EnsureSuccessStatusCode();
+
+                    var result = await client.SendAsync(message).ConfigureAwait(false); ;
+
+                    Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() has successfully sent a {httpMethod} request to {endpoint}");
+
+                    return result;
                 }
             }
             catch (Exception ex) // TODO: Improve error handling
@@ -57,9 +60,13 @@
             return cookies;
         }
 
-        internal static T GetObjectFromResponseContent<T>(this HttpResponseMessage httpResponseMessage)
+        internal static async Task<T> OnGetObjectFromResponseContentAsync<T>(this HttpResponseMessage httpResponseMessage)
         {
-            return httpResponseMessage.Content.ReadAsStringAsync().Result.FromJson<T>();
+            string json = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            Main.Logger.Info($"HTTP Handler received response: {json}");
+
+            return json.FromJson<T>();
         }
     }
 }

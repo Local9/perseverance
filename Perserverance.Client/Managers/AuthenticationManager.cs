@@ -13,11 +13,11 @@
 
                     if (result == null)
                     {
-                        Logger.Error($"[ConnectionManager] Failed to authenticate. Please try again or contact a server admin.");
+                        Logger.Error($"[ConnectionManager] Failed to authenticate. Please try again or contact a server admin");
                         return new EventMessage
                         {
-                            Success = false,
-                            Message = "Failed to authenticate"
+                            success = false,
+                            message = "Failed to authenticate"
                         };
                     }
 
@@ -27,8 +27,8 @@
                 {
                     return new EventMessage
                     {
-                        Success = false,
-                        Message = ex.Message
+                        success = false,
+                        message = ex.Message
                     };
                 }
             }));

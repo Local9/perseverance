@@ -1,10 +1,12 @@
-﻿namespace Perserverance.Server.Managers
+﻿using FxEvents.Shared.EventSubsystem;
+
+namespace Perserverance.Server.Managers
 {
     public class CitizenManager : Manager<CitizenManager>
     {
         public override void Begin()
         {
-            EventDispatcher.Mount("server:getCitizens", new Func<PerserveranceUser, int, string, int, Task<EventMessage>>(OnServerGetCitizensAsync));
+            EventDispatcher.Mount("server:getCitizens", new Func<PerserveranceUser, int, string, int, Task<CitizenMessage>>(OnServerGetCitizensAsync));
         }
 
         /// <summary>
@@ -15,14 +17,12 @@
         /// <param name="query"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        private async Task<EventMessage> OnServerGetCitizensAsync([FromSource] PerserveranceUser user, int serverId, string query, int skip)
+        private async Task<CitizenMessage> OnServerGetCitizensAsync([FromSource] PerserveranceUser user, int serverId, string query = "", int skip = 0)
         {
             try
             {
                 if (user.Handle != serverId) return null;
-                Logger.Debug($"Player {user.Handle} is attempting to get citizens with query {query} and skip {skip}");
-
-                EventMessage result = await CitizenController.GetCitizens(user, query, skip);
+                CitizenMessage result = await CitizenController.GetCitizens(user, query, skip);
 
                 Logger.Debug($"Player {user.Handle} has successfully gotten citizens with query {query} and skip {skip}");
 
@@ -33,7 +33,5 @@
                 return null;
             }
         }
-    }
-    {
     }
 }
