@@ -6,19 +6,19 @@
   --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
     "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", "Noto Color Emoji";
-  --line-height: .5;
+  --line-height: 1.25rem;
   --font-weight: 400;
   --font-size: 16px;
   --border-radius: 0.5rem;
   --border-width: 1px;
   --outline-width: 3px;
-  --spacing: 0.25rem;
-  --typography-spacing-vertical: 1.5rem;
+  --spacing: 0.75rem;
+  --typography-spacing-vertical: 1rem;
   --block-spacing-vertical: calc(var(--spacing) * 2);
   --block-spacing-horizontal: var(--spacing);
   --grid-spacing-vertical: 0;
   --grid-spacing-horizontal: var(--spacing);
-  --form-element-spacing-vertical: 0.75rem;
+  --form-element-spacing-vertical: 0.5rem;
   --form-element-spacing-horizontal: 1rem;
   --nav-element-spacing-vertical: 1rem;
   --nav-element-spacing-horizontal: 0.5rem;

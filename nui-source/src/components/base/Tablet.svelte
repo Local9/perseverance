@@ -1,10 +1,17 @@
 <script lang="ts">
   import { fly, fade } from "svelte/transition";
-  import { cubicIn, cubicOut, quadOut } from "svelte/easing";
-
-  import { isAuthenticated } from "../../store/auth";
-  import Login from "./Login.svelte";
+  import { cubicIn, cubicOut } from "svelte/easing";
+  import { isAuthenticated } from "@store/auth";
+  // import { visibility } from "../../store/stores";
+  // import { fetchNui } from "../../utils/fetchNui";
   import TabletScreen from "./TabletScreen.svelte";
+  import Login from "./Login.svelte";
+
+  // const closeDialog = (e: KeyboardEvent) => {
+  //   if (e.type === "keydown" && e.key !== "Escape") return;
+  //   visibility.set(false);
+  //   fetchNui("hideUI");
+  // };
 
   let isAuthed = false;
 
@@ -40,7 +47,7 @@
     width: 85vw;
     height: calc(var(--sizeVar) * 0.87);
     background-color: var(--thumb-background-color);
-    border-radius: calc(var(--sizeVar) / 24);
+    border-radius: calc(var(--sizeVar) / 48);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

@@ -10,7 +10,9 @@ export function authenticate(username: string, password: string) {
 
   fetchNui("authenticate", { 0: username, 1: password })
     .then((returnData) => {
-      isAuthenticated.set(true);
+      if (returnData.success) {
+        isAuthenticated.set(true);
+      }
     })
     .catch((e) => {});
 }

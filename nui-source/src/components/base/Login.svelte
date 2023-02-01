@@ -1,40 +1,50 @@
 <script lang="ts">
   // import { fetchNui } from "../../utils/fetchNui";
   import Icon from "@iconify/svelte";
-  import { authenticate, isAuthenticated } from "../../store/auth";
+  import { authenticate } from "@store/auth";
 
   let username: string;
   let password: string;
 
   const handleClientData = () => {
-    console.log();
     authenticate(username, password);
   };
-
-  // const closeDialog = (e: KeyboardEvent) => {
-  //   if (e.type === "keydown" && e.key !== "Escape") return;
-  //   visibility.set(false);
-  //   fetchNui("hideUI");
-  // };
 </script>
 
-<div>
-  <article>
-    <Icon icon="line-md:account" width="100" />
-    <form on:submit|preventDefault={handleClientData}>
-      <input type="text" placeholder="Username" bind:value={username} />
-      <input type="password" placeholder="Password" bind:value={password} />
-      <button type="submit">Login</button>
-    </form>
+<main class="container">
+  <article class="grid">
+    <div>
+      <hgroup>
+        <Icon icon="line-md:account" width="100" />
+      </hgroup>
+      <form on:submit|preventDefault={handleClientData}>
+        <input
+          bind:value={username}
+          type="text"
+          name="login"
+          placeholder="Login"
+          aria-label="Login"
+          autocomplete="nickname"
+          required
+        />
+        <input
+          bind:value={password}
+          type="password"
+          name="password"
+          placeholder="Password"
+          aria-label="Password"
+          autocomplete="current-password"
+          required
+        />
+        <button type="submit" class="contrast">Login</button>
+      </form>
+    </div>
+    <div />
   </article>
-</div>
+</main>
 
 <style type="scss">
-  article:hover {
-    color: var(--color);
-  }
-
-  div {
+  main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,16 +53,32 @@
   }
 
   article {
-    color: var(--primary);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    padding: 0;
+    overflow: hidden;
+
+    div:nth-of-type(1) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
   }
 
-  form {
-    width: 450px;
-    margin-top: 0.5rem;
+  .grid {
+    display: grid;
+  }
+
+  article div:nth-of-type(2) {
+    display: none;
+    background-color: #374956;
+    background-image: url("images/login/fivem.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  @media (min-width: 992px) {
+    .grid > div:nth-of-type(2) {
+      display: block;
+    }
   }
 </style>

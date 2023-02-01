@@ -1,11 +1,20 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import Citizens from "@citizen/Citizens.svelte";
+
+  let activeTab = "citizens";
 </script>
 
 <div class="tablet-background">
   <div class="tablet-header">
     <Icon icon="mdi:menu" class="tablet-header-icon" />
   </div>
+  <div class="tablet-container">
+    {#if activeTab === "citizens"}
+      <Citizens />
+    {/if}
+  </div>
+  <div class="tablet-footer" />
 </div>
 
 <style lang="scss">
@@ -14,17 +23,17 @@
     padding: 25px;
     border-radius: calc(var(--sizeVar) / 24);
 
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
     // justify-content: center;
     // align-items: center;
-    // height: 100%;
+    height: 100%;
   }
 
   .tablet-background::before {
     content: "";
-    background-image: url(https://i.imgur.com/jWVq2dL.jpeg);
-    border-radius: calc(var(--sizeVar) / 24);
+    background-image: url(https://i.imgur.com/51MkKwC.jpeg);
+    border-radius: calc(var(--sizeVar) / 48);
     background-size: cover;
     background-position: center;
     border: solid black calc(var(--sizeVar) / 200);
@@ -37,5 +46,22 @@
     width: auto;
     height: auto;
     z-index: -3;
+  }
+
+  .tablet-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .tablet-container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
   }
 </style>
