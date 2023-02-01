@@ -14,7 +14,6 @@
         internal static async Task<CitizenMessage> GetCitizens(PerserveranceUser user, string query = "", int skip = 0)
         {
             Main.Logger.Debug($"Player {user.Handle} is attempting to get citizens with query '{query}' and skip '{skip}'");
-            await BaseScript.Delay(0);
             HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, $"{SNAILY_CAD_CITIZEN}?query={query}&skip={skip}", cookies: user.SnailyAuth.Cookies);
 
             if (resp is null)
@@ -23,12 +22,7 @@
                 return null;
             }
 
-            string content = await resp.Content.ReadAsStringAsync();
-            CitizenMessage result = JsonConvert.DeserializeObject<CitizenMessage>(content);
-            Main.Logger.Debug($"Player {user.Handle} has successfully gotten citizens with query {query} and skip {skip}");
-            return result;
-
-            // return await resp.OnGetObjectFromResponseContentAsync<CitizenMessage>();
+            return await resp.OnGetObjectFromResponseContentAsync<CitizenMessage>();
         }
     }
 }
