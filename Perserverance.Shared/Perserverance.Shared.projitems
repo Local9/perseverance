@@ -15,7 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\TickHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Authenitcation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Citizen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Rootobject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\EventMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
   </ItemGroup>
 </Project>
