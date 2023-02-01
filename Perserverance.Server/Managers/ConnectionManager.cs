@@ -1,11 +1,4 @@
-﻿using FxEvents;
-using Perserverance.Server.Models;
-using Perserverance.Server.SnailyCAD.Controllers;
-using Perserverance.Server.SnailyCAD.Domain;
-using Perserverance.Shared.Models;
-using Perserverance.Shared.Models.SnailyCAD;
-
-namespace Perserverance.Server.Managers
+﻿namespace Perserverance.Server.Managers
 {
     public class ConnectionManager : Manager<ConnectionManager>
     {
@@ -17,33 +10,9 @@ namespace Perserverance.Server.Managers
             Event("onResourceStop", new Action<string>(OnResourceStop));
 
             EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
-
-            EventDispatcher.Mount("server:authenticate", new Func<PerserveranceUser, int, Authenitcation, Task<Rootobject>>(OnServerAuthenticateAsync));
         }
         
-        private async Task<Rootobject> OnServerAuthenticateAsync([FromSource] PerserveranceUser user, int serverId, Authenitcation auth)
-        {
-            try
-            {
-                if (user.Handle != serverId) return null;
-                Logger.Debug($"Player {user.Handle} is attempting to authenticate with username {auth.Username}");
-                
-                SnailyCadAuthenticationDetails result = await AuthController.Authenticate(auth.Username, auth.Password);
-                user.SetSnailyAuth(result);
-                
-                Logger.Debug($"Player {user.Handle} has successfully authenticated with username {auth.Username}");
-
-                Rootobject citizen = await CitizenController.GetCitizens(user.SnailyAuth.Cookies);
-
-                Logger.Debug($"Player {user.Handle} has successfully retrieved their citizens: {citizen.totalCount}");
-
-                return citizen;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        
 
         internal async void OnPlayerConnectingAsync([FromSource] Player player, string name, CallbackDelegate denyWithReason, dynamic deferrals)
         {

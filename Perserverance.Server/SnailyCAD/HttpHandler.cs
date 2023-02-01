@@ -1,10 +1,6 @@
-﻿using FxEvents.Shared;
-using System.Net.Http;
-using System.Text;
-
-namespace Perserverance.Server.SnailyCAD
+﻿namespace Perserverance.Server.SnailyCAD
 {
-    internal class HttpHandler
+    internal static class HttpHandler
     {
         internal static async Task<HttpResponseMessage> OnHttpResponseMessageAsync(HttpMethod httpMethod, string endpoint = "", object data = null, Dictionary<string, string> cookies = null)
         {
@@ -59,6 +55,11 @@ namespace Perserverance.Server.SnailyCAD
                 .ToDictionary(keyValue => keyValue[0], keyValue => keyValue[1]);
 
             return cookies;
+        }
+
+        internal static T GetObjectFromResponseContent<T>(this HttpResponseMessage httpResponseMessage)
+        {
+            return httpResponseMessage.Content.ReadAsStringAsync().Result.FromJson<T>();
         }
     }
 }
