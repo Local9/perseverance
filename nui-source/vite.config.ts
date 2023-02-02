@@ -37,11 +37,12 @@ export default defineConfig(({ command, mode }) => {
         "@citizen": resolve("./src/components/citizen"),
       },
     },
+    publicDir: './public',
     build: {
       minify: isProduction,
       assetsDir: './',
       emptyOutDir: true,
-      outDir: `${env.FIVEM_SERVER_PATH}/resources/[perseverance-framework]/perseverance/nui-client`,
+      outDir: `${env.FIVEM_SERVER_PATH}/resources/[perserverance-framework]/perserverance/nui-client`,
       rollupOptions: {
         output: {
           entryFileNames: `js/[name].js`,

@@ -4,21 +4,22 @@
     {
         public override void Begin()
         {
-            EventDispatcher.Mount("server:authenticate", new Func<PerserveranceUser, int, Authenitcation, Task<EventMessage>>(OnServerAuthenticateAsync));
-            EventDispatcher.Mount("server:logout", new Func<PerserveranceUser, int, Task<bool>>(OnServerLogoutAsync));
+            EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authenitcation, Task<EventMessage>>(OnServerAuthenticateAsync));
+            EventDispatcher.Mount("server:logout", new Func<EventSource, int, Task<bool>>(OnServerLogoutAsync));
         }
 
-        private async Task<EventMessage> OnServerAuthenticateAsync([FromSource] PerserveranceUser user, int serverId, Authenitcation auth)
+        private async Task<EventMessage> OnServerAuthenticateAsync([FromSource] EventSource source, int serverId, Authenitcation auth)
         {
             try
             {
-                if (user.Handle != serverId) return null;
-                Logger.Debug($"Player {user.Handle} is attempting to authenticate with username {auth.Username}");
+                if (source.Handle != serverId) return null;
+
+                Logger.Debug($"Player {source.Handle} is attempting to authenticate with username {auth.Username}");
 
                 SnailyCadAuthenticationDetails result = await AuthController.Authenticate(auth.Username, auth.Password);
-                user.SetSnailyAuth(result);
+                source.User.SetSnailyAuth(result);
 
-                Logger.Debug($"Player {user.Handle} has successfully authenticated with username {auth.Username}");
+                Logger.Debug($"Player {source.Handle} has successfully authenticated with username {auth.Username}");
 
                 return new EventMessage
                 {
@@ -32,7 +33,7 @@
             }
         }
 
-        private Task<bool> OnServerLogoutAsync(PerserveranceUser arg1, int arg2)
+        private Task<bool> OnServerLogoutAsync(EventSource arg1, int arg2)
         {
             throw new NotImplementedException();
         }

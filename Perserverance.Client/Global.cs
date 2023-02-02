@@ -10,3 +10,4 @@ global using System.Linq;
 global using System.Runtime.Serialization;
 global using System.Threading.Tasks;
 global using static CitizenFX.Core.Native.API;
+global using Perserverance.Shared.Attributes;

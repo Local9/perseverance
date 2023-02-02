@@ -8,7 +8,6 @@
             {
                 try
                 {
-                    BaseScript.TriggerServerEvent("testEvent");
                     CitizenMessage result = await EventDispatcher.Get<CitizenMessage>("server:getCitizens", Game.Player.ServerId, "", 0);
 
                     if (result == null)

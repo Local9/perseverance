@@ -3,8 +3,8 @@
   import Icon from "@iconify/svelte";
   import { authenticate } from "@store/auth";
 
-  let username: string;
-  let password: string;
+  let username: string = "";
+  let password: string = "";
 
   const handleClientData = () => {
     authenticate(username, password);
@@ -71,7 +71,7 @@
   article div:nth-of-type(2) {
     display: none;
     background-color: #374956;
-    background-image: url("images/login/fivem.jpg");
+    background-image: url("./assets/images/login/fivem.jpg");
     background-position: center;
     background-size: cover;
   }

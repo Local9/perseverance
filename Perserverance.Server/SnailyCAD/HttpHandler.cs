@@ -12,9 +12,9 @@
         internal static async Task<HttpResponseMessage> OnHttpResponseMessageAsync(HttpMethod httpMethod, string endpoint = "", object data = null, Dictionary<string, string> cookies = null)
         {
             Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() is attempting to send a {httpMethod} request to {endpoint}");
-            try
+
+            return await Task.Run(async () =>
             {
-                
                 var baseAddress = new Uri($"{Main.SnailyCadUrl}/v1");
                 HttpClient.BaseAddress = baseAddress;
 
@@ -22,10 +22,12 @@
                 {
                     if (cookies is not null)
                     {
+                        string cookieString = "";
                         foreach (var cookie in cookies)
                         {
-                            request.Headers.Add("Cookie", $"{cookie.Key}={cookie.Value}");
+                            cookieString += $"{cookie.Key}={cookie.Value};";
                         }
+                        request.Headers.Add("Cookie", cookieString);
                     }
 
                     if (data is not null)
@@ -33,22 +35,21 @@
                         request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                     }
 
-                    using (var response = await HttpClient.SendAsync(request))
+                    HttpResponseMessage response = await HttpClient.SendAsync(request).ConfigureAwait(false);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() successfully sent a {httpMethod} request to {endpoint}");
-                            return response;
-                        }
-                        else
-                        {
-                            Main.Logger.Error($"HttpHandler.OnHttpResponseMessageAsync() was unable to send a {httpMethod} request to {endpoint}");
-                            return null;
-                        }
+                        Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() successfully sent a {httpMethod} request to {endpoint}");
+                        return response;
+                    }
+                    else
+                    {
+                        Main.Logger.Error($"HttpHandler.OnHttpResponseMessageAsync() was unable to send a {httpMethod} request to {endpoint}");
+                        Main.Logger.Error($"{response.StatusCode}");
+                        Main.Logger.Error($"{response.Content.ReadAsStringAsync().Result}");
+                        return null;
                     }
                 }
-
-
 
                 //using (var handler = new HttpClientHandler { UseCookies = false })
                 //using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
@@ -77,14 +78,7 @@
 
                 //    return result;
                 //}
-            }
-            catch (Exception ex) // TODO: Improve error handling
-            {
-                Main.Logger.Error($"HTTP Handler was unable to {httpMethod} to {Main.SnailyCadUrl}/{endpoint}");
-                Main.Logger.Info($"{ex}");
-                Main.Logger.Error($"---------------------------------------------");
-                return null;
-            }
+            });
         }
         
         internal static Dictionary<string, string> GetCookies(HttpResponseMessage response)
@@ -104,11 +98,11 @@
 
         internal static async Task<T> OnGetObjectFromResponseContentAsync<T>(this HttpResponseMessage httpResponseMessage)
         {
-            string json = await httpResponseMessage.Content.ReadAsStringAsync();
-
-            Main.Logger.Info($"HTTP Handler received response: {json}");
-
-            return json.FromJson<T>();
+            return await Task.Run(async () =>
+            {
+                var responseContent = await httpResponseMessage.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(responseContent);
+            });
         }
     }
 }

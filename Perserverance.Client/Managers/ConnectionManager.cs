@@ -6,6 +6,13 @@
         {
             Logger.Info($"[ConnectionManager] Started");
             Event("onResourceStart", new Action<string>(OnResourceStartAsync));
+
+            NuiManager.AttachNuiHandler("hideUI", new EventCallback(metadata =>
+            {
+                NuiManager.SetFocus(false, false);
+                return new EventMessage();
+            }));
+
         }
 
         /// <summary>
@@ -18,10 +25,17 @@
 
             Session.IsSessionReady = await EventDispatcher.Get<bool>("connection:active", Game.Player.ServerId);
 
-            NuiManager.SetFocus(true);
-            NuiManager.SendMessage(new { action = "setVisible", data = true });
-
             Logger.Debug("Perserverance.Client has started!");
+        }
+
+        [TickHandler(SessionWait = true)]
+        private async Task OnTickAsync()
+        {
+            if (Game.IsControlJustPressed(0, Control.FrontendSocialClub))
+            {
+                NuiManager.SetFocus(true);
+                NuiManager.SendMessage(new { action = "setVisible", data = true });
+            }
         }
     }
 }

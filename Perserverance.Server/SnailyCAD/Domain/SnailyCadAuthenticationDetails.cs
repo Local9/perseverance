@@ -2,7 +2,7 @@
 {
     internal class SnailyCadAuthenticationDetails
     {
-        internal string UserId;
-        internal Dictionary<string, string> Cookies;
+        public string UserId;
+        public Dictionary<string, string> Cookies = new();
     }
 }

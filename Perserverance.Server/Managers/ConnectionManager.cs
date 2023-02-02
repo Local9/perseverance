@@ -9,7 +9,7 @@
             Event("playerDropped", new Action<Player, string>(OnPlayerDropped));
             Event("onResourceStop", new Action<string>(OnResourceStop));
 
-            EventDispatcher.Mount("connection:active", new Func<PerserveranceUser, int, Task<bool>>(OnUserActiveAsync));
+            EventDispatcher.Mount("connection:active", new Func<EventSource, int, Task<bool>>(OnUserActiveAsync));
         }
         
         
@@ -41,11 +41,12 @@
             if (resourceName != GetCurrentResourceName()) return;
         }
 
-        internal async Task<bool> OnUserActiveAsync([FromSource] PerserveranceUser user, int serverId)
+        internal async Task<bool> OnUserActiveAsync([FromSource] EventSource source, int serverId)
         {
-            if (user.Handle != serverId) return false;
-            Logger.Debug($"User with server handle '{user.Handle}' is updating their session state.");
-            ActiveSessions.AddOrUpdate(user.Handle, user, (key, value) => user);
+            if (source.Handle != serverId) return false;
+            Logger.Debug($"User with server handle '{source.Handle}' is updating their session state.");
+            PerserveranceUser user = new PerserveranceUser(source.Handle);
+            ActiveSessions.AddOrUpdate(source.Handle, user, (key, value) => user);
             return true;
         }
     }
