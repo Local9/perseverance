@@ -21,7 +21,9 @@ export default defineConfig(({ command, mode }) => {
     define: {
       'process.env': env,
     },
-    plugins: [svelte(), isProduction && minifyHtml()],
+    plugins: [
+      svelte(),
+      isProduction && minifyHtml()],
     base: './',
     resolve: {
       alias: {
@@ -35,6 +37,8 @@ export default defineConfig(({ command, mode }) => {
         "@apps": resolve("./src/components/apps"),
         "@types": resolve("./src/@types"),
         "@citizen": resolve("./src/components/citizen"),
+        "@tablet": resolve("./src/components/tablet"),
+        "@items": resolve("./src/components/items"),
       },
     },
     publicDir: './public',

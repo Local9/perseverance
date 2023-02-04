@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { storeCitizens, getCitizens } from "../../store/citizen";
-  import { onMount } from "svelte";
-  import type { ICitizen } from "src/@types/citizen";
-  import Citizen from "./Citizen.svelte";
+  import { storeCitizens, getCitizens } from '@store/citizen';
+  import { onMount } from 'svelte';
+  import type { ICitizen } from '@types/citizen';
+  import Citizen from './Citizen.svelte';
 
   let myCitizens: ICitizen[] = [];
 

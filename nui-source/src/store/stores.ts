@@ -1,3 +1,4 @@
 import { writable } from "svelte/store";
 
-export const visibility = writable(false);
+export const visibilityTablet = writable(false);
+export const visibilityLanding = writable(false);

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-  import type { ICitizen } from "../../@types/citizen";
+  import Icon from '@iconify/svelte';
+  import type { ICitizen } from '@types/citizen';
 
   export let citizen: ICitizen;
 </script>

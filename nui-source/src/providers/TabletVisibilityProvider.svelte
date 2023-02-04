@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { useNuiEvent } from '../utils/useNuiEvent';
-  import { fetchNui } from '../utils/fetchNui';
+  import { useNuiEvent } from '@utils/useNuiEvent';
+  import { fetchNui } from '@utils/fetchNui';
   import { onMount } from 'svelte';
-  import { visibility } from '../store/stores';
+  import { visibilityTablet } from '../store/stores';
 
   let isVisible: boolean;
 
-  visibility.subscribe((visible) => {
+  visibilityTablet.subscribe((visible) => {
     isVisible = visible;
   });
 
-  useNuiEvent<boolean>('setVisible', (visible) => {
-    visibility.set(visible);
+  useNuiEvent<boolean>('setTabletVisible', (visible) => {
+    visibilityTablet.set(visible);
   });
 
   onMount(() => {
     const keyHandler = (e: KeyboardEvent) => {
       if (isVisible && ['Escape'].includes(e.code)) {
-        fetchNui('hideUI');
-        visibility.set(false);
+        fetchNui('hideTabletUI');
+        visibilityTablet.set(false);
       }
     };
 
@@ -33,3 +33,10 @@
     <slot />
   {/if}
 </main>
+
+<style>
+  main {
+    height: 100%;
+    width: 100%;
+  }
+</style>

@@ -1,6 +1,13 @@
 html,
 body {
   overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
 }
 
 /**
@@ -224,7 +231,8 @@ kbd {
 [data-theme=light],
 :root:not([data-theme=dark]) {
   --background-color: transparent;
-  --thumb-background-color: #fff;
+  --alt-background-color: #fff;
+  --alt-background-color-rgb: 255, 255, 255;
   --color: hsl(205deg, 20%, 32%);
   --h1-color: hsl(205deg, 30%, 15%);
   --h2-color: #24333e;
@@ -275,7 +283,7 @@ kbd {
   --switch-checked-background-color: var(--primary);
   --range-border-color: hsl(205deg, 18%, 86%);
   --range-active-border-color: hsl(205deg, 16%, 77%);
-  --range-thumb-border-color: var(--thumb-background-color);
+  --range-thumb-border-color: var(--alt-background-color);
   --range-thumb-color: var(--secondary);
   --range-thumb-hover-color: var(--secondary-hover);
   --range-thumb-active-color: var(--primary);
@@ -292,7 +300,7 @@ kbd {
   --accordion-border-color: var(--muted-border-color);
   --accordion-close-summary-color: var(--color);
   --accordion-open-summary-color: var(--muted-color);
-  --card-background-color: var(--thumb-background-color);
+  --card-background-color: var(--alt-background-color);
   --card-border-color: var(--muted-border-color);
   --card-box-shadow:
     0.0145rem 0.029rem 0.174rem rgba(27, 40, 50, 0.01698),
@@ -331,7 +339,8 @@ kbd {
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --background-color: transparent;
-    --thumb-background-color: #1f2d38;
+    --alt-background-color: #1f2d38;
+    --alt-background-color-rgb: 31, 45, 56;
     --color: hsl(205deg, 16%, 77%);
     --h1-color: hsl(205deg, 20%, 94%);
     --h2-color: #e1e6eb;
@@ -382,7 +391,7 @@ kbd {
     --switch-checked-background-color: var(--primary);
     --range-border-color: #24333e;
     --range-active-border-color: hsl(205deg, 25%, 23%);
-    --range-thumb-border-color: var(--thumb-background-color);
+    --range-thumb-border-color: var(--alt-background-color);
     --range-thumb-color: var(--secondary);
     --range-thumb-hover-color: var(--secondary-hover);
     --range-thumb-active-color: var(--primary);
@@ -439,7 +448,8 @@ kbd {
 
 [data-theme=dark] {
   --background-color: transparent;
-  --thumb-background-color: #1f2d38;
+  --alt-background-color: #1f2d38;
+  --alt-background-color-rgb: 31, 45, 56;
   --color: hsl(205deg, 16%, 77%);
   --h1-color: hsl(205deg, 20%, 94%);
   --h2-color: #e1e6eb;
@@ -490,7 +500,7 @@ kbd {
   --switch-checked-background-color: var(--primary);
   --range-border-color: #24333e;
   --range-active-border-color: hsl(205deg, 25%, 23%);
-  --range-thumb-border-color: var(--thumb-background-color);
+  --range-thumb-border-color: var(--alt-background-color);
   --range-thumb-color: var(--secondary);
   --range-thumb-hover-color: var(--secondary-hover);
   --range-thumb-active-color: var(--primary);

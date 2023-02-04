@@ -1,19 +1,26 @@
 <script lang="ts">
-  import "@picocss/pico";
-  import "./app.scss";
+  import '@picocss/pico';
+  import './app.scss';
+  import Landing from '@base/Landing.svelte';
+  import Tablet from '@tablet/Tablet.svelte';
 
-  import VisibilityProvider from "./providers/VisibilityProvider.svelte";
-  import { debugData } from "./utils/debugData";
-  import Tablet from "./components/base/Tablet.svelte";
+  import TabletVisibilityProvider from '@providers/TabletVisibilityProvider.svelte';
+  import LandingVisibilityProvider from '@providers/LandingVisibilityProvider.svelte';
+
+  import { debugData } from '@utils/debugData';
 
   debugData([
     {
-      action: "setVisible",
+      action: 'setLandingVisible',
       data: true,
     },
   ]);
 </script>
 
-<VisibilityProvider>
+<LandingVisibilityProvider>
+  <Landing />
+</LandingVisibilityProvider>
+
+<TabletVisibilityProvider>
   <Tablet />
-</VisibilityProvider>
+</TabletVisibilityProvider>

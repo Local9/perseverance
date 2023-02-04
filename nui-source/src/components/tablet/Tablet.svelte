@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { fly, fade } from "svelte/transition";
-  import { cubicIn, cubicOut } from "svelte/easing";
-  import { isAuthenticated } from "@store/auth";
+  import { fly, fade } from 'svelte/transition';
+  import { cubicIn, cubicOut } from 'svelte/easing';
+  import { isAuthenticated } from '@store/auth';
   // import { visibility } from "../../store/stores";
   // import { fetchNui } from "../../utils/fetchNui";
-  import TabletScreen from "./TabletScreen.svelte";
-  import Login from "./Login.svelte";
+  import TabletScreen from './TabletScreen.svelte';
+  import LoginAndRegister from '../items/LoginAndRegister.svelte';
 
   // const closeDialog = (e: KeyboardEvent) => {
   //   if (e.type === "keydown" && e.key !== "Escape") return;
@@ -27,7 +27,7 @@
 >
   {#if !isAuthed}
     <div transition:fade>
-      <Login />
+      <LoginAndRegister />
     </div>
   {:else}
     <div transition:fade>
@@ -46,7 +46,7 @@
     position: absolute;
     width: 85vw;
     height: calc(var(--sizeVar) * 0.87);
-    background-color: var(--thumb-background-color);
+    background-color: var(--alt-background-color);
     border-radius: calc(var(--sizeVar) / 48);
     left: 50%;
     top: 50%;
