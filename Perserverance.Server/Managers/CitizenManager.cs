@@ -22,7 +22,10 @@ namespace Perserverance.Server.Managers
             {
                 int defaultBucket = 0;
                 string str = GetResourceMetadata(GetCurrentResourceName(), "default_player_bucket", 0);
-                int.TryParse(str, out defaultBucket);
+                
+                if (!string.IsNullOrEmpty(str))
+                    int.TryParse(str, out defaultBucket);
+
                 SetPlayerRoutingBucket($"{source.Handle}", defaultBucket);
             }
 
