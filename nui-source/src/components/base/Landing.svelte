@@ -1,11 +1,23 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import LoginAndRegister from '@items/LoginAndRegister.svelte';
+  import { isAuthenticated } from '@store/auth';
+  import Citizens from '../citizen/Citizens.svelte';
+
+  let isAuthed = false;
+
+  isAuthenticated.subscribe((authenticated: boolean) => {
+    isAuthed = authenticated;
+  });
 </script>
 
 <main transition:fade>
   <div>
-    <LoginAndRegister showHero={false} width={400} />
+    {#if !isAuthed}
+      <LoginAndRegister showHero={false} width={400} />
+    {:else}
+      <Citizens showNameplates={false} />
+    {/if}
   </div>
   <div />
 </main>
@@ -27,7 +39,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(var(--alt-background-color-rgb), 0.5);
+    background-color: rgba(var(--alt-background-color-rgb), 0.75);
   }
   div:nth-child(2) {
     grid-area: right;

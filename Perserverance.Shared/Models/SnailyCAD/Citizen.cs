@@ -10,6 +10,8 @@
         public string userId { get; set; }
         public string socialSecurityNumber { get; set; }
         public User user { get; set; }
+
+        public string fullname => $"{name} {surname}";
     }
 
 }

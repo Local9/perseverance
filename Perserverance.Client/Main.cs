@@ -12,6 +12,8 @@ namespace Perserverance.Client
         internal static Log Logger { get; private set; }
         internal static PlayerList PlayerList { get; private set; }
         internal static NuiManager NuiManager { get; private set; }
+        
+        internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         public Dictionary<Type, object> Managers { get; } = new();
         public Dictionary<Type, List<MethodInfo>> TickHandlers { get; set; } = new();
         public List<Type> RegisteredTickHandlers { get; set; } = new();

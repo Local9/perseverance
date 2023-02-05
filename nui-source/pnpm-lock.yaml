@@ -5,6 +5,7 @@ specifiers:
   '@picocss/pico': ^1.5.7
   '@sveltejs/vite-plugin-svelte': ^1.4.0
   '@tsconfig/svelte': ^3.0.0
+  '@zerodevx/svelte-toast': ^0.8.2
   html-minifier: ^4.0.0
   iconify-icon: ^1.0.3
   node-sass: ^8.0.0
@@ -21,6 +22,7 @@ devDependencies:
   '@picocss/pico': 1.5.7
   '@sveltejs/vite-plugin-svelte': 1.4.0_svelte@3.55.1+vite@3.2.5
   '@tsconfig/svelte': 3.0.0
+  '@zerodevx/svelte-toast': 0.8.2
   html-minifier: 4.0.0
   iconify-icon: 1.0.3
   node-sass: 8.0.0
@@ -217,6 +219,10 @@ packages:
     resolution: {integrity: sha512-BPdoIt1lfJ6B7rw35ncdwBZrAssjcwzI5LByIrYs+tpXlj/CAkuVdRsgZDdP4lq5EjyWzwxZCqAoFyHKFwp32g==}
     dependencies:
       '@types/node': 18.11.18
+    dev: true
+
+  /@zerodevx/svelte-toast/0.8.2:
+    resolution: {integrity: sha512-EDtZ/Hw37T/UWCQ5drhMss0J9vItYUSDivQ3+mET5My6No7YNiNQklj2bkE61UAzut2TjHJfOJNBZsj78ODFtw==}
     dev: true
 
   /abbrev/1.1.1:

@@ -2,21 +2,13 @@
   import { fly, fade } from 'svelte/transition';
   import { cubicIn, cubicOut } from 'svelte/easing';
   import { isAuthenticated } from '@store/auth';
-  // import { visibility } from "../../store/stores";
-  // import { fetchNui } from "../../utils/fetchNui";
   import TabletScreen from './TabletScreen.svelte';
   import LoginAndRegister from '../items/LoginAndRegister.svelte';
 
-  // const closeDialog = (e: KeyboardEvent) => {
-  //   if (e.type === "keydown" && e.key !== "Escape") return;
-  //   visibility.set(false);
-  //   fetchNui("hideUI");
-  // };
-
   let isAuthed = false;
 
-  isAuthenticated.subscribe((authenticate) => {
-    isAuthed = authenticate;
+  isAuthenticated.subscribe((authenticated: boolean) => {
+    isAuthed = authenticated;
   });
 </script>
 

@@ -2,8 +2,21 @@
 {
     public class EventMessage
     {
-        public bool success { get; set; } = true;
-        public string message { get; set; }
+        public bool success
+        {
+            get
+            {
+                return string.IsNullOrEmpty(errorMessage);
+            }
+        }
+        
+        public string errorMessage { get; set; }
+    }
+
+    public class RegistrationMessage : EventMessage
+    {
+        public string whitelistStatus;
+        public bool isOwner;
     }
 
     public class CitizenMessage : EventMessage

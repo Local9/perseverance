@@ -35,7 +35,6 @@ export default defineConfig(({ command, mode }) => {
         "@base": resolve("./src/components/base"),
         "@shared": resolve("./src/components/shared"),
         "@apps": resolve("./src/components/apps"),
-        "@types": resolve("./src/@types"),
         "@citizen": resolve("./src/components/citizen"),
         "@tablet": resolve("./src/components/tablet"),
         "@items": resolve("./src/components/items"),

@@ -4,6 +4,7 @@
   let username: string = '';
   let password: string = '';
   let passwordConfirm: string = '';
+  let registrationCode: string = '';
 
   let errorMessages: string[] = [];
 
@@ -20,9 +21,9 @@
   <input
     bind:value={username}
     type="text"
-    name="login"
-    placeholder="Login"
-    aria-label="Login"
+    name="username"
+    placeholder="Username"
+    aria-label="Username"
     autocomplete="nickname"
     required
   />
@@ -43,6 +44,13 @@
     aria-label="Confirm password"
     autocomplete="current-password"
     required
+  />
+  <input
+    bind:value={registrationCode}
+    type="password"
+    name="registrationCode"
+    placeholder="Registration code"
+    aria-label="Registration code"
   />
   {#each errorMessages as message}
     <p>{message}</p>

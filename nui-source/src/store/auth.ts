@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 import { fetchNui } from "@utils/fetchNui";
+import { failure } from "@store/toast";
 
 export const isAuthenticated = writable(false);
 
@@ -13,9 +14,12 @@ export function authenticate(username: string, password: string) {
     .then((returnData) => {
       if (returnData.success) {
         isAuthenticated.set(true);
+      } else {
+        // todo custom classes as toast is affected by pico css
+        failure("Invalid username or password");
       }
     })
-    .catch((e) => {});
+    .catch((e) => { });
 }
 
 export function register(username: string, password: string) {

@@ -13,9 +13,9 @@
   <input
     bind:value={username}
     type="text"
-    name="login"
-    placeholder="Login"
-    aria-label="Login"
+    name="username"
+    placeholder="Username"
+    aria-label="Username"
     autocomplete="nickname"
     required
   />

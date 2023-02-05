@@ -1,10 +1,34 @@
-﻿namespace Perserverance.Server.Managers
+﻿using FxEvents.Shared.EventSubsystem;
+using Perserverance.Shared;
+
+namespace Perserverance.Server.Managers
 {
     public class CitizenManager : Manager<CitizenManager>
     {
         public override void Begin()
         {
             EventDispatcher.Mount("server:getCitizens", new Func<EventSource, int, string, int, Task<CitizenMessage>>(OnServerGetCitizensAsync));
+            EventDispatcher.Mount("server:setCitizen", new Func<EventSource, int, string, string, Task<bool>>(OnServerSetCitizen));
+        }
+
+        private async Task<bool> OnServerSetCitizen([FromSource] EventSource source, int serverId, string citizenId, string citizenFullname)
+        {
+            if (source.Handle != serverId) return false;
+            source.Player.State.Set(StateBagKey.CharacterName, citizenFullname, true);
+
+            bool showLandingPage = GetResourceMetadata(GetCurrentResourceName(), "use_landing_page", 0) == "true";
+
+            if (showLandingPage)
+            {
+                int defaultBucket = 0;
+                string str = GetResourceMetadata(GetCurrentResourceName(), "default_player_bucket", 0);
+                int.TryParse(str, out defaultBucket);
+                SetPlayerRoutingBucket($"{source.Handle}", defaultBucket);
+            }
+
+            // Believe the API needs to be told something or does the active citizen need storing on the player?
+
+            return true;
         }
 
         /// <summary>

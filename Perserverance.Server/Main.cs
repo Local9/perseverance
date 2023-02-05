@@ -1,13 +1,9 @@
-﻿using FxEvents;
-using Logger;
+﻿using Logger;
 using Perserverance.Server.Managers;
-using Perserverance.Server.Models;
 using Perserverance.Server.SnailyCAD;
 using Perserverance.Shared.Attributes;
 using System.Collections.Concurrent;
 using System.Net;
-using System.Net.Http;
-using System.Net.Security;
 using System.Reflection;
 
 namespace Perserverance.Server
@@ -78,7 +74,7 @@ namespace Perserverance.Server
                 }
                 else
                 {
-                    Logger.Error($"HTTP Connection Test Failed! Unable to contact Snaily CAD API.");
+                    Logger.Error($"HTTP Connection Test Failed! Unable to connect to SnailyCAD API.");
                 }
             }
 
@@ -221,6 +217,11 @@ namespace Perserverance.Server
             }
         }
 
+        /// <summary>
+        /// Sends an event to all players.
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <param name="args"></param>
         internal static void SendAll(string eventName, params object[] args)
         {
             EventDispatcher.Send(PlayerList, eventName, args);
@@ -233,11 +234,21 @@ namespace Perserverance.Server
             await Task.FromResult(0);
         }
 
+        /// <summary>
+        /// Get the current perserverance user from the players server handle.
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <returns></returns>
         public static PerserveranceUser ToPerserveranceUser(string handle)
         {
             return ToPerserveranceUser(int.Parse(handle));
         }
 
+        /// <summary>
+        /// Get the current perserverance user from the players server handle.
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <returns></returns>
         public static PerserveranceUser ToPerserveranceUser(int handle)
         {
             return ActiveSessions.TryGetValue(handle, out PerserveranceUser user) ? user : null;

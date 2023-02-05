@@ -10,10 +10,52 @@ body {
   width: 100%;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 /**
  * Theme: default
  */
 :root {
+  --toastContainerTop: 1.5rem;
+  --toastContainerRight: 2rem;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: auto;
+  --toastContainerZIndex: 9999;
+  --toastWidth: 16rem;
+  --toastHeight: auto;
+  --toastMinHeight: 3.5rem;
+  --toastMargin: 0 0 0.5rem 0;
+  --toastPadding: 0;
+  --toastBackground: rgba(66, 66, 66, 0.9);
+  --toastColor: #fff;
+  --toastBoxShadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --toastBorder: none;
+  --toastBorderRadius: 0.125rem;
+  --toastMsgPadding: 1rem 1rem;
+  --toastBtnWidth: 2rem;
+  --toastBtnHeight: 100%;
+  --toastBtnFont: 1rem sans-serif;
+  --toastBtnContent: '✕';
+  --toastBarBackground: rgba(33, 150, 243, 0.75);
+  --toastBarTop: auto;
+  --toastBarRight: auto;
+  --toastBarBottom: 0;
+  --toastBarLeft: 0;
+  --toastBarHeight: 6px;
+  --toastBarWidth: 100%;
+
   --sizeVar: 99vmin;
   --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
     "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",

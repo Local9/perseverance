@@ -12,6 +12,10 @@
             SnailyAuth = new SnailyCadAuthenticationDetails();
         }
 
+        /// <summary>
+        /// Sets the SnailyCAD authentication details for this user
+        /// </summary>
+        /// <param name="snailyAuthentication"></param>
         internal void SetSnailyAuth(SnailyCadAuthenticationDetails snailyAuthentication)
         {
             SnailyAuth = snailyAuthentication;

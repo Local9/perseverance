@@ -10,7 +10,7 @@
   let username: string = '';
   let password: string = '';
 
-  let page: string = 'register';
+  let page: string = 'login';
 
   const handleOnClick = () => {
     page = page === 'login' ? 'register' : 'login';
@@ -29,7 +29,7 @@
       </hgroup>
       <Login />
       <button on:click={handleOnClick}
-        >Don't have an account? Register here</button
+        >Don't have an account?<br />Register here</button
       >
     </div>
   {:else}

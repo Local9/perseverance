@@ -40,15 +40,18 @@
                     if (response.IsSuccessStatusCode)
                     {
                         Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() successfully sent a {httpMethod} request to {endpoint}");
-                        return response;
                     }
                     else
                     {
                         Main.Logger.Error($"HttpHandler.OnHttpResponseMessageAsync() was unable to send a {httpMethod} request to {endpoint}");
                         Main.Logger.Error($"{response.StatusCode}");
                         Main.Logger.Error($"{response.Content.ReadAsStringAsync().Result}");
-                        return null;
                     }
+                    
+                    // throw the exception
+                    response.EnsureSuccessStatusCode();
+                    
+                    return response;
                 }
 
                 //using (var handler = new HttpClientHandler { UseCookies = false })

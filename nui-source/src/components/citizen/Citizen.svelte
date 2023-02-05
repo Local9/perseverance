@@ -1,26 +1,34 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import type { ICitizen } from '@types/citizen';
+  import { setCitizen } from '@store/citizen';
+  import type { ICitizen } from '../../@types/citizen';
 
   export let citizen: ICitizen;
+  export let showNameplate: boolean = true;
+
+  function handleClick() {
+    setCitizen(citizen);
+  }
 </script>
 
 <article>
-  <div class="nameplate">
-    {#if !citizen?.imageId}
-      <Icon icon="game-icons:character" width="80" height="80" />
-    {:else}
-      <img src={citizen?.imageId} alt={citizen.name} />
-    {/if}
-    <div>
-      <ul>
-        <li>
-          <small>SSN: {citizen.socialSecurityNumber}</small>
-        </li>
-      </ul>
+  {#if showNameplate}
+    <div class="nameplate">
+      {#if !citizen?.imageId}
+        <Icon icon="game-icons:character" width="80" height="80" />
+      {:else}
+        <img src={citizen?.imageId} alt={citizen.fullname} />
+      {/if}
+      <div>
+        <ul>
+          <li>
+            <small>SSN: {citizen.socialSecurityNumber}</small>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <button>{citizen.name} {citizen.surname}</button>
+  {/if}
+  <button on:click={handleClick}>{citizen.fullname}</button>
 </article>
 
 <style type="scss">

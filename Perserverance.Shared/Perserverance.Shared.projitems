@@ -13,9 +13,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\TickHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\eBusySpinnerType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\eHudColour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Authenitcation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Hud\MinimapAnchor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Citizen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\EventMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Registration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBagKey.cs" />
   </ItemGroup>
 </Project>

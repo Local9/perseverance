@@ -1,9 +1,10 @@
 <script lang="ts">
   import { storeCitizens, getCitizens } from '@store/citizen';
   import { onMount } from 'svelte';
-  import type { ICitizen } from '@types/citizen';
+  import type { ICitizen } from '../../@types/citizen';
   import Citizen from './Citizen.svelte';
 
+  export let showNameplates: boolean = true;
   let myCitizens: ICitizen[] = [];
 
   storeCitizens.subscribe((value: ICitizen[]) => {
@@ -16,15 +17,16 @@
 </script>
 
 <div>
-  <h2>Citizens</h2>
   {#if myCitizens.length === 0}
     <p>No citizens found</p>
+    <button>Create Citizen</button>
     <button on:click={getCitizens}>Try Again</button>
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}
-        <Citizen {citizen} />
+        <Citizen {citizen} showNameplate={showNameplates} />
       {/each}
+      <button>Create Citizen</button>
     </div>
   {/if}
 </div>
