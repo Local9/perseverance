@@ -1,5 +1,4 @@
-﻿using FxEvents.Shared.EventSubsystem;
-using Perserverance.Shared;
+﻿using Perserverance.Shared;
 
 namespace Perserverance.Server.Managers
 {
@@ -9,12 +8,28 @@ namespace Perserverance.Server.Managers
         {
             EventDispatcher.Mount("server:getCitizens", new Func<EventSource, int, string, int, Task<CitizenMessage>>(OnServerGetCitizensAsync));
             EventDispatcher.Mount("server:setCitizen", new Func<EventSource, int, string, string, Task<bool>>(OnServerSetCitizen));
+
+            Export.Add("getActiveCitizen", new Func<int, string>(OnGetActiveCitizen));
+        }
+
+        private string OnGetActiveCitizen(int source)
+        {
+            PerserveranceUser player = Main.ToPerserveranceUser(source);
+            return player.Citizen.ToJson();
         }
 
         private async Task<bool> OnServerSetCitizen([FromSource] EventSource source, int serverId, string citizenId, string citizenFullname)
         {
             if (source.Handle != serverId) return false;
+            bool result = source.User.SetCitizen(citizenId);
+
+            if (!result)
+            {
+                return false;
+            }
+            
             source.Player.State.Set(StateBagKey.CharacterName, citizenFullname, true);
+
 
             bool showLandingPage = GetResourceMetadata(GetCurrentResourceName(), "use_landing_page", 0) == "true";
 
@@ -48,6 +63,9 @@ namespace Perserverance.Server.Managers
             {
                 if (source.Handle != serverId) return null;
                 CitizenMessage result = await CitizenController.GetCitizens(source.User, query, skip);
+
+                source.User.SetCitizens(result.citizens);
+
                 return result;
             }
             catch (Exception ex)
