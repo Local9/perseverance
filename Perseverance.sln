@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Perseverance.Client", "Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Perseverance.Server", "Perseverance.Server\Perseverance.Server.csproj", "{CB023025-86AF-4FB1-9664-D4FFC09240A2}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Perseverance.Shared", "Perseverance.Shared\Perseverance.Shared.shproj", "{C5E4391F-33D8-48A9-AADC-128ACF991B1B}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Perseverance.Shared", "Perseverance.Shared\Perseverance.Shared.shproj", "{25D4B1A9-BCE9-473D-84B0-AD2395201B3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,7 +37,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Perseverance.Shared\Perseverance.Shared.projitems*{014d7583-3f47-4b5e-bbcc-186343e8f1e2}*SharedItemsImports = 5
-		Perseverance.Shared\Perserverance.Shared.projitems*{c5e4391f-33d8-48a9-aadc-128acf991b1b}*SharedItemsImports = 13
+		Perseverance.Shared\Perseverance.Shared.projitems*{25d4b1a9-bce9-473d-84b0-ad2395201b3b}*SharedItemsImports = 13
 		Perseverance.Shared\Perseverance.Shared.projitems*{cb023025-86af-4fb1-9664-d4ffc09240a2}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

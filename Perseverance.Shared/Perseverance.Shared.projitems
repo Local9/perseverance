@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>25d4b1a9-bce9-473d-84b0-ad2395201b3b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Perseverance.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\TickHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\eBusySpinnerType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\eHudColour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Authenitcation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Hud\MinimapAnchor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Citizen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\EventMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Registration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\UserBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBagKey.cs" />
+  </ItemGroup>
+</Project>
