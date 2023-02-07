@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Perseverance.Client", "Perseverance.Client\Perseverance.Client.csproj", "{014D7583-3F47-4B5E-BBCC-186343E8F1E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Perseverance.Server", "Perseverance.Server\Perseverance.Server.csproj", "{CB023025-86AF-4FB1-9664-D4FFC09240A2}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Perseverance.Shared", "Perseverance.Shared\Perseverance.Shared.shproj", "{C5E4391F-33D8-48A9-AADC-128ACF991B1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Local|Any CPU = Local|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Local|Any CPU.ActiveCfg = Local|Any CPU
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Local|Any CPU.Build.0 = Local|Any CPU
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{014D7583-3F47-4B5E-BBCC-186343E8F1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Local|Any CPU.ActiveCfg = Local|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Local|Any CPU.Build.0 = Local|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB023025-86AF-4FB1-9664-D4FFC09240A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A28BA43A-20EA-4419-96E6-3E35A9531A17}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Perseverance.Shared\Perseverance.Shared.projitems*{014d7583-3f47-4b5e-bbcc-186343e8f1e2}*SharedItemsImports = 5
+		Perseverance.Shared\Perserverance.Shared.projitems*{c5e4391f-33d8-48a9-aadc-128acf991b1b}*SharedItemsImports = 13
+		Perseverance.Shared\Perseverance.Shared.projitems*{cb023025-86af-4fb1-9664-d4ffc09240a2}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal

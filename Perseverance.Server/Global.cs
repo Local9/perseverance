@@ -1,0 +1,17 @@
+﻿global using CitizenFX.Core;
+global using FxEvents;
+global using FxEvents.Shared;
+global using Newtonsoft.Json;
+global using Perseverance.Server.Models;
+global using Perseverance.Server.SnailyCAD.Controllers;
+global using Perseverance.Server.SnailyCAD.Domain;
+global using Perseverance.Shared.Models;
+global using Perseverance.Shared.Models.SnailyCAD;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Net.Http;
+global using System.Runtime.Serialization;
+global using System.Text;
+global using System.Threading.Tasks;
+global using static CitizenFX.Core.Native.API;
