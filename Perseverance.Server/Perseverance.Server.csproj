@@ -47,11 +47,8 @@
   <Import Project="..\Perseverance.Shared\Perseverance.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <EditorConfigFiles Remove="L:\ws\fivem\perserverance\Perserverance\Perseverance.Server\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="L:\ws\fivem\perserverance\Perserverance\Perseverance.Server\.editorconfig" />
+    <EditorConfigFiles Remove=".editorconfig" />
+    <None Include=".editorconfig" />
   </ItemGroup>
 
 </Project>
