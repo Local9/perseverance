@@ -1,6 +1,5 @@
 <script lang="ts">
-  import '@picocss/pico';
-  import './app.scss';
+  import './global.scss';
   import Landing from '@base/Landing.svelte';
   import Tablet from '@tablet/Tablet.svelte';
 
