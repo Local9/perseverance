@@ -39,7 +39,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(var(--alt-background-color-rgb), 0.75);
+    background-color: rgba(var(--background-color), 0.75);
   }
   div:nth-child(2) {
     grid-area: right;
