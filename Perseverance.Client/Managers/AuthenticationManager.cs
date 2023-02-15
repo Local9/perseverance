@@ -4,31 +4,35 @@
     {
         public override void Begin()
         {
-            NuiManager.AttachNuiHandler("authenticate", new AsyncEventCallback(async metadata =>
+            RegisterNuiCallback("authenticate", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
                 try
                 {
-                    Authenitcation authenitcation = new Authenitcation(metadata.Find<string>(0), metadata.Find<string>(1));
-                    
-                    EventMessage result = await EventDispatcher.Get<EventMessage>("server:authenticate", Game.Player.ServerId, authenitcation);
+                    body.TryGetValue("0", out object username);
+                    body.TryGetValue("1", out object password);
 
-                    if (result == null)
+                    Authenitcation authenitcation = new Authenitcation($"{username}", $"{password}");
+
+                    EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("server:authenticate", Game.Player.ServerId, authenitcation);
+
+                    if (eventMessage == null)
                     {
                         Logger.Error($"[ConnectionManager] Failed to authenticate. Please try again or contact a server admin");
-                        return new EventMessage
+                        result(new EventMessage
                         {
                             errorMessage = "Failed to authenticate"
-                        };
+                        });
+                        return;
                     }
 
-                    return result;
+                    result(eventMessage);
                 }
                 catch (Exception ex)
                 {
-                    return new EventMessage
+                    result(new EventMessage
                     {
                         errorMessage = ex.Message
-                    };
+                    });
                 }
             }));
 

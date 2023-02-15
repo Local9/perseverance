@@ -25,8 +25,11 @@ namespace Perseverance.Client.Managers
         private async void OnResourceStartAsync(string resourceName)
         {
             Hud.StartLoadingMessage("PM_WAIT");
+            await Hud.FadeOut(100);
 
             if (resourceName != GetCurrentResourceName()) return;
+
+            await BaseScript.Delay(1000);
 
             EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("connection:active", Game.Player.ServerId);
             Session.IsSessionReady = eventMessage.success;
@@ -48,6 +51,8 @@ namespace Perseverance.Client.Managers
 
                 gameTimer = GetGameTimer();
 
+                await Hud.FadeIn(1000);
+
                 Game.PlayerPed.IsInvincible = true;
                 Game.PlayerPed.HasGravity = false;
                 Game.PlayerPed.Position = camera.Position + new Vector3(0f, 0f, 2f);
@@ -60,6 +65,7 @@ namespace Perseverance.Client.Managers
             }
             else
             {
+                await Hud.FadeIn(500);
                 NetworkConcealPlayer(Game.Player.Handle, false, false);
                 DisplayHud(true);
                 DisplayRadar(true);
@@ -90,7 +96,7 @@ namespace Perseverance.Client.Managers
             cameraIndex++;
             if (cameraIndex > cameras.Count)
                 cameraIndex = 0;
-            
+
             await BaseScript.Delay(100);
             Camera nextCamera = cameras[cameraIndex];
             World.RenderingCamera = nextCamera;
@@ -121,7 +127,7 @@ namespace Perseverance.Client.Managers
             gameTimer = GetGameTimer();
         }
 
-        private Camera CreateCamera(Vector3 position, Vector3 roation, float fieldOfView, 
+        private Camera CreateCamera(Vector3 position, Vector3 roation, float fieldOfView,
             float dofFocusDistance = 0, float dofFocusDistanceBlend = 0, float dofLens = 0, float dofNear = 0)
         {
             Camera camera = new Camera(CreateCam(DEFAULT_SCRIPTED_CAMERA, true));

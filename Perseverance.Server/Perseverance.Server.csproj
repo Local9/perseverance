@@ -41,7 +41,7 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /f /r /y /i bin\Debug ..\build\server" Condition="'$(Configuration)' == 'Debug'" />
     <Exec Command="xcopy /f /r /y /i bin\Release ..\build\server" Condition="'$(Configuration)' == 'Release'" />
-    <Exec Command="xcopy /f /r /y /i bin\Local $(FIVEM_SERVER_PATH_CH)\resources\[perserverance-framework]\perserverance\server" Condition="'$(Configuration)' == 'Local'" />
+    <Exec Command="xcopy /f /r /y /i bin\Local $(FIVEM_SERVER_PATH_CH)\resources\[perseverance-framework]\perseverance\server" Condition="'$(Configuration)' == 'Local'" />
   </Target>
 
   <Import Project="..\Perseverance.Shared\Perseverance.Shared.projitems" Label="Shared" />

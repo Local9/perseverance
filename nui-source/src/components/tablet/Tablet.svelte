@@ -3,7 +3,7 @@
   import { cubicIn, cubicOut } from 'svelte/easing';
   import { isAuthenticated } from '@store/auth';
   import TabletScreen from './TabletScreen.svelte';
-  import LoginAndRegister from '../items/LoginAndRegister.svelte';
+  import LoginAndRegister from '@auth/LoginAndRegister.svelte';
 
   let isAuthed = false;
 

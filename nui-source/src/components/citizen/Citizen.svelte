@@ -17,7 +17,7 @@
       {#if !citizen?.imageId}
         <Icon icon="game-icons:character" width="80" height="80" />
       {:else}
-        <img src={citizen?.imageId} alt={citizen.fullname} />
+        <img src={citizen?.imageId} alt="{citizen.name} {citizen.surname}" />
       {/if}
       <div>
         <ul>
@@ -28,7 +28,10 @@
       </div>
     </div>
   {/if}
-  <button on:click={handleClick}>{citizen.fullname}</button>
+  <button
+    class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+    on:click={handleClick}>{citizen.name} {citizen.surname}</button
+  >
 </article>
 
 <style type="scss">
@@ -38,7 +41,6 @@
     justify-content: center;
     align-items: center;
     margin: unset;
-    padding: 1rem;
   }
 
   article .nameplate {
@@ -46,7 +48,6 @@
     width: 100%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 1rem;
   }
 
   img {

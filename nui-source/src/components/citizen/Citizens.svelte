@@ -19,8 +19,15 @@
 <div>
   {#if myCitizens.length === 0}
     <p>No citizens found</p>
-    <button>Create Citizen</button>
-    <button on:click={getCitizens}>Try Again</button>
+    <button
+      class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+      >Create Citizen</button
+    >
+    <button
+      on:click={getCitizens}
+      class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+      >Try Again</button
+    >
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}

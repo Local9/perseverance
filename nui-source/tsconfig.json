@@ -33,6 +33,12 @@
       ],
       "@tablet/*": [
         "src/components/tablet/*"
+      ],
+      "@auth/*": [
+        "src/components/auth/*"
+      ],
+      "@form/*": [
+        "src/components/form/*"
       ]
     },
     /**

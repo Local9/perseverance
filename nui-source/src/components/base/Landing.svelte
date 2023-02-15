@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import LoginAndRegister from '@items/LoginAndRegister.svelte';
+  import LoginAndRegister from '@auth/LoginAndRegister.svelte';
   import { isAuthenticated } from '@store/auth';
   import Citizens from '../citizen/Citizens.svelte';
 

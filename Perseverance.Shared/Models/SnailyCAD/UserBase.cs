@@ -1,4 +1,4 @@
-﻿namespace Perserverance.Shared.Models.SnailyCAD
+﻿namespace Perseverance.Shared.Models.SnailyCAD
 {
     public class UserBase
     {

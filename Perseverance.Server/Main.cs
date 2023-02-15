@@ -40,9 +40,9 @@ namespace Perseverance.Server
         private async Task Load()
         {
             ServerConfiguration = new ServerConfiguration();
-            
+
             // Currently no use for a database but no need to delete the code as there are reasons to add one in the future.
-            
+
             //bool databaseTest = await Database.DapperDatabase<bool>.GetSingleAsync("select 1;");
             //if (databaseTest)
             //{

@@ -18,6 +18,7 @@
     aria-label="Username"
     autocomplete="nickname"
     required
+    class={`w-full p-1.5 px-3 bg-white rounded-md border outline-none dark:bg-secondary dark:text-white disabled:cursor-not-allowed disabled:opacity-80 placeholder:opacity-50`}
   />
   <input
     bind:value={password}
@@ -27,9 +28,11 @@
     aria-label="Password"
     autocomplete="current-password"
     required
+    class={`w-full p-1.5 px-3 bg-white rounded-md border outline-none dark:bg-secondary dark:text-white disabled:cursor-not-allowed disabled:opacity-80 placeholder:opacity-50`}
   />
-  <button type="submit" class="contrast">Login</button>
+  <button
+    type="submit"
+    class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+    >Login</button
+  >
 </form>
-
-<style type="scss">
-</style>

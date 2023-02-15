@@ -11,9 +11,6 @@ namespace Perseverance.Server
         {
             try
             {
-                if (serverConfig is not null)
-                    return serverConfig;
-
                 string serverConfigFile = LoadResourceFile(GetCurrentResourceName(), SERVER_CONFIG_LOCATION);
                 serverConfig = JsonConvert.DeserializeObject<ServerConfig>(serverConfigFile);
                 return serverConfig;
@@ -27,9 +24,8 @@ namespace Perseverance.Server
             }
         }
 
-        internal ServerConfig GetServerConfig => GetConfig();
+        internal ServerConfig GetServerConfig => serverConfig ??= GetConfig();
         internal DatabaseConfig GetDatabaseConfig => GetServerConfig.Database;
         internal Discord GetDiscordConfig => GetServerConfig.Discord;
-        internal SnailyCad GetSnailyCadConfig => GetServerConfig.SnailyCad;
     }
 }

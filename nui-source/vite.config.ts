@@ -3,6 +3,25 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { minify } from "html-minifier";
 import { resolve } from "path";
 
+function CustomHmr() {
+  return {
+    name: 'custom-hmr',
+    enforce: 'post',
+    // HMR
+    handleHotUpdate({ file, server }) {
+      if (file.endsWith('.css')) {
+        console.log('reloading public css file...');
+
+        server.ws.send({
+          type: 'full-reload',          
+          path: '*'
+        });
+      }
+    },
+  }
+}
+
+
 function minifyHtml() {
   return {
     name: "html-transform",
@@ -22,6 +41,7 @@ export default defineConfig(({ command, mode }) => {
       'process.env': env,
     },
     plugins: [
+      CustomHmr(),
       svelte(),
       isProduction && minifyHtml()],
     base: './',
@@ -38,6 +58,8 @@ export default defineConfig(({ command, mode }) => {
         "@citizen": resolve("./src/components/citizen"),
         "@tablet": resolve("./src/components/tablet"),
         "@items": resolve("./src/components/items"),
+        "@auth": resolve("./src/components/auth"),
+        "@form": resolve("./src/components/form"),
       },
     },
     publicDir: './public',
@@ -45,7 +67,7 @@ export default defineConfig(({ command, mode }) => {
       minify: isProduction,
       assetsDir: './',
       emptyOutDir: true,
-      outDir: `${env.FIVEM_SERVER_PATH}/resources/[perserverance-framework]/perserverance/nui-client`,
+      outDir: `${env.FIVEM_SERVER_PATH}/resources/[perseverance-framework]/perseverance/nui-client`,
       rollupOptions: {
         output: {
           entryFileNames: `js/[name].js`,

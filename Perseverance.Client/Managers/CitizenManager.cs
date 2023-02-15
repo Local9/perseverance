@@ -6,31 +6,31 @@ namespace Perseverance.Client.Managers
     {
         public override void Begin()
         {
-            NuiManager.AttachNuiHandler("getCitizens", new AsyncEventCallback(async metadata =>
+            RegisterNuiCallback("getCitizens", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
                 try
                 {
-                    CitizenMessage result = await EventDispatcher.Get<CitizenMessage>("server:getCitizens", Game.Player.ServerId, "", 0);
+                    CitizenMessage eventMessage = await EventDispatcher.Get<CitizenMessage>("server:getCitizens", Game.Player.ServerId, "", 0);
 
-                    if (result == null)
+                    if (eventMessage == null)
                     {
                         Logger.Error($"[CitizenManager] Failed to get citizens. Please try again or contact a server admin");
-                        return new CitizenMessage
+                        result(new CitizenMessage
                         {
                             errorMessage = "Failed to get citizens"
-                        };
+                        });
                     }
 
                     Logger.Debug($"[CitizenManager] Successfully got citizens");
 
-                    return result;
+                    result(eventMessage);
                 }
                 catch (Exception ex)
                 {
-                    return new CitizenMessage
+                    result(new EventMessage
                     {
                         errorMessage = ex.Message
-                    };
+                    });
                 }
             }));
 
@@ -54,7 +54,7 @@ namespace Perseverance.Client.Managers
                     {
                         NuiManager.SetFocus(false, false);
                         NuiManager.SendMessage(new { action = "setLandingVisible", data = false });
-                        
+
                         await Hud.FadeOut(1500);
 
                         await BaseScript.Delay(500);
@@ -74,7 +74,7 @@ namespace Perseverance.Client.Managers
                         {
                             if (failures > 100)
                                 break;
-                            
+
                             await BaseScript.Delay(100);
                             gotGround = GetGroundZFor_3dCoord(pos.X, pos.Y, pos.Z, ref groundZ, false);
 
@@ -85,7 +85,7 @@ namespace Perseverance.Client.Managers
 
                         DisplayHud(showHudLandingPage);
                         DisplayRadar(showHudLandingPage);
-                        
+
                         await BaseScript.Delay(1000);
 
                         RenderScriptCams(false, true, 0, false, false);
