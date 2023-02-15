@@ -10,7 +10,7 @@ export function authenticate(username: string, password: string) {
     return;
   }
 
-  fetchNui("authenticate", { 0: username, 1: password })
+  fetchNui("authenticate", { username, password })
     .then((returnData) => {
       if (returnData.success) {
         isAuthenticated.set(true);
@@ -22,12 +22,12 @@ export function authenticate(username: string, password: string) {
     .catch((e) => { });
 }
 
-export function register(username: string, password: string) {
+export function register(username: string, password: string, passwordConfirm: string, registrationCode: string) {
   if (import.meta.env.DEV) {
     isAuthenticated.set(true);
     return;
   }
-  fetchNui("register", { 0: username, 1: password })
+  fetchNui("register", { username, password, passwordConfirm, registrationCode })
     .then((returnData) => {
       if (returnData.success) {
 

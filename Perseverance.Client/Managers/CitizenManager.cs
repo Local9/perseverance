@@ -34,15 +34,18 @@ namespace Perseverance.Client.Managers
                 }
             }));
 
-            NuiManager.AttachNuiHandler("setCitizen", new AsyncEventCallback(async metadata =>
+            RegisterNuiCallback("setCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
                 try
                 {
-                    bool result = await EventDispatcher.Get<bool>("server:setCitizen", Game.Player.ServerId, metadata.Find<string>(0), metadata.Find<string>(1));
+                    Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
 
-                    if (!result)
+                    bool success = await EventDispatcher.Get<bool>("server:setCitizen", Game.Player.ServerId, keyValuePairs["id"], keyValuePairs["fullname"]);
+
+                    if (!success)
                     {
-                        return new { success = false };
+                        result(new { success = false });
+                        return;
                     }
 
                     ConnectionManager.IsSpawned = true;
@@ -94,14 +97,14 @@ namespace Perseverance.Client.Managers
                         await Hud.FadeIn(1500);
                     }
 
-                    return new { success = true };
+                    result(new { success = true });
                 }
                 catch (Exception ex)
                 {
-                    return new CitizenMessage
+                    result(new CitizenMessage
                     {
                         errorMessage = ex.Message
-                    };
+                    });
                 }
             }));
         }

@@ -13,7 +13,7 @@ export function setCitizens(citizens: ICitizen[]) {
 export function setCitizen(citizen: ICitizen) {
   storeCitizen.set(citizen);
 
-  fetchNui("setCitizen", { 0: citizen.id, 1: citizen.fullname })
+  fetchNui("setCitizen", { id: citizen.id, fullname: citizen.fullname })
     .then((returnData) => {
       if (returnData.success) {
         

@@ -8,10 +8,9 @@
             {
                 try
                 {
-                    body.TryGetValue("0", out object username);
-                    body.TryGetValue("1", out object password);
+                    Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
 
-                    Authenitcation authenitcation = new Authenitcation($"{username}", $"{password}");
+                    Authenitcation authenitcation = new Authenitcation(keyValuePairs["username"], keyValuePairs["password"]);
 
                     EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("server:authenticate", Game.Player.ServerId, authenitcation);
 
@@ -36,38 +35,40 @@
                 }
             }));
 
-            NuiManager.AttachNuiHandler("register", new AsyncEventCallback(async metadata =>
+            RegisterNuiCallback("register", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
                 try
                 {
+                    Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
+
                     Registration registration = new Registration()
                     {
-                        username = metadata.Find<string>(0),
-                        password = metadata.Find<string>(1),
-                        confirmPassword = metadata.Find<string>(2),
-                        registrationCode = metadata.Find<string>(3),
-                        captchaResult = metadata.Find<string>(4)
+                        username = keyValuePairs["username"],
+                        password = keyValuePairs["password"],
+                        confirmPassword = keyValuePairs["confirmPassword"],
+                        registrationCode = keyValuePairs["registrationCode"]
                     };
 
-                    RegistrationMessage result = await EventDispatcher.Get<RegistrationMessage>("server:register", Game.Player.ServerId, registration);
+                    RegistrationMessage registrationMessage = await EventDispatcher.Get<RegistrationMessage>("server:register", Game.Player.ServerId, registration);
 
-                    if (result == null)
+                    if (registrationMessage == null)
                     {
                         Logger.Error($"[ConnectionManager] Failed to register. Please try again or contact a server admin");
-                        return new EventMessage
+                        result(new EventMessage
                         {
                             errorMessage = "Failed to register"
-                        };
+                        });
+                        return;
                     }
 
-                    return result;
+                    result(registrationMessage);
                 }
                 catch (Exception ex)
                 {
-                    return new EventMessage
+                    result(new EventMessage
                     {
                         errorMessage = ex.Message
-                    };
+                    });
                 }
             }));
         }
