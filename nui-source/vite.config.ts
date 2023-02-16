@@ -60,6 +60,7 @@ export default defineConfig(({ command, mode }) => {
         "@items": resolve("./src/components/items"),
         "@auth": resolve("./src/components/auth"),
         "@form": resolve("./src/components/form"),
+        "@pages": resolve("./src/pages"),
       },
     },
     publicDir: './public',

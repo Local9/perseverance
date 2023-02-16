@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '@components/form/Button.svelte';
+  import Input from '@components/form/inputs/Input.svelte';
   import { register } from '@store/auth';
 
   let username: string = '';
@@ -13,12 +15,12 @@
       errorMessages.push('Passwords do not match');
       return;
     }
-    register(username, password);
+    register(username, password, passwordConfirm, registrationCode);
   };
 </script>
 
 <form on:submit|preventDefault={handleClientData}>
-  <input
+  <Input
     bind:value={username}
     type="text"
     name="username"
@@ -27,7 +29,7 @@
     autocomplete="nickname"
     required
   />
-  <input
+  <Input
     bind:value={password}
     type="password"
     name="password"
@@ -36,7 +38,7 @@
     autocomplete="current-password"
     required
   />
-  <input
+  <Input
     bind:value={passwordConfirm}
     type="password"
     name="passwordConfirm"
@@ -45,7 +47,7 @@
     autocomplete="current-password"
     required
   />
-  <input
+  <Input
     bind:value={registrationCode}
     type="password"
     name="registrationCode"
@@ -55,7 +57,7 @@
   {#each errorMessages as message}
     <p>{message}</p>
   {/each}
-  <button type="submit" class="contrast">Register</button>
+  <Button type="submit" variant="default" size="md">Register</Button>
 </form>
 
 <style type="scss">

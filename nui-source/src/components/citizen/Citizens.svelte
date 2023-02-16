@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '@components/form/Button.svelte';
   import { storeCitizens, getCitizens } from '@store/citizen';
   import { onMount } from 'svelte';
   import type { ICitizen } from '../../@types/citizen';
@@ -19,21 +20,21 @@
 <div>
   {#if myCitizens.length === 0}
     <p>No citizens found</p>
-    <button
+    <Button
       class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-      >Create Citizen</button
+      >Create Citizen</Button
     >
-    <button
+    <Button
       on:click={getCitizens}
       class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-      >Try Again</button
+      >Try Again</Button
     >
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}
         <Citizen {citizen} showNameplate={showNameplates} />
       {/each}
-      <button>Create Citizen</button>
+      <Button>Create Citizen</Button>
     </div>
   {/if}
 </div>

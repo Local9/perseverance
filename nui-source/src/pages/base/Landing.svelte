@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
   import LoginAndRegister from '@auth/LoginAndRegister.svelte';
   import { isAuthenticated } from '@store/auth';
-  import Citizens from '../citizen/Citizens.svelte';
+  import Citizens from '@components/citizen/Citizens.svelte';
 
   let isAuthed = false;
 
@@ -40,6 +40,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(var(--background-color), 0.75);
+    min-width: 400px;
   }
   div:nth-child(2) {
     grid-area: right;

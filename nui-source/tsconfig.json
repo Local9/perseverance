@@ -39,6 +39,9 @@
       ],
       "@form/*": [
         "src/components/form/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
       ]
     },
     /**

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '@components/form/Button.svelte';
   import Icon from '@iconify/svelte';
   import { authenticate } from '@store/auth';
   import Login from './Login.svelte';
@@ -28,15 +29,17 @@
         <Icon icon="line-md:account" width="100" />
       </hgroup>
       <Login />
-      <button on:click={handleOnClick}
-        >Don't have an account?<br />Register here</button
+      <Button on:click={handleOnClick} variant="default" size="md"
+        >Don't have an account?<br />Register here</Button
       >
     </div>
   {:else}
     <div>
       <hgroup>Register</hgroup>
       <Register />
-      <button on:click={handleOnClick}>Go back</button>
+      <Button on:click={handleOnClick} variant="default" size="md"
+        >Go back</Button
+      >
     </div>
   {/if}
   {#if showHero}

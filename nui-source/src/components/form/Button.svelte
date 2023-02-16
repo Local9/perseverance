@@ -1,6 +1,14 @@
 <script type="ts">
-  export let size: typeof buttonSizes | null;
-  export let variant: typeof buttonVariants | null;
+  export let variant:
+    | 'default'
+    | 'cancel'
+    | 'danger'
+    | 'success'
+    | 'transparent'
+    | 'link'
+    | 'blue'
+    | 'amber' = 'default';
+  export let size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
 
   export const buttonVariants = {
     default:
@@ -15,7 +23,7 @@
     blue: 'bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 dark:border dark:border-blue-800 text-black',
     amber:
       'text-black bg-orange-500 dark:bg-orange-500 hover:bg-orange-600 dark:hover:bg-orange-600',
-  };
+  } as const;
 
   export const buttonSizes = {
     xs: 'p-0.5 px-2',
@@ -23,9 +31,20 @@
     md: 'p-1.5 px-4',
     lg: 'p-2 px-6',
   } as const;
-
-  // use the buttonVariants and buttonSizes objects to create a class string
-  // that can be used in the button element
 </script>
 
-<button class={(buttonVariants[variant], buttonSizes[size])} />
+<button
+  on:click
+  on:mouseover
+  on:mouseenter
+  on:mouseleave
+  on:focus
+  class="
+  {$$restProps.class}
+  {variant}
+  {buttonVariants[variant]}
+  {buttonSizes[size]}
+  rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors w-full"
+>
+  <slot />
+</button>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '@components/form/Button.svelte';
   import Icon from '@iconify/svelte';
   import { setCitizen } from '@store/citizen';
   import type { ICitizen } from '../../@types/citizen';
@@ -28,10 +29,7 @@
       </div>
     </div>
   {/if}
-  <button
-    class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-    on:click={handleClick}>{citizen.name} {citizen.surname}</button
-  >
+  <Button on:click={handleClick}>{citizen.name} {citizen.surname}</Button>
 </article>
 
 <style type="scss">

@@ -4,19 +4,21 @@ import { failure } from "@store/toast";
 
 export const isAuthenticated = writable(false);
 
-export function authenticate(username: string, password: string) {
+export function authenticate(username: string, password: string) : boolean {
   if (import.meta.env.DEV) {
     isAuthenticated.set(true);
-    return;
+    return true;
   }
 
   fetchNui("authenticate", { username, password })
     .then((returnData) => {
       if (returnData.success) {
         isAuthenticated.set(true);
+        return true;
       } else {
         // todo custom classes as toast is affected by pico css
         failure("Invalid username or password");
+        return false;
       }
     })
     .catch((e) => { });
