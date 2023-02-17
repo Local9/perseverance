@@ -53,6 +53,7 @@
   <TextField
     bind:value={registrationCode}
     label="Registration code"
+    optionalLabel="Only if required"
     type="password"
     name="registrationCode"
     placeholder="Registration code"

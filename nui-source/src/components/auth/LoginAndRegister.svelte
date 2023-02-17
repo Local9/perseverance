@@ -42,7 +42,7 @@
     </div>
   {:else}
     <div>
-      <hgroup>Register</hgroup>
+      <hgroup class="dark: text-white">Register</hgroup>
       <Register class="w-full" />
       <Button
         on:click={handleOnClick}
