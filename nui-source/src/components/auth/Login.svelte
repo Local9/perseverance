@@ -2,6 +2,7 @@
   import Button from '@components/form/Button.svelte';
   import TextField from '@components/form/TextField.svelte';
   import { authenticate } from '@store/auth';
+  import { toggleTheme } from '@store/theme';
 
   let username: string = '';
   let password: string = '';
@@ -15,6 +16,10 @@
     }
   };
 </script>
+
+<!-- TEMP FOR NOW, SHOULD BE MOVED -->
+
+<Button on:click={toggleTheme}>Toggle theme</Button>
 
 <form on:submit|preventDefault={handleClientData} class={$$restProps.class}>
   <TextField
