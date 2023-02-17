@@ -77,8 +77,5 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    optimizeDeps: {
-      include: ['@picocss/pico'],
-    },
   };
 });
