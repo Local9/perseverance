@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import type { ICitizen } from '../../@types/citizen';
   import Citizen from './Citizen.svelte';
+  import { logout } from '@store/auth';
 
   export let showNameplates: boolean = true;
   let myCitizens: ICitizen[] = [];
@@ -24,11 +25,6 @@
       class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
       >Create Citizen</Button
     >
-    <Button
-      on:click={getCitizens}
-      class="rounded-md disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-      >Try Again</Button
-    >
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}
@@ -37,6 +33,7 @@
       <Button>Create Citizen</Button>
     </div>
   {/if}
+  <Button on:click={logout}>Logout</Button>
 </div>
 
 <style lang="scss">

@@ -1,12 +1,10 @@
 <script lang="ts">
   import Button from '@components/form/Button.svelte';
-  import Icon from '@iconify/svelte';
   import { authenticate } from '@store/auth';
   import Login from './Login.svelte';
   import Register from './Register.svelte';
 
   export let showHero: boolean = true;
-  export let width: number = 700;
 
   let username: string = '';
   let password: string = '';
@@ -22,22 +20,35 @@
   };
 </script>
 
-<article class="grid" style="width: {width}px">
+<article class="{$$restProps.class} grid">
   {#if page === 'login'}
     <div>
       <hgroup>
-        <Icon icon="line-md:account" width="100" />
+        <!-- Replace with image from CAD -->
+        <img
+          src="https://avatars.githubusercontent.com/u/91481975?s=200&v=4"
+          alt="Logo"
+          class="rounded-full mb-4"
+        />
       </hgroup>
-      <Login />
-      <Button on:click={handleOnClick} variant="default" size="md"
+      <Login class="w-full" />
+      <Button
+        on:click={handleOnClick}
+        variant="default"
+        size="md"
+        class="flex items-center justify-center w-full gap-3 mt-5"
         >Don't have an account?<br />Register here</Button
       >
     </div>
   {:else}
     <div>
       <hgroup>Register</hgroup>
-      <Register />
-      <Button on:click={handleOnClick} variant="default" size="md"
+      <Register class="w-full" />
+      <Button
+        on:click={handleOnClick}
+        variant="default"
+        size="md"
+        class="flex items-center justify-center w-full gap-3 mt-5"
         >Go back</Button
       >
     </div>

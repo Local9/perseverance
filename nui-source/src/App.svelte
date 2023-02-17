@@ -32,6 +32,7 @@
         prefersDarkThemes() ? THEMES.LIGHT : THEMES.DARK
       );
     }
+    applyTheme();
   };
 
   const applyTheme = () => {

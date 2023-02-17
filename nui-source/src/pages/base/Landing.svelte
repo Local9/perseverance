@@ -14,7 +14,7 @@
 <main transition:fade>
   <div>
     {#if !isAuthed}
-      <LoginAndRegister showHero={false} width={400} />
+      <LoginAndRegister showHero={false} class="w-full" />
     {:else}
       <Citizens showNameplates={false} />
     {/if}
