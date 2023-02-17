@@ -1,8 +1,10 @@
 <script lang="ts">
   export let errorMessage: string = '';
+  export let value: string = '';
 </script>
 
 <input
+  bind:value
   on:click
   on:mouseover
   on:mouseenter
