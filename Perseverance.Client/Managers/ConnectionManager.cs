@@ -94,7 +94,7 @@ namespace Perseverance.Client.Managers
             await Hud.FadeOut(1500);
 
             cameraIndex++;
-            if (cameraIndex > cameras.Count)
+            if (cameraIndex >= cameras.Count)
                 cameraIndex = 0;
 
             await BaseScript.Delay(100);
