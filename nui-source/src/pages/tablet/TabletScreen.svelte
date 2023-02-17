@@ -21,7 +21,7 @@
   .tablet-background {
     height: 100%;
     padding: 25px;
-    border-radius: calc(var(--sizeVar) / 24);
+    border-radius: calc(var(--tablet-height-ratio) / 24);
 
     display: flex;
     flex-direction: column;
@@ -33,10 +33,10 @@
   .tablet-background::before {
     content: '';
     background-image: url(https://i.imgur.com/51MkKwC.jpeg);
-    border-radius: calc(var(--sizeVar) / 48);
+    border-radius: calc(var(--tablet-height-ratio) / 48);
     background-size: cover;
     background-position: center;
-    border: solid black calc(var(--sizeVar) / 200);
+    border: solid black calc(var(--tablet-height-ratio) / 200);
     opacity: 0.25;
     position: absolute;
     top: 0;

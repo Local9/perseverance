@@ -37,12 +37,12 @@
   .tablet div {
     position: absolute;
     width: 85vw;
-    height: calc(var(--sizeVar) * 0.87);
-    background-color: var(--alt-background-color);
-    border-radius: calc(var(--sizeVar) / 48);
+    height: calc(var(--tablet-height-ratio) * 0.87);
+    background-color: rgba(var(--background-color), 1);
+    border-radius: calc(var(--tablet-height-ratio) / 48);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 calc(var(--sizeVar) / 200) #9d9ea0;
+    box-shadow: 0 0 0 calc(var(--tablet-height-ratio) / 200) #9d9ea0;
   }
 </style>
