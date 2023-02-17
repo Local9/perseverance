@@ -97,6 +97,8 @@ namespace Perseverance.Client.Managers
                         await Hud.FadeIn(1500);
                     }
 
+                    Screen.DisplayHelpTextThisFrame($"Press ~INPUT_6D37387D~ to open the SnailyCAD Tablet");
+
                     result(new { success = true });
                 }
                 catch (Exception ex)
