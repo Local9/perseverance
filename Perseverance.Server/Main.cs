@@ -14,6 +14,8 @@ namespace Perseverance.Server
         internal static Log Logger { get; private set; }
         internal static PlayerList PlayerList { get; private set; }
         internal static ExportDictionary ExportDictionary { get; private set; }
+
+        private string resourceScaleformUI = "ScaleformUI";
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         internal static ServerConfiguration ServerConfiguration { get; private set; }
         internal static string SnailyCadUrl { get; private set; }
@@ -52,20 +54,7 @@ namespace Perseverance.Server
             //{
             //    Logger.Error($"Database Connection Test Failed!");
             //}
-
-            string scaleformState = GetResourceState("ScaleformUI");
-
-            if (scaleformState == "missing" || scaleformState == "unknown")
-            {
-                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
-                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
-                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
-            }
-            else if (scaleformState == "uninitialized" || scaleformState == "stopped")
-            {
-                Logger.Warning($"Starting resource 'ScalformUI'");
-                StartResource("ScalefromUI");
-            }
+            await CheckScaleformUiResourceIsActiveAsync();
 
             SnailyCadUrl = GetConvar("snailycad_url", "unknown");
             SnailyCadApiKey = GetConvar("snailycad_api_key", "unknown");
@@ -93,6 +82,41 @@ namespace Perseverance.Server
             }
 
             LoadManagers();
+        }
+
+        private async Task CheckScaleformUiResourceIsActiveAsync()
+        {
+            resourceScaleformUI = GetResourceMetadata(GetCurrentResourceName(), "scaleformui_resource_folder_name", 0);
+
+            if (string.IsNullOrEmpty(resourceScaleformUI))
+                resourceScaleformUI = "ScaleformUI";
+
+            string scaleformState = GetResourceState(resourceScaleformUI);
+
+            if (scaleformState == "missing" || scaleformState == "unknown")
+            {
+                Logger.Error($"Resource '{resourceScaleformUI}' is missing! Menus will not work!");
+                Logger.Error($"Resource '{resourceScaleformUI}' is missing! Menus will not work!");
+                Logger.Error($"Resource '{resourceScaleformUI}' is missing! Menus will not work!");
+            }
+            else if (scaleformState == "uninitialized" || scaleformState == "stopped")
+            {
+                Logger.Warning($"Starting resource '{resourceScaleformUI}'");
+                if (StartResource(resourceScaleformUI))
+                {
+
+                    while (GetResourceState(resourceScaleformUI) != "started")
+                    {
+                        await Delay(1000);
+                    }
+
+                    Logger.Info($"Started resource '{resourceScaleformUI}'");
+                }
+                else
+                {
+                    Logger.Error($"Failed to start resource '{resourceScaleformUI}'");
+                }
+            }
         }
 
         void LoadManagers()
