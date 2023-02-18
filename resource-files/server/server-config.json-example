@@ -13,13 +13,8 @@
     "url": "",
     "whitelist": [],
     "webhooks": {
-      "server-debug": "",
       "server-error": "",
       "server-player-log": ""
     }
-  },
-  "snailycad": {
-    "url": "cad-api.example.com/v1",
-    "apikey": ""
   }
 }
