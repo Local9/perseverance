@@ -14,7 +14,7 @@ namespace Perseverance.Server
         internal static Log Logger { get; private set; }
         internal static PlayerList PlayerList { get; private set; }
         internal static ExportDictionary ExportDictionary { get; private set; }
-
+        private const string RESOURCE_SCALEFORMUI_DEFAULT = "ScaleformUI";
         private string resourceScaleformUI = "ScaleformUI";
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         internal static ServerConfiguration ServerConfiguration { get; private set; }
@@ -89,7 +89,7 @@ namespace Perseverance.Server
             resourceScaleformUI = GetResourceMetadata(GetCurrentResourceName(), "scaleformui_resource_folder_name", 0);
 
             if (string.IsNullOrEmpty(resourceScaleformUI))
-                resourceScaleformUI = "ScaleformUI";
+                resourceScaleformUI = RESOURCE_SCALEFORMUI_DEFAULT;
 
             string scaleformState = GetResourceState(resourceScaleformUI);
 
@@ -104,7 +104,6 @@ namespace Perseverance.Server
                 Logger.Warning($"Starting resource '{resourceScaleformUI}'");
                 if (StartResource(resourceScaleformUI))
                 {
-
                     while (GetResourceState(resourceScaleformUI) != "started")
                     {
                         await Delay(1000);
