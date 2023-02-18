@@ -53,6 +53,20 @@ namespace Perseverance.Server
             //    Logger.Error($"Database Connection Test Failed!");
             //}
 
+            string scaleformState = GetResourceState("ScaleformUI");
+
+            if (scaleformState == "missing" || scaleformState == "unknown")
+            {
+                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
+                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
+                Logger.Error("Resource 'ScaleformUI' is missing! Menus will not work!");
+            }
+            else if (scaleformState == "uninitialized" || scaleformState == "stopped")
+            {
+                Logger.Warning($"Starting resource 'ScalformUI'");
+                StartResource("ScalefromUI");
+            }
+
             SnailyCadUrl = GetConvar("snailycad_url", "unknown");
             SnailyCadApiKey = GetConvar("snailycad_api_key", "unknown");
 

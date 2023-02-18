@@ -5,6 +5,27 @@
         const string SNAILY_CAD_CITIZEN = "citizen";
 
         /// <summary>
+        /// Creates a citizen in the SnailyCAD API for the authenticated user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="citizen"></param>
+        /// <returns></returns>
+        internal static async Task<CitizenMessage> Create(PerseveranceUser user, Citizen citizen)
+        {
+            Main.Logger.Debug($"Player {user.Handle} is attempting to create a citizen with name '{citizen.fullname}'");
+
+            HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Post, SNAILY_CAD_CITIZEN, citizen, user.SnailyAuth.Cookies);
+
+            if (resp is null)
+            {
+                Main.Logger.Error($"CitizenController.Create() was unable to create citizen for user {user.Handle}");
+                return null;
+            }
+
+            return await resp.GetObjectFromResponseContentAsync<CitizenMessage>();
+        }
+
+        /// <summary>
         /// Gets all the citizens from the SnailyCAD API for the authenticated user
         /// </summary>
         /// <param name="user"></param>
@@ -23,7 +44,7 @@
                 return null;
             }
 
-            return await resp.OnGetObjectFromResponseContentAsync<CitizenMessage>();
+            return await resp.GetObjectFromResponseContentAsync<CitizenMessage>();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Logger;
 using Perseverance.Client.GameInterface;
 using Perseverance.Client.Managers;
-using Perseverance.Shared.Attributes;
 using System.Reflection;
 
 namespace Perseverance.Client
@@ -12,7 +11,7 @@ namespace Perseverance.Client
         internal static Log Logger { get; private set; }
         internal static PlayerList PlayerList { get; private set; }
         internal static NuiManager NuiManager { get; private set; }
-        
+
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         public Dictionary<Type, object> Managers { get; } = new();
         public Dictionary<Type, List<MethodInfo>> TickHandlers { get; set; } = new();

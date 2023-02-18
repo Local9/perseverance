@@ -47,43 +47,15 @@
                         Main.Logger.Error($"{response.StatusCode}");
                         Main.Logger.Error($"{response.Content.ReadAsStringAsync().Result}");
                     }
-                    
+
                     // throw the exception
                     response.EnsureSuccessStatusCode();
-                    
+
                     return response;
                 }
-
-                //using (var handler = new HttpClientHandler { UseCookies = false })
-                //using (var client = new HttpClient(handler) { BaseAddress = baseAddress })
-                //{
-                //    var message = new HttpRequestMessage(httpMethod, endpoint);
-                //    message.Headers.Add("accept", "*/*");
-                //    // message.Headers.Add("snaily-cad-api-token", Main.SnailyCadApiKey); // this ignores authentication
-                //    message.Headers.Add("is-from-dispatch", "false");
-
-                //    if (data is not null)
-                //        message.Content = new StringContent(data.ToJson(), Encoding.UTF8, "application/json");
-
-                //    if (cookies is not null)
-                //    {
-                //        string cookieString = "";
-                //        foreach (var cookie in cookies)
-                //        {
-                //            cookieString += $"{cookie.Key}={cookie.Value};";
-                //        }
-                //        message.Headers.Add("Cookie", cookieString);
-                //    }
-
-                //    var result = await client.SendAsync(message).ConfigureAwait(false); ;
-
-                //    Main.Logger.Debug($"HttpHandler.OnHttpResponseMessageAsync() has successfully sent a {httpMethod} request to {endpoint}");
-
-                //    return result;
-                //}
             });
         }
-        
+
         internal static Dictionary<string, string> GetCookies(HttpResponseMessage response)
         {
             var cookieHeader = response.Headers.FirstOrDefault(h => h.Key == "Set-Cookie");
@@ -99,7 +71,7 @@
             return cookies;
         }
 
-        internal static async Task<T> OnGetObjectFromResponseContentAsync<T>(this HttpResponseMessage httpResponseMessage)
+        internal static async Task<T> GetObjectFromResponseContentAsync<T>(this HttpResponseMessage httpResponseMessage)
         {
             return await Task.Run(async () =>
             {

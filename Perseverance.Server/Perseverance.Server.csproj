@@ -39,9 +39,9 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /f /r /y /i bin\Debug ..\build\server" Condition="'$(Configuration)' == 'Debug'" />
-    <Exec Command="xcopy /f /r /y /i bin\Release ..\build\server" Condition="'$(Configuration)' == 'Release'" />
-    <Exec Command="xcopy /f /r /y /i bin\Local $(FIVEM_SERVER_PATH_CH)\resources\[perseverance-framework]\perseverance\server" Condition="'$(Configuration)' == 'Local'" />
+    <Exec Command="xcopy /f /r /y /i bin\Debug ..\build\server&#xD;&#xA;xcopy /f /r /y /i ..\resource-files ..\build" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="xcopy /f /r /y /i bin\Release ..\build\server&#xD;&#xA;xcopy /f /r /y /i ..\resource-files ..\build" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="xcopy /f /r /y /i bin\Local $(FIVEM_SERVER_PATH_CH)\resources\[perseverance-framework]\perseverance\server&#xD;&#xA;xcopy /f /r /y /i ..\resource-files $(FIVEM_SERVER_PATH_CH)\resources\[perseverance-framework]\perseverance" Condition="'$(Configuration)' == 'Local'" />
   </Target>
 
   <Import Project="..\Perseverance.Shared\Perseverance.Shared.projitems" Label="Shared" />

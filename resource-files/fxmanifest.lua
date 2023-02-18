@@ -2,8 +2,8 @@ game "gta5"
 fx_version "cerulean"
 
 author "Local9 <https://github.com/Local9>"
-description "curiosity framework"
-version "3.0.0"
+description "Perseverance Framework"
+version "1.0.0"
 
 files {
   "data/**/*",

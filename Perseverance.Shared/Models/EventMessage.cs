@@ -1,4 +1,4 @@
-﻿namespace Perseverance.Shared.Models.SnailyCAD
+﻿namespace Perseverance.Shared.Models
 {
     public class EventMessage
     {
@@ -9,7 +9,7 @@
                 return string.IsNullOrEmpty(errorMessage);
             }
         }
-        
+
         public string errorMessage { get; set; }
     }
 

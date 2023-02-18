@@ -20,7 +20,7 @@
                 SnailyCadAuthenticationDetails snailyAuthentication = new();
                 snailyAuthentication.Cookies = HttpHandler.GetCookies(resp);
 
-                Dictionary<string, string> requestData = await resp.OnGetObjectFromResponseContentAsync<Dictionary<string, string>>();
+                Dictionary<string, string> requestData = await resp.GetObjectFromResponseContentAsync<Dictionary<string, string>>();
                 snailyAuthentication.UserId = requestData["userId"];
 
                 return snailyAuthentication;
@@ -45,7 +45,7 @@
                 SnailyCadAuthenticationDetails snailyAuthentication = new();
                 snailyAuthentication.Cookies = HttpHandler.GetCookies(resp);
 
-                Dictionary<string, string> requestData = await resp.OnGetObjectFromResponseContentAsync<Dictionary<string, string>>();
+                Dictionary<string, string> requestData = await resp.GetObjectFromResponseContentAsync<Dictionary<string, string>>();
                 snailyAuthentication.UserId = requestData["userId"];
                 
                 if (bool.TryParse(requestData["isOwner"], out bool isOwner))
