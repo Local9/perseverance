@@ -22,12 +22,10 @@
     height: 100%;
     padding: 25px;
     border-radius: calc(var(--tablet-height-ratio) / 24);
-
     display: flex;
     flex-direction: column;
     // justify-content: center;
     // align-items: center;
-    height: 100%;
   }
 
   .tablet-background::before {

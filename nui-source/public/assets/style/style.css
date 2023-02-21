@@ -1,14 +1,32 @@
 :root {
+  --color-one: #586F8C;
+  --color-two: #495B73;
+  --color-three: #262625;
+  --color-four: #A6A6A6;
+  --color-five: #F2F2F2;
+
   --tablet-height-ratio: 99vmin;
   --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
     "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", "Noto Color Emoji";
+  --background-opacity-modal: 0.75;
+  --grid-spacing-vertical: 1rem;
 }
 
 :root[data-theme="light"] {
-  --background-color: 255, 255, 255;
+  --color: 38, 38, 37;
+  --background-color: 242, 242, 242;
+  --background-color-modal: 166, 166, 166;
 }
 
 :root[data-theme="dark"] {
-  --background-color: 0, 0, 0;
+  --color: 242, 242, 242;
+  --background-color: 38, 38, 37;
+  --background-color-modal: 38, 38, 37;
+}
+
+html {
+  font-size: 16px;
+  font-family: var(--font-family);
+  color: rgb(var(--color));
 }

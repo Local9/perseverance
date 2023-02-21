@@ -42,6 +42,9 @@
       ],
       "@pages/*": [
         "src/pages/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
       ]
     },
     /**

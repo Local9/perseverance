@@ -35,6 +35,7 @@
   ]);
 </script>
 
+<!-- TODO: Replace this -->
 <SvelteToast {options} />
 
 <LandingVisibilityProvider>
