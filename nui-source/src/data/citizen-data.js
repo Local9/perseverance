@@ -26,20 +26,20 @@ export const citizens = {
     },
     {
       id: "9KaXI",
-      name: "Jane",
+      name: "Criezy",
       surname: "Doe",
       socialSecurityNumber: "1234567890"
     },
     {
       id: "9KaXI",
-      name: "John",
+      name: "Flaming",
       surname: "Doe",
       socialSecurityNumber: "1234567890"
     },
     {
       id: "9KaXI",
-      name: "Keanu",
-      surname: "Reeves",
+      name: "Whitigol",
+      surname: "Doe",
       socialSecurityNumber: "1234567890"
     },
     {
