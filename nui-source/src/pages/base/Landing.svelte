@@ -40,7 +40,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(var(--background-color), 0.75);
-    min-width: 400px;
+    width: 400px;
   }
   div:nth-child(2) {
     grid-area: right;
