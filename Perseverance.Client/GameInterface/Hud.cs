@@ -1,12 +1,18 @@
-﻿namespace Perseverance.Client.GameInterface
+﻿using Perseverance.Client.GameInterface.Menu;
+using ScaleformUI;
+
+namespace Perseverance.Client.GameInterface
 {
     internal class Hud
     {
         internal static PointF MenuOffset => new PointF(25f, 25f);
+        internal static MenuPool MenuPool { get; private set; }
+        internal static BaseMenu BaseMenu { get; private set; }
 
         internal Hud()
         {
-            
+            MenuPool = new();
+            BaseMenu = new();
         }
 
         internal static async Task FadeOut(int duration, bool giveControlHalfway = false)
@@ -97,37 +103,6 @@
             anchor.UnitY = (float)scaleY;
 
             return anchor;
-        }
-
-        internal static void DrawTextLegacy(string text, float scale, PointF position, Color color, bool centered = false, Font font = Font.ChaletLondon, Alignment alignment = Alignment.Left)
-        {
-            SetTextFont(0);
-            SetTextScale(scale, scale);
-            SetTextColour(color.R, color.G, color.B, color.A);
-            SetTextDropshadow(0, 0, 0, 0, 255);
-            SetTextOutline();
-            SetTextCentre(centered);
-
-            BeginTextCommandDisplayText("STRING");
-            AddTextComponentSubstringPlayerName(text);
-            EndTextCommandDisplayText(position.X, position.Y);
-        }
-
-        internal static void StartLoadingMessage(string label, eBusySpinnerType eBusySpinnerType = eBusySpinnerType.BUSY_SPINNER_SAVE)
-        {
-            string textOutput = Game.GetGXTEntry(label);
-
-            if (string.IsNullOrEmpty(textOutput))
-                textOutput = label;
-
-            SetLoadingPromptTextEntry("STRING");
-            AddTextComponentSubstringPlayerName(textOutput);
-            EndTextCommandBusyspinnerOn((int)eBusySpinnerType);
-        }
-
-        internal static void StopLoadingMessage()
-        {
-            BusyspinnerOff();
         }
 
         internal static void CloseLoadingScreen()

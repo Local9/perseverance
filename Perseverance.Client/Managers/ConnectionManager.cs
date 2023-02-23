@@ -24,7 +24,7 @@ namespace Perseverance.Client.Managers
         /// <param name="resourceName"></param>
         private async void OnResourceStartAsync(string resourceName)
         {
-            Hud.StartLoadingMessage("PM_WAIT");
+            ScaleformUI.Notifications.StartLoadingMessage("PM_WAIT");
             await Hud.FadeOut(100);
 
             if (resourceName != GetCurrentResourceName()) return;
@@ -73,7 +73,7 @@ namespace Perseverance.Client.Managers
                 Hud.CloseLoadingScreen();
             }
 
-            Hud.StopLoadingMessage();
+            ScaleformUI.Notifications.StopLoadingMessage();
 
             Logger.Debug("Perseverance.Client has started!");
         }

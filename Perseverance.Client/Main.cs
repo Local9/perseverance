@@ -9,9 +9,9 @@ namespace Perseverance.Client
     {
         internal static Main Instance { get; private set; }
         internal static Log Logger { get; private set; }
-        internal static PlayerList PlayerList { get; private set; }
+        internal static Hud Hud { get; private set; }
         internal static NuiManager NuiManager { get; private set; }
-
+        internal static PlayerList PlayerList { get; private set; }
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         public Dictionary<Type, object> Managers { get; } = new();
         public Dictionary<Type, List<MethodInfo>> TickHandlers { get; set; } = new();
@@ -21,6 +21,7 @@ namespace Perseverance.Client
         {
             Instance = this;
             Logger = new();
+            Hud = new();
             NuiManager = new();
             PlayerList = Players;
 
