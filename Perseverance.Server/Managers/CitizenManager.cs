@@ -18,6 +18,14 @@ namespace Perseverance.Server.Managers
             return player.Citizen.ToJson();
         }
 
+        /// <summary>
+        /// Called when the client is setting the active citizen for the current user
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="serverId"></param>
+        /// <param name="citizenId"></param>
+        /// <param name="citizenFullname"></param>
+        /// <returns></returns>
         private async Task<bool> OnServerSetCitizen([FromSource] EventSource source, int serverId, string citizenId, string citizenFullname)
         {
             if (source.Handle != serverId) return false;
@@ -27,9 +35,8 @@ namespace Perseverance.Server.Managers
             {
                 return false;
             }
-            
-            source.Player.State.Set(StateBagKey.CharacterName, citizenFullname, true);
 
+            source.Player.State.Set(StateBagKey.CharacterName, citizenFullname, true);
 
             bool showLandingPage = GetResourceMetadata(GetCurrentResourceName(), "use_landing_page", 0) == "true";
 
@@ -37,7 +44,7 @@ namespace Perseverance.Server.Managers
             {
                 int defaultBucket = 0;
                 string str = GetResourceMetadata(GetCurrentResourceName(), "default_player_bucket", 0);
-                
+
                 if (!string.IsNullOrEmpty(str))
                     int.TryParse(str, out defaultBucket);
 
