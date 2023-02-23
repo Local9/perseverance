@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { fetchNui } from "@utils/fetchNui";
-import { citizens } from "../data/citizen-data";
+import { citizens } from "../data/citizen.data";
 import type { ICitizen } from "../@types/citizen";
 
 export const storeCitizens = writable<ICitizen[]>([]);
