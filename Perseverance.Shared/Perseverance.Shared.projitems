@@ -14,10 +14,36 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enums\eHudColour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Authenitcation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Hud\MinimapAnchor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\ApiToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Auth.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Bof.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Bolos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Cad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Citizen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Common.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Create.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Ems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\ErrorMessages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Errors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Features.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Leo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\LicenseExams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\MedicalRecords.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Messages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\MiscCadSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Nav.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Registration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Session.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Statuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Value.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Value1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Vehicles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Version.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Weapons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Count.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBagKey.cs" />
   </ItemGroup>
 </Project>
