@@ -2,6 +2,7 @@
 {
     public class Citizen
     {
+        public string id { get; set; }
         public string citizen { get; set; }
         public string citizens { get; set; }
         public string userNoCitizens { get; set; }
