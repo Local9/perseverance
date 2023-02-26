@@ -10,7 +10,7 @@
                 {
                     Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
 
-                    Authenitcation authenitcation = new Authenitcation(keyValuePairs["username"], keyValuePairs["password"]);
+                    Authentication authenitcation = new Authenitcation(keyValuePairs["username"], keyValuePairs["password"]);
 
                     EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("server:authenticate", Game.Player.ServerId, authenitcation);
 

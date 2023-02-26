@@ -1,13 +1,13 @@
 ﻿namespace Perseverance.Shared.Models
 {
-    public partial class Authenitcation
+    public partial class Authentication
     {
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public Authenitcation() { }
+        public Authentication() { }
 
-        internal Authenitcation(string username, string password)
+        internal Authentication(string username, string password)
         {
             Username = username;
             Password = password;

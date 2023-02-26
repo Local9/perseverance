@@ -6,7 +6,7 @@ namespace Perseverance.Server.Managers
     {
         public override void Begin()
         {
-            EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authenitcation, Task<EventMessage>>(OnServerAuthenticateAsync));
+            EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authentication, Task<EventMessage>>(OnServerAuthenticateAsync));
             EventDispatcher.Mount("server:register", new Func<EventSource, int, Registration, Task<RegistrationMessage>>(OnServerRegisterAsync));
             EventDispatcher.Mount("server:logout", new Func<EventSource, int, Task<bool>>(OnServerLogoutAsync));
         }
@@ -18,7 +18,7 @@ namespace Perseverance.Server.Managers
         /// <param name="serverId"></param>
         /// <param name="auth"></param>
         /// <returns></returns>
-        private async Task<EventMessage> OnServerAuthenticateAsync([FromSource] EventSource source, int serverId, Authenitcation auth)
+        private async Task<EventMessage> OnServerAuthenticateAsync([FromSource] EventSource source, int serverId, Authentication auth)
         {
             try
             {
