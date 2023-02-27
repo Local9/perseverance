@@ -1,4 +1,4 @@
-﻿using Perseverance.Client.GameInterface.Menu;
+﻿using Perseverance.Client.GameInterface.Menu.Interaction;
 using ScaleformUI;
 
 namespace Perseverance.Client.GameInterface

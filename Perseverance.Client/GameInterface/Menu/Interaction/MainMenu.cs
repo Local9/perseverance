@@ -1,7 +1,7 @@
 ﻿using Perseverance.Shared;
 using ScaleformUI;
 
-namespace Perseverance.Client.GameInterface.Menu
+namespace Perseverance.Client.GameInterface.Menu.Interaction
 {
     internal class BaseMenu
     {
