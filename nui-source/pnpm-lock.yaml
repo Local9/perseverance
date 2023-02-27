@@ -3,7 +3,6 @@ lockfileVersion: 5.4
 specifiers:
   '@iconify/svelte': ^3.1.0
   '@sveltejs/vite-plugin-svelte': ^1.4.0
-  '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/typography': ^0.5.9
   '@tsconfig/svelte': ^3.0.0
   '@zerodevx/svelte-toast': ^0.8.2
@@ -25,7 +24,6 @@ specifiers:
 devDependencies:
   '@iconify/svelte': 3.1.0_svelte@3.55.1
   '@sveltejs/vite-plugin-svelte': 1.4.0_svelte@3.55.1+vite@3.2.5
-  '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.6
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
   '@tsconfig/svelte': 3.0.0
   '@zerodevx/svelte-toast': 0.8.2
@@ -189,15 +187,6 @@ packages:
       vitefu: 0.2.4_vite@3.2.5
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@tailwindcss/forms/0.5.3_tailwindcss@3.2.6:
-    resolution: {integrity: sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
-    dependencies:
-      mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.2.6_postcss@8.4.21
     dev: true
 
   /@tailwindcss/typography/0.5.9_tailwindcss@3.2.6:
@@ -1474,11 +1463,6 @@ packages:
   /min-indent/1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
-    dev: true
-
-  /mini-svg-data-uri/1.4.4:
-    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
-    hasBin: true
     dev: true
 
   /minimatch/3.0.8:
