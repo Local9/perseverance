@@ -13,6 +13,7 @@ export interface ICitizen {
   weight: number;
   address: string;
   postal: string;
+  ethnicity: string;
 
   fullname: string = `${this.name} ${this.surname}`;
 }

@@ -1,10 +1,10 @@
 <script lang="ts">
   import Button from '@components/form/Button.svelte';
   import Modal from '@shared/Modal.svelte';
-  import Icon from '@iconify/svelte';
   import TextField from '@components/form/TextField.svelte';
   import type { ICitizen } from 'src/@types/citizen';
   import Select from '@components/form/inputs/Select.svelte';
+  import { genders, ethnicities, getEthnicities, getGenders } from '@store/application';
 
   export let showModal: boolean = false;
   export let citizen: ICitizen = {
@@ -23,9 +23,23 @@
     weight: undefined,
     address: undefined,
     postal: undefined,
+    ethnicity: undefined,
   };
 
   let citizenCopy: ICitizen = { ...citizen };
+  let citizenGenders: any[] = [];
+  let citizenEthnicities: any[] = [];
+
+  $: getGenders();
+  $: getEthnicities();
+
+  genders.subscribe((data: any) => {
+    citizenGenders = data;
+  });
+
+  ethnicities.subscribe((data: any) => {
+    citizenEthnicities = data;
+  });
 
   function onClickSaveCitizen() {
     // Save back to store
@@ -53,8 +67,8 @@
     <TextField label="Weight" type="text" placeholder="00.00" id="weight" optionalLabel="kg" bind:value={citizenCopy.weight} />
     <TextField label="Height" type="text" placeholder="00.00" id="height" optionalLabel="cm" bind:value={citizenCopy.height} />
     <div />
-    <Select label="Gender" placeholder="Male" type="text" id="gender" bind:value={citizenCopy.gender} />
-    <Select label="Ethnicity" placeholder="White" type="text" id="ethnicity" bind:value={citizenCopy.gender} />
+    <Select label="Gender" placeholder="Male" type="text" id="gender" bind:value={citizenCopy.gender} options={citizenGenders} />
+    <Select label="Ethnicity" placeholder="White" type="text" id="ethnicity" bind:value={citizenCopy.ethnicity} options={citizenEthnicities} />
     <Select class="col-span-2" label="Address" type="text" id="address" bind:value={citizenCopy.address} />
     <Select label="Postal" type="text" id="postal" bind:value={citizenCopy.postal} />
   </div>
