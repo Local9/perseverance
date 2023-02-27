@@ -3,14 +3,25 @@
   import Icon from '@iconify/svelte';
   import { setCitizen } from '@store/citizen';
   import type { ICitizen } from '../../@types/citizen';
+  import CitizenForm from './CitizenForm.svelte';
 
   export let citizen: ICitizen;
   export let showNameplate: boolean = true;
 
-  function handleClick() {
+  function onClickSetCitizen() {
     setCitizen(citizen);
   }
+
+  function onClickDeleteCitizen() {
+    console.log(`delete citizen ${citizen.id}`);
+  }
+
+  let showModal: boolean = false;
 </script>
+
+{#if showModal}
+  <CitizenForm bind:showModal bind:citizen />
+{/if}
 
 <article>
   {#if showNameplate}
@@ -29,7 +40,11 @@
       </div>
     </div>
   {/if}
-  <Button on:click={handleClick}>{citizen.name} {citizen.surname}</Button>
+  <div class="w-96 grid grid-cols-5" role="group">
+    <Button class="text-ellipsis col-span-3 inline-block rounded-l h-10 w-64 overflow-hidden whitespace-nowrap" on:click={onClickSetCitizen}>{citizen.name} {citizen.surname}</Button>
+    <Button class="inline-block rounded-none w-16" on:click={() => (showModal = true)}>Edit</Button>
+    <Button class="inline-block rounded-r w-16 text-center" variant="danger" on:click={onClickDeleteCitizen}>Delete</Button>
+  </div>
 </article>
 
 <style type="scss">

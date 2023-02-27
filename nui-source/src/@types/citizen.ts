@@ -5,5 +5,14 @@ export interface ICitizen {
   imageId: string;
   imageBlurData: string;
   socialSecurityNumber: string;
+  dateOfBirth: Date;
+  gender: string;
+  hairColor: string;
+  eyeColor: string;
+  height: number;
+  weight: number;
+  address: string;
+  postal: string;
+
   fullname: string = `${this.name} ${this.surname}`;
 }

@@ -5,7 +5,7 @@
   import type { ICitizen } from '../../@types/citizen';
   import Citizen from './Citizen.svelte';
   import { logout } from '@store/auth';
-  import CreateCitizen from './CreateCitizen.svelte';
+  import CitizenForm from './CitizenForm.svelte';
 
   export let showNameplates: boolean = true;
   let myCitizens: ICitizen[] = [];
@@ -22,7 +22,7 @@
 </script>
 
 {#if showCreateCitizenModal}
-  <CreateCitizen bind:showCreateCitizenModal />
+  <CitizenForm bind:showModal={showCreateCitizenModal} />
 {/if}
 
 <div>

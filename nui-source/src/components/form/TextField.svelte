@@ -3,7 +3,7 @@
 
   export let label: string = '';
   export let optionalLabel: string = '';
-  export let value: string = '';
+  export let value: any = '';
 </script>
 
 <div class="{$$restProps.class} relative text-field flex flex-col mb-3">

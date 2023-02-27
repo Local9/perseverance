@@ -56,8 +56,8 @@ export const citizens = {
     },
     {
       id: "9KaXI",
-      name: "Brad",
-      surname: "Pitt",
+      name: "Ian Anthony Dale",
+      surname: "Zach Galifianakis",
       socialSecurityNumber: "1234567890"
     }
   ],

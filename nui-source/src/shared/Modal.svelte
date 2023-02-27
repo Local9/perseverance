@@ -11,7 +11,6 @@
 
 <style lang="scss">
   .modal-wrapper {
-    background-color: rgba($color: var(--background-color-modal), $alpha: var(--background-opacity-modal));
     position: absolute;
     top: 0;
     left: 0;
@@ -32,5 +31,6 @@
     display: flex;
     flex-direction: column;
     overflow-x: auto;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, var(--shadow-opacity-modal)), 0 0 0 1000px rgba(var(--background-color-modal), 0.75);
   }
 </style>

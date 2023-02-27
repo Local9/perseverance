@@ -16,13 +16,15 @@
 :root[data-theme="light"] {
   --color: 38, 38, 37;
   --background-color: 242, 242, 242;
-  --background-color-modal: 166, 166, 166;
+  --background-color-modal: 242, 242, 242;
+  --shadow-opacity-modal: 0.25;
 }
 
 :root[data-theme="dark"] {
   --color: 242, 242, 242;
   --background-color: 38, 38, 37;
   --background-color-modal: 38, 38, 37;
+  --shadow-opacity-modal: 0;
 }
 
 html {
