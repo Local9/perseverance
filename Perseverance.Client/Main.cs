@@ -193,7 +193,7 @@ namespace Perseverance.Client
         private async Task OnUpdateGameTimerAsync()
         {
             GameTime = GetGameTimer();
-            await BaseScript.Delay(0);
+            await BaseScript.Delay(500);
         }
     }
 }
