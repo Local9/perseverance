@@ -185,7 +185,7 @@ namespace Perseverance.Client
         }
 
         /// <summary>
-        /// Gets the current game timer. This is the time in milliseconds since the game started.
+        /// Gets the current game timer. This is the time in seconds since the game started.
         /// Using this as the only method to call GetGameTimer will lower the amount of calls to the native.
         /// </summary>
         /// <returns></returns>
