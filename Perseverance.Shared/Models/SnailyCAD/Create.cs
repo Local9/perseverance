@@ -2,7 +2,7 @@
 {
     public class Create
     {
-        public Page pageProps { get; set; }
+        public PageProps pageProps { get; set; }
         public bool __N_SSP { get; set; }
     }
 }

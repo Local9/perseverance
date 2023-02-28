@@ -33,12 +33,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Messages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\MiscCadSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Nav.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProps.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Registration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Session.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Statuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Value.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Value1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Vehicles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Version.cs" />

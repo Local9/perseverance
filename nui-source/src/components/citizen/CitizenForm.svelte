@@ -4,7 +4,7 @@
   import TextField from '@components/form/TextField.svelte';
   import type { ICitizen } from 'src/@types/citizen';
   import Select from '@components/form/inputs/Select.svelte';
-  import { genders, ethnicities, getEthnicities, getGenders } from '@store/application';
+  import { genders, ethnicities, GetServerProps } from '@store/application';
 
   export let showModal: boolean = false;
   export let citizen: ICitizen = {
@@ -30,8 +30,7 @@
   let citizenGenders: any[] = [];
   let citizenEthnicities: any[] = [];
 
-  $: getGenders();
-  $: getEthnicities();
+  $: GetServerProps();
 
   genders.subscribe((data: any) => {
     citizenGenders = data;

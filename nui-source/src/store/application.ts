@@ -1,13 +1,14 @@
 import { writable } from "svelte/store";
 import { create } from "../data/create.data";
+import { fetchNui } from "@utils/fetchNui";
 
 export const genders = writable<any[]>([]);
 export const ethnicities = writable<any[]>([]);
 export const addresses = writable<any[]>([]);
 export const postals = writable<any[]>([]);
 
-function getList(type: string) {
-  const filteredList = create.pageProps.values.filter((value) => value.type === type);
+function getList(data: any, type: string) {
+  const filteredList = data.filter((value) => value.type === type);
   if (filteredList.length > 0) {
     const values = filteredList[0].values;
     return values.map((item) => {
@@ -19,14 +20,24 @@ function getList(type: string) {
   }
 }
 
-export function getGenders() {
-  if (import.meta.env.DEV) {
-    genders.set(getList("GENDER"))
-  }
+function getGenders(data: any) {
+  genders.set(getList(data, "GENDER"))
 }
 
-export function getEthnicities() {
+function getEthnicities(data: any) {
+  ethnicities.set(getList(data, "ETHNICITY"));
+}
+
+export function GetServerProps() {
   if (import.meta.env.DEV) {
-    ethnicities.set(getList("ETHNICITY"));
+    getEthnicities(create);
+    getGenders(create);
+    return;
   }
+  fetchNui("getServerProps")
+  .then((returnData) => {
+    getEthnicities(returnData);
+    getGenders(returnData);
+  })
+  .catch((e) => {});
 }

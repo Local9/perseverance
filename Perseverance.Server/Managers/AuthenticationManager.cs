@@ -1,6 +1,4 @@
-﻿using Perseverance.Server.SnailyCAD.Domain;
-
-namespace Perseverance.Server.Managers
+﻿namespace Perseverance.Server.Managers
 {
     public class AuthenticationManager : Manager<AuthenticationManager>
     {

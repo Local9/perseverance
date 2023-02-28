@@ -1,5 +1,4 @@
-﻿using CitizenFX.Core;
-using Perseverance.Shared;
+﻿using Perseverance.Shared;
 
 namespace Perseverance.Server.Managers
 {

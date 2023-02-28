@@ -1,5 +1,4 @@
 ﻿using Logger;
-using Perseverance.Server.Models;
 using System.Collections.Concurrent;
 
 namespace Perseverance.Server.Managers
@@ -23,7 +22,7 @@ namespace Perseverance.Server.Managers
 
         protected Manager()
         {
-            
+
         }
 
         public virtual void Begin()
