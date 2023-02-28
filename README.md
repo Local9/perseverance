@@ -3,7 +3,7 @@ A C# FiveM Framework built on SnailyCAD
 
 # Development and Contribution
 
-Parts of the NUI have been based/copied from https://github.com/project-error/svelte-lua-boilerplate
+Parts of the NUI (Mainly the `utils` folder) have been copied from https://github.com/project-error/svelte-lua-boilerplate
 
 To develop and test the NUI without running it in game, you can open the `nui-source` folder and run the following commands;
 - `npm run dev --open` this will run the NUI in your browser
