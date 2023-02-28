@@ -1,4 +1,6 @@
-﻿namespace Perseverance.Client.Managers
+﻿using Perseverance.Shared.Models.Generic;
+
+namespace Perseverance.Client.Managers
 {
     public class ServerManager : Manager<ServerManager>
     {
@@ -6,7 +8,7 @@
         {
             RegisterNuiCallback("getServerProps", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
-                List<PageProperty> pageProperties = await EventDispatcher.Get<List<PageProperty>>("server:getProps", Game.Player.ServerId);
+                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getProps", Game.Player.ServerId);
                 result(pageProperties);
             }));
         }
