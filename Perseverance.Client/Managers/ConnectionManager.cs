@@ -90,7 +90,7 @@ namespace Perseverance.Client.Managers
                 return;
             }
 
-            if (GetGameTimer() - gameTimer < cameraRotation) return;
+            if (Main.GameTime - gameTimer < cameraRotation) return;
             await Hud.FadeOut(1500);
 
             cameraIndex++;

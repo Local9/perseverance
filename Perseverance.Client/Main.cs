@@ -13,6 +13,7 @@ namespace Perseverance.Client
         internal static NuiManager NuiManager { get; private set; }
         internal static PlayerList PlayerList { get; private set; }
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
+        public static int GameTime { get; private set; }
         public Dictionary<Type, object> Managers { get; } = new();
         public Dictionary<Type, List<MethodInfo>> TickHandlers { get; set; } = new();
         public List<Type> RegisteredTickHandlers { get; set; } = new();
@@ -181,6 +182,18 @@ namespace Perseverance.Client
         internal void DetachTickHandler(Func<Task> task)
         {
             Tick -= task;
+        }
+
+        /// <summary>
+        /// Gets the current game timer. This is the time in milliseconds since the game started.
+        /// Using this as the only method to call GetGameTimer will lower the amount of calls to the native.
+        /// </summary>
+        /// <returns></returns>
+        [TickHandler]
+        private async Task OnUpdateGameTimerAsync()
+        {
+            GameTime = GetGameTimer();
+            await BaseScript.Delay(0);
         }
     }
 }
