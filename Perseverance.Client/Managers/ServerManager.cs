@@ -21,7 +21,7 @@ namespace Perseverance.Client.Managers
                     searchQuery = body["query"].ToString();
                 }
 
-                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getProps", Game.Player.ServerId, searchQuery);
+                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getAddresses", Game.Player.ServerId, searchQuery);
                 result(pageProperties);
             }));
         }
