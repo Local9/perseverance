@@ -11,6 +11,19 @@ namespace Perseverance.Client.Managers
                 List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getProps", Game.Player.ServerId);
                 result(pageProperties);
             }));
+
+            RegisterNuiCallback("getAddresses", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
+            {
+                string searchQuery = string.Empty;
+
+                if (body.ContainsKey("query"))
+                {
+                    searchQuery = body["query"].ToString();
+                }
+
+                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getProps", Game.Player.ServerId, searchQuery);
+                result(pageProperties);
+            }));
         }
     }
 }
