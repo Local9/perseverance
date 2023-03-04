@@ -3,11 +3,21 @@ A C# FiveM Framework built on SnailyCAD
 
 # Development and Contribution
 
+## NUI
+
+- Svelte
+- Visual Studio Code (recommended)
+
 Parts of the NUI (Mainly the `utils` folder and some project settings) have been copied from https://github.com/project-error/svelte-lua-boilerplate
 
 To develop and test the NUI without running it in game, you can open the `nui-source` folder and run the following commands;
 - `npm run dev --open` this will run the NUI in your browser
 - `npm run dev:game` to run it in game (you will need to add a `.env.local` file with the location to deploy the files. An example is provided)
+
+## C#
+
+- Visual Studio Community with C# Development packages installed
+- .NET Framework 4.7.2 (client) and .NET Standard 2.0 (server) packs installed
 
 For the C# this is using a System Environment Variable for the build configuration `Local` called `FIVEM_SERVER_PATH` this should point to the same location as the one in the `.env.local`, when building the project you can select the `Local` build config and this will deploy the files to your FiveM development server locally on your machine.
 
