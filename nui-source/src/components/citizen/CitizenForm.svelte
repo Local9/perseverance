@@ -4,7 +4,7 @@
   import TextField from '@components/form/TextField.svelte';
   import type { ICitizen } from 'src/@types/citizen';
   import Select from '@components/form/inputs/Select.svelte';
-  import { genders, ethnicities, GetServerProps, GetAddresses } from '@store/application';
+  import { genders, ethnicities, getServerProps, getAddresses, addresses } from '@store/application';
 
   export let showModal: boolean = false;
   export let citizen: ICitizen = {
@@ -29,9 +29,10 @@
   let citizenCopy: ICitizen = { ...citizen };
   let citizenGenders: any[] = [];
   let citizenEthnicities: any[] = [];
+  let citizenAddresses: any;
 
-  $: GetServerProps();
-  $: GetAddresses();
+  $: getServerProps();
+  $: getAddresses();
 
   genders.subscribe((data: any) => {
     citizenGenders = data;
@@ -41,7 +42,14 @@
     citizenEthnicities = data;
   });
 
+  addresses.subscribe((data: any) => {
+    citizenAddresses = data;
+  });
+
   function onClickSaveCitizen() {
+    if (import.meta.env.DEV) {
+      console.log(citizenCopy, 'onClickSaveCitizen');
+    }
     // Save back to store
     if (citizenCopy.id) {
       console.log('update citizen');
@@ -69,8 +77,8 @@
     <div />
     <Select label="Gender" placeholder="Male" type="text" id="gender" bind:value={citizenCopy.gender} options={citizenGenders} />
     <Select label="Ethnicity" placeholder="White" type="text" id="ethnicity" bind:value={citizenCopy.ethnicity} options={citizenEthnicities} />
-    <Select class="col-span-2" label="Address" type="text" id="address" bind:value={citizenCopy.address} />
-    <Select label="Postal" type="text" id="postal" bind:value={citizenCopy.postal} />
+    <Select class="col-span-2" label="Address" type="text" id="address" bind:value={citizenCopy.address} options={citizenAddresses} />
+    <!-- <Select label="Postal" type="text" id="postal" bind:value={citizenCopy.postal} /> -->
   </div>
   <div class="grid grid-cols-2 gap-0.5 gap-x-2">
     <Button on:click={() => (showModal = false)}>Cancel</Button>

@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
-import { create } from "../data/create.data";
-import { address } from "../data/address.data";
+import { createData } from "../data/create.data";
+import { addressData } from "../data/address.data";
 import { fetchNui } from "@utils/fetchNui";
 
 export const genders = writable<any[]>([]);
@@ -21,36 +21,46 @@ function getList(data: any, type: string) {
   }
 }
 
-function getGenders(data: any) {
-  genders.set(getList(data, "GENDER"))
+function createAddressList(data: any) {
+  const addressList: any[] = [];
+  data.forEach(element => {
+    const county = element.county;
+    const postal = element.postal;
+    const id = element.id;
+    const address = element.value;
+    const addressId = address.id;
+    const addressLabel = address.value;
+
+    addressList.push({
+      label: `${addressLabel}, ${postal} ${county}`,
+      value: addressId,
+    });
+  });
+  return addressList;
 }
 
-function getEthnicities(data: any) {
-  ethnicities.set(getList(data, "ETHNICITY"));
-}
-
-export function GetServerProps() {
+export function getServerProps() {
   if (import.meta.env.DEV) {
-    getEthnicities(create);
-    getGenders(create);
+    ethnicities.set(getList(createData, "ETHNICITY"));
+    genders.set(getList(createData, "GENDER"));
     return;
   }
   fetchNui("getServerProps")
   .then((returnData) => {
-    getEthnicities(returnData);
-    getGenders(returnData);
+    ethnicities.set(getList(returnData, "ETHNICITY"));
+    genders.set(getList(returnData, "GENDER"));
   })
   .catch((e) => {});
 }
 
-export function GetAddresses() {
+export function getAddresses() {
   if (import.meta.env.DEV) {
-    addresses.set(address);
+    addresses.set(createAddressList(addressData));
     return;
   }
   fetchNui("getAddresses")
   .then((returnData) => {
-    addresses.set(returnData);
+    addresses.set(createAddressList(returnData));
   })
   .catch((e) => {});
 }

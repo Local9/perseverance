@@ -1,4 +1,4 @@
-export const address = [
+export const addressData = [
   {
     "county": "Paleto Bay",
     "id": "3573b11c-1282-44c1-ba1f-deaa6b2b97c6",
