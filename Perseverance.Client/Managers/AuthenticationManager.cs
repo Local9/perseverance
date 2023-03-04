@@ -31,30 +31,6 @@
                 {
                     string registrationUrl = await EventDispatcher.Get<string>("server:getRegistrationUrl", Game.Player.ServerId);
                     result(registrationUrl);
-
-                    //Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
-
-                    //Registration registration = new Registration()
-                    //{
-                    //    username = keyValuePairs["username"],
-                    //    password = keyValuePairs["password"],
-                    //    confirmPassword = keyValuePairs["confirmPassword"],
-                    //    registrationCode = keyValuePairs["registrationCode"]
-                    //};
-
-                    //RegistrationMessage registrationMessage = await EventDispatcher.Get<RegistrationMessage>("server:register", Game.Player.ServerId, registration);
-
-                    //if (registrationMessage == null)
-                    //{
-                    //    Logger.Error($"[ConnectionManager] Failed to register. Please try again or contact a server admin");
-                    //    result(new EventMessage
-                    //    {
-                    //        errorMessage = "Failed to register"
-                    //    });
-                    //    return;
-                    //}
-
-                    //result(registrationMessage);
                 }
                 catch (Exception ex)
                 {

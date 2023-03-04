@@ -63,48 +63,6 @@
         }
 
         /// <summary>
-        /// Called when the client is attempting to register
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="serverId"></param>
-        /// <param name="registration"></param>
-        /// <returns></returns>
-        private async Task<RegistrationMessage> OnServerRegisterAsync([FromSource] EventSource source, int serverId, Registration registration)
-        {
-            try
-            {
-                if (source.Handle != serverId) return null;
-
-                Logger.Debug($"Player '{source.Player.Name}#{source.Handle}' is attempting to register with username '{registration.username}'");
-
-                SnailyCadAuthenticationDetails result = await AuthController.Register(registration);
-                source.User.SetSnailyAuth(result);
-
-                Logger.Debug($"Player '{source.Player.Name}#{source.Handle}' has successfully authenticated with username '{registration.username}'");
-
-                return new RegistrationMessage()
-                {
-                    whitelistStatus = $"{result.WhitelistStatus}",
-                    isOwner = result.IsOwner
-                };
-            }
-            catch (HttpRequestException ex)
-            {
-                return new RegistrationMessage()
-                {
-                    errorMessage = ex.Message
-                };
-            }
-            catch
-            {
-                return new RegistrationMessage()
-                {
-                    errorMessage = "Error communicating with the server"
-                };
-            }
-        }
-
-        /// <summary>
         /// Called when the client is attempting to logout
         /// </summary>
         /// <param name="source"></param>
