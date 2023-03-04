@@ -164,7 +164,7 @@ namespace Perseverance.Server
 
             Logger.Info($"Loaded {loaded} managers");
 
-            IsServerReady = !IsServerReady;
+            IsServerReady = true;
         }
 
         internal object LoadManager(Type type)

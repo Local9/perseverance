@@ -105,9 +105,9 @@ namespace Perseverance.Client.GameInterface
             return anchor;
         }
 
-        internal static void CloseLoadingScreen()
+        internal static void CloseLoadingScreen(bool nuiFocus = false)
         {
-            SetNuiFocus(false, false);
+            SetNuiFocus(nuiFocus, nuiFocus);
             ShutdownLoadingScreen();
             ShutdownLoadingScreenNui();
         }

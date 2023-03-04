@@ -24,8 +24,6 @@ namespace Perseverance.Server.Managers
         internal async void OnPlayerConnectingAsync([FromSource] Player player, string name, CallbackDelegate denyWithReason, dynamic deferrals)
         {
             await Main.IsReadyAsync();
-
-            deferrals.defer();
             Logger.Debug($"Player {player.Name} is connecting...");
         }
 
@@ -71,6 +69,8 @@ namespace Perseverance.Server.Managers
         /// <returns></returns>
         internal async Task<EventMessage> OnUserActiveAsync([FromSource] EventSource source, int serverId)
         {
+            await Main.IsReadyAsync();
+
             EventMessage eventMessage = new();
             try
             {

@@ -67,6 +67,7 @@ namespace Perseverance.Client.Managers
                         Game.PlayerPed.IsPositionFrozen = false;
                         Game.PlayerPed.IsInvincible = false;
                         Game.PlayerPed.HasGravity = true;
+                        Game.PlayerPed.IsVisible = true;
 
                         float groundZ = 0f;
                         bool gotGround = GetGroundZFor_3dCoord(pos.X, pos.Y, pos.Z, ref groundZ, false);
@@ -96,6 +97,9 @@ namespace Perseverance.Client.Managers
 
                         await Hud.FadeIn(1500);
                     }
+
+                    NewLoadSceneStop();
+                    NetworkStopLoadScene();
 
                     Screen.DisplayHelpTextThisFrame($"Press ~INPUT_6D37387D~ to open the SnailyCAD Tablet");
 

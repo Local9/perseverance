@@ -16,6 +16,8 @@ namespace Perseverance.Client.Managers
         {
             Logger.Info($"[ConnectionManager] Started");
             Event("onResourceStart", new Action<string>(OnResourceStartAsync));
+
+            OnStartupAsync();
         }
 
         /// <summary>
@@ -24,16 +26,24 @@ namespace Perseverance.Client.Managers
         /// <param name="resourceName"></param>
         private async void OnResourceStartAsync(string resourceName)
         {
+            if (resourceName != GetCurrentResourceName()) return;
+
+            ClearFocus();
+            NewLoadSceneStop();
+        }
+
+        private async Task OnStartupAsync()
+        {
             ScaleformUI.Notifications.StartLoadingMessage("PM_WAIT");
             await Hud.FadeOut(100);
-
-            if (resourceName != GetCurrentResourceName()) return;
 
             await BaseScript.Delay(1000);
 
             EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("connection:active", Game.Player.ServerId);
             Session.IsSessionReady = eventMessage.success;
             bool showLandingPage = GetResourceMetadata(GetCurrentResourceName(), "use_landing_page", 0) == "true";
+
+            Hud.DisableHud();
 
             if (Session.IsSessionReady && showLandingPage)
             {
@@ -47,30 +57,40 @@ namespace Perseverance.Client.Managers
                 Camera camera3 = CreateCamera(new Vector3(1845f, 3633, 37f), new Vector3(-5, 0, 8), 50f, 7f, 1f, 1.2f, 1f); // Sandy
                 cameras.Add(camera3);
 
+                Vector3 pos = camera.Position;
+                Vector3 offsetPos = GetObjectOffsetFromCoords(pos.X, pos.Y, pos.Z, camera.Rotation.Z, 0f, -2f, 0f);
+                Game.PlayerPed.Position = offsetPos;
+
+                SetFocusPosAndVel(pos.X, pos.Y, pos.Z, 0, 0, 0);
+                NewLoadSceneStart(pos.X, pos.Y, pos.Z - 100f, pos.X, pos.Y, pos.Z + 100f, 50f, 0);
+                int lastCheck = Main.GameTime;
+                while (!IsNewLoadSceneLoaded() && Main.GameTime - lastCheck < 10000)
+                {
+                    await BaseScript.Delay(100);
+                }
+                ClearFocus();
+                NewLoadSceneStop();
+
                 World.RenderingCamera = camera;
 
                 gameTimer = GetGameTimer();
 
-                await Hud.FadeIn(1000);
-
                 Game.PlayerPed.IsInvincible = true;
+                Game.PlayerPed.IsVisible = false;
                 Game.PlayerPed.HasGravity = false;
-                Game.PlayerPed.Position = camera.Position + new Vector3(0f, 0f, 2f);
                 Game.PlayerPed.IsPositionFrozen = true;
 
-                DisplayHud(false);
-                DisplayRadar(false);
+                Hud.CloseLoadingScreen(true);
+                await BaseScript.Delay(1000);
+                await Hud.FadeIn(1000);
 
                 Instance.AttachTickHandler(OnAmbientCameraAsync);
             }
             else
             {
-                await Hud.FadeIn(500);
-                NetworkConcealPlayer(Game.Player.Handle, false, false);
-                DisplayHud(true);
-                DisplayRadar(true);
-
                 Hud.CloseLoadingScreen();
+                Hud.EnableHud();
+                await Hud.FadeIn(500);
             }
 
             ScaleformUI.Notifications.StopLoadingMessage();
@@ -99,19 +119,14 @@ namespace Perseverance.Client.Managers
 
             await BaseScript.Delay(100);
             Camera nextCamera = cameras[cameraIndex];
-            World.RenderingCamera = nextCamera;
             Vector3 pos = nextCamera.Position;
-            Game.PlayerPed.Position = pos + new Vector3(0f, 0f, 2f);
-            PopulateNow();
-
-            // get random cloud hat and set it
-            if (World.Weather == Weather.Clouds)
-            {
-                Array cloudHats = Enum.GetValues(typeof(CloudHat));
-                World.CloudHat = (CloudHat)cloudHats.GetValue(Main.Random.Next(cloudHats.Length));
-            }
 
             float groundZ = 0f;
+
+            Vector3 offsetPos = GetObjectOffsetFromCoords(pos.X, pos.Y, pos.Z, nextCamera.Rotation.Z, 0f, -2f, 0f);
+
+            Game.PlayerPed.Position = offsetPos;
+            Game.PlayerPed.IsVisible = false;
 
             bool gotGround = GetGroundZFor_3dCoord(pos.X, pos.Y, pos.Z, ref groundZ, false);
 
@@ -120,6 +135,18 @@ namespace Perseverance.Client.Managers
                 await BaseScript.Delay(100);
                 gotGround = GetGroundZFor_3dCoord(pos.X, pos.Y, pos.Z, ref groundZ, false);
             }
+
+            NewLoadSceneStart(pos.X, pos.Y, groundZ, pos.X, pos.Y, groundZ, 50f, 0);
+
+            while (IsNetworkLoadingScene())
+            {
+                await BaseScript.Delay(100);
+            }
+
+            NetworkStopLoadScene();
+
+            World.RenderingCamera = nextCamera;
+            PopulateNow();
 
             await BaseScript.Delay(1000);
 
