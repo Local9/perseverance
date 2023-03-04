@@ -6,7 +6,7 @@
         public string valueId { get; set; }
         public string county { get; set; }
         public string postal { get; set; }
-        public PageProperties value { get; set; }
+        public PagePropsValueValue value { get; set; }
     }
 
 }

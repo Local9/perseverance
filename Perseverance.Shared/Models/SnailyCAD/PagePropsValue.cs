@@ -1,9 +1,9 @@
 ﻿namespace Perseverance.Shared.Models.SnailyCAD
 {
-    public class PageProperty
+    public class PagePropsValue
     {
         public string type { get; set; }
-        public PageProperties[] values { get; set; }
+        public PagePropsValueValue[] values { get; set; }
         public int totalCount { get; set; }
     }
 

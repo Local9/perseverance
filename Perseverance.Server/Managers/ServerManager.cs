@@ -4,7 +4,7 @@
     {
         public override void Begin()
         {
-            EventDispatcher.Mount("server:getProps", new Func<EventSource, int, Task<List<PageProperty>>>(OnServerGetPropsAsync));
+            EventDispatcher.Mount("server:getProps", new Func<EventSource, int, Task<List<PagePropsValue>>>(OnServerGetPropsAsync));
             EventDispatcher.Mount("server:getAddresses", new Func<EventSource, int, Task<List<Address>>>(OnServerGetAddressesAsync));
             EventDispatcher.Mount("server:searchAddresses", new Func<EventSource, int, string, Task<List<Address>>>(OnServerSearchAddressesAsync));
         }
@@ -23,7 +23,7 @@
             return await AdminController.GetAddresses(source.User);
         }
 
-        private async Task<List<PageProperty>> OnServerGetPropsAsync([FromSource] EventSource source, int serverId)
+        private async Task<List<PagePropsValue>> OnServerGetPropsAsync([FromSource] EventSource source, int serverId)
         {
             if (source.Handle != serverId) return null;
 

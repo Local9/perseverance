@@ -6,7 +6,7 @@
         {
             RegisterNuiCallback("getServerProps", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
-                List<PageProperty> pageProperties = await EventDispatcher.Get<List<PageProperty>>("server:getProps", Game.Player.ServerId);
+                List<PagePropsValue> pageProperties = await EventDispatcher.Get<List<PagePropsValue>>("server:getProps", Game.Player.ServerId);
                 result(pageProperties);
             }));
 

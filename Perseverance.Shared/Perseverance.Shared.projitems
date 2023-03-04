@@ -41,8 +41,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Session.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Statuses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProperty.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PageProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PagePropsValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\PagePropsValueValue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Vehicles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Version.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Weapons.cs" />

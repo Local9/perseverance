@@ -4,7 +4,7 @@
     {
         const string SNAILY_CAD_ADMIN = "admin";
 
-        internal static async Task<List<PageProperty>> GetServerSideProperties(PerseveranceUser user)
+        internal static async Task<List<PagePropsValue>> GetServerSideProperties(PerseveranceUser user)
         {
             HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, $"{SNAILY_CAD_ADMIN}/values/gender?paths=ethnicity,license,driverslicense_category", cookies: user.SnailyAuth.Cookies);
 
@@ -13,7 +13,7 @@
                 return null;
             }
 
-            return await resp.GetObjectFromResponseContentAsync<List<PageProperty>>();
+            return await resp.GetObjectFromResponseContentAsync<List<PagePropsValue>>();
         }
 
         internal static async Task<List<Address>> GetAddresses(PerseveranceUser user, string searchQuery = "")
