@@ -45,6 +45,11 @@ namespace Perseverance.Client.Managers
 
             Hud.DisableHud();
 
+            while (!Session.IsSessionReady)
+            {
+                await BaseScript.Delay(100);
+            }
+
             if (Session.IsSessionReady && showLandingPage)
             {
                 NuiManager.SetFocus(true, true);

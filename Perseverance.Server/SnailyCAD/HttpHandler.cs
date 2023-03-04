@@ -48,9 +48,6 @@
                         Main.Logger.Error($"{response.Content.ReadAsStringAsync().Result}");
                     }
 
-                    // throw the exception
-                    response.EnsureSuccessStatusCode();
-
                     return response;
                 }
             });

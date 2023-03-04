@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Create.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Ems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\ErrorMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\ErrorMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Errors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Features.cs" />

@@ -10,8 +10,8 @@
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <returns></returns>
-        internal static async Task<SnailyCadAuthenticationDetails> Authenticate(string username, string password)
+        /// <returns>Success: SnailyCadAuthenticationDetails, Error: ErrorMessage</returns>
+        internal static async Task<object> Authenticate(string username, string password)
         {
             HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Post, SNAILY_CAD_AUTH_LOGIN, new { username, password });
 
@@ -26,7 +26,7 @@
                 return snailyAuthentication;
             }
 
-            return null;
+            return await resp.GetObjectFromResponseContentAsync<ErrorMessage>();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@
 
                 Dictionary<string, string> requestData = await resp.GetObjectFromResponseContentAsync<Dictionary<string, string>>();
                 snailyAuthentication.UserId = requestData["userId"];
-                
+
                 if (bool.TryParse(requestData["isOwner"], out bool isOwner))
                     snailyAuthentication.IsOwner = isOwner;
 

@@ -12,13 +12,13 @@ export function authenticate(username: string, password: string) : boolean {
 
   fetchNui("authenticate", { username, password })
     .then((returnData) => {
-      if (returnData.success) {
-        isAuthenticated.set(true);
-        return true;
-      } else {
-        // todo custom classes as toast is affected by pico css
+      if (returnData.message) {
+        // TODO: return error messages from the CAD API
         failure("Invalid username or password");
         return false;
+      } else {
+        isAuthenticated.set(true);
+        return true;
       }
     })
     .catch((e) => { });

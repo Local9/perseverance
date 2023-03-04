@@ -10,19 +10,9 @@
                 {
                     Dictionary<string, string> keyValuePairs = body.ToDictionary(x => x.Key, x => x.Value.ToString());
 
-                    Authentication authenitcation = new Authentication(keyValuePairs["username"], keyValuePairs["password"]);
+                    Authentication authentication = new Authentication(keyValuePairs["username"], keyValuePairs["password"]);
 
-                    EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("server:authenticate", Game.Player.ServerId, authenitcation);
-
-                    if (eventMessage == null)
-                    {
-                        Logger.Error($"[ConnectionManager] Failed to authenticate. Please try again or contact a server admin");
-                        result(new EventMessage
-                        {
-                            errorMessage = "Failed to authenticate"
-                        });
-                        return;
-                    }
+                    dynamic eventMessage = await EventDispatcher.Get<dynamic>("server:authenticate", Game.Player.ServerId, authentication);
 
                     result(eventMessage);
                 }

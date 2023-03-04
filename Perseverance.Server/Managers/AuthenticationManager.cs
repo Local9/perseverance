@@ -4,7 +4,7 @@
     {
         public override void Begin()
         {
-            EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authentication, Task<EventMessage>>(OnServerAuthenticateAsync));
+            EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authentication, Task<dynamic>>(OnServerAuthenticateAsync));
             EventDispatcher.Mount("server:register", new Func<EventSource, int, Registration, Task<RegistrationMessage>>(OnServerRegisterAsync));
             EventDispatcher.Mount("server:logout", new Func<EventSource, int, Task<bool>>(OnServerLogoutAsync));
         }
@@ -16,41 +16,30 @@
         /// <param name="serverId"></param>
         /// <param name="auth"></param>
         /// <returns></returns>
-        private async Task<EventMessage> OnServerAuthenticateAsync([FromSource] EventSource source, int serverId, Authentication auth)
+        private async Task<dynamic> OnServerAuthenticateAsync([FromSource] EventSource source, int serverId, Authentication auth)
         {
-            try
+            if (source.Handle != serverId) return null;
+
+            Logger.Debug($"Player '{source.Player.Name}#{source.Handle}' is attempting to authenticate with username '{auth.Username}'");
+
+            object result = await AuthController.Authenticate(auth.Username, auth.Password);
+
+            Type type = result.GetType();
+
+            if (type == typeof(ErrorMessage))
             {
-                if (source.Handle != serverId) return null;
-
-                Logger.Debug($"Player '{source.Player.Name}#{source.Handle}' is attempting to authenticate with username '{auth.Username}'");
-
-                SnailyCadAuthenticationDetails result = await AuthController.Authenticate(auth.Username, auth.Password);
-
-                if (result == null) return new EventMessage()
-                {
-                    errorMessage = "Invalid username or password"
-                };
-
-                source.User.SetSnailyAuth(result);
+                return result;
+            }
+            else if (type == typeof(SnailyCadAuthenticationDetails))
+            {
+                SnailyCadAuthenticationDetails snailyCadAuthenticationDetails = result as SnailyCadAuthenticationDetails;
+                source.User.SetSnailyAuth(snailyCadAuthenticationDetails);
 
                 Logger.Debug($"Player '{source.Player.Name}#{source.Handle}' has successfully authenticated with username '{auth.Username}'");
+            }
 
-                return new EventMessage();
-            }
-            catch (HttpRequestException ex)
-            {
-                return new EventMessage()
-                {
-                    errorMessage = ex.Message
-                };
-            }
-            catch
-            {
-                return new EventMessage()
-                {
-                    errorMessage = "Error communicating with the server"
-                };
-            }
+            // we just have to return something
+            return new { success = true };
         }
 
         /// <summary>
