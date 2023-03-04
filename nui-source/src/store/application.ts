@@ -13,7 +13,7 @@ function getList(data: any, type: string) {
     const values = filteredList[0].values;
     return values.map((item) => {
       return {
-        label: item.value,
+        label: item.label,
         value: item.value,
       };
     });
@@ -38,6 +38,18 @@ export function GetServerProps() {
   .then((returnData) => {
     getEthnicities(returnData);
     getGenders(returnData);
+  })
+  .catch((e) => {});
+}
+
+export function GetAddresses() {
+  if (import.meta.env.DEV) {
+    addresses.set(create.addresses);
+    return;
+  }
+  fetchNui("getAddresses")
+  .then((returnData) => {
+    addresses.set(returnData);
   })
   .catch((e) => {});
 }
