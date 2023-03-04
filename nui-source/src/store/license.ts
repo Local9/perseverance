@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { fetchNui } from "@utils/fetchNui";
-import { license } from "../data/license.data";
+import { licenseData } from "../data/license.data";
 
 
 export const storeLicense = writable<any[]>([]);

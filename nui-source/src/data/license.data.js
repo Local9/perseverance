@@ -1,4 +1,4 @@
-export const license = [
+export const licenseData = [
   {
     "type": "LICENSE",
     "values": [

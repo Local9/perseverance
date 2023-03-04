@@ -1,4 +1,4 @@
-export const create = [
+export const createData = [
   {
     "type": "GENDER",
     "values": [

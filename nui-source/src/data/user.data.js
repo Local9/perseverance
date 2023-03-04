@@ -1,4 +1,4 @@
-export const user = {
+export const userData = {
   "id": "",
   "username": "localhost",
   "rank": "OWNER",

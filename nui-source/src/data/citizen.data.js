@@ -1,4 +1,4 @@
-export const citizen = {
+export const citizenData = {
   "id": "cld7vpj6701kgpl8ybopgt1l3",
   "socialSecurityNumber": "499828472",
   "userId": "cld7pviwm0000pl8yhjksxrqt",

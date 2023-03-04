@@ -1,4 +1,4 @@
-export const citizens = {
+export const citizensData = {
   citizens: [
     {
       id: "9KaXI",

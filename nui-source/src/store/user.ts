@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { fetchNui } from "@utils/fetchNui";
-import { user } from "../data/user.data";
+import { userData } from "../data/user.data";
 
 
 export const storeUser = writable<any>({});
