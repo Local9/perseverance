@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 import { create } from "../data/create.data";
+import { address } from "../data/address.data";
 import { fetchNui } from "@utils/fetchNui";
 
 export const genders = writable<any[]>([]);
@@ -44,7 +45,7 @@ export function GetServerProps() {
 
 export function GetAddresses() {
   if (import.meta.env.DEV) {
-    addresses.set(create.addresses);
+    addresses.set(address);
     return;
   }
   fetchNui("getAddresses")
