@@ -6,7 +6,27 @@
         {
             EventDispatcher.Mount("server:authenticate", new Func<EventSource, int, Authentication, Task<dynamic>>(OnServerAuthenticateAsync));
             EventDispatcher.Mount("server:register", new Func<EventSource, int, Registration, Task<RegistrationMessage>>(OnServerRegisterAsync));
+            EventDispatcher.Mount("server:getRegistrationUrl", new Func<EventSource, int, Task<string>>(OnGetServerRegistrationUrl));
             EventDispatcher.Mount("server:logout", new Func<EventSource, int, Task<bool>>(OnServerLogoutAsync));
+        }
+
+        /// <summary>
+        /// Returns the registration URL
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
+        private async Task<string> OnGetServerRegistrationUrl([FromSource] EventSource source, int serverId)
+        {
+            if (source.Handle != serverId) return null;
+
+            if (Main.SnailyCadUrl == "unknown" || string.IsNullOrEmpty(Main.SnailyCadUrl) || string.IsNullOrWhiteSpace(Main.SnailyCadUrl) || Main.SnailyCadUrl.Contains("api"))
+            {
+                Logger.Error("SnailyCAD URL is unknown or set incorrectly, please set the convar 'snailycad' to be the URL of the CAD.");
+                return "unknown";
+            };
+
+            return $"{Main.SnailyCadUrl}/auth/register";
         }
 
         /// <summary>

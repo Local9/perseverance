@@ -19,6 +19,7 @@ namespace Perseverance.Server
         internal static Random Random = new Random(DateTime.UtcNow.Millisecond);
         internal static ServerConfiguration ServerConfiguration { get; private set; }
         internal static string SnailyCadUrl { get; private set; }
+        internal static string SnailyCadApiUrl { get; private set; }
         internal static string SnailyCadApiKey { get; private set; }
 
         internal static long GameTime = GetGameTimer();
@@ -56,10 +57,11 @@ namespace Perseverance.Server
             //}
             await CheckScaleformUiResourceIsActiveAsync();
 
-            SnailyCadUrl = GetConvar("snailycad_url", "unknown");
+            SnailyCadUrl = GetConvar("snailycad", "unknown");
+            SnailyCadApiUrl = GetConvar("snailycad_url", "unknown");
             SnailyCadApiKey = GetConvar("snailycad_api_key", "unknown");
 
-            if (SnailyCadUrl == "unknown" || SnailyCadApiKey == "unknown")
+            if (SnailyCadApiUrl == "unknown" || SnailyCadApiKey == "unknown")
             {
                 Logger.Error($"SnailyCAD is not configured correctly. Please check your server.cfg.");
             }
@@ -67,11 +69,11 @@ namespace Perseverance.Server
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
-                HttpResponseMessage httpResponseMessage = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, SnailyCadUrl);
+                HttpResponseMessage httpResponseMessage = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, SnailyCadApiUrl);
                 if (httpResponseMessage is not null)
                 {
                     if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.OK)
-                        Logger.Info($"HTTP Connection Test to SnailyCAD was successful. URL: {SnailyCadUrl}");
+                        Logger.Info($"HTTP Connection Test to SnailyCAD was successful. URL: {SnailyCadApiUrl}");
                     else
                         Logger.Error($"HTTP Connection Test Failed! Returned Status Code: {httpResponseMessage.StatusCode}");
                 }

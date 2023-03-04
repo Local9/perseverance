@@ -24,15 +24,34 @@ export function authenticate(username: string, password: string) : boolean {
     .catch((e) => { });
 }
 
+
+export function registerInBrowser() {
+  if (import.meta.env.DEV) {
+    return;
+  }
+  fetchNui("register", { })
+    .then((returnData) => {
+      if (returnData) {
+
+        if (returnData === "unknown") {
+          failure("Set convar 'snailycad' to be the URL of your CAD, not the API.")
+          return;
+        }
+
+        window.invokeNative('openUrl', returnData);
+      }
+    })
+    .catch((e) => {});
+}
+
 export function register(username: string, password: string, passwordConfirm: string, registrationCode: string) {
   if (import.meta.env.DEV) {
-    isAuthenticated.set(true);
     return;
   }
   fetchNui("register", { username, password, passwordConfirm, registrationCode })
     .then((returnData) => {
-      if (returnData.success) {
-
+      if (returnData) {
+        window.invokeNative('openUrl', returnData);
       }
     })
     .catch((e) => {});

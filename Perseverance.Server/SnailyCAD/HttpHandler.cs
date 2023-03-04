@@ -15,7 +15,7 @@
 
             return await Task.Run(async () =>
             {
-                var baseAddress = new Uri($"{Main.SnailyCadUrl}/v1");
+                var baseAddress = new Uri($"{Main.SnailyCadApiUrl}/v1");
                 HttpClient.BaseAddress = baseAddress;
 
                 using (var request = new HttpRequestMessage(httpMethod, endpoint))
