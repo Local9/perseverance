@@ -3,7 +3,6 @@
     internal class AuthController
     {
         const string SNAILY_CAD_AUTH_LOGIN = "auth/login";
-        const string SNAILY_CAD_AUTH_REGISTER = "auth/register";
 
         /// <summary>
         /// Authenticates a user with the SnailyCAD API
