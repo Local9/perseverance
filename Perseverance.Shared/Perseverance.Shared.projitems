@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Generic\TypeList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Generic\ListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Hud\MinimapAnchor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Address.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\ApiToken.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Auth.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SnailyCAD\Bof.cs" />

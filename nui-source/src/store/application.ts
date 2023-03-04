@@ -13,8 +13,8 @@ function getList(data: any, type: string) {
     const values = filteredList[0].values;
     return values.map((item) => {
       return {
-        label: item.label,
-        value: item.value,
+        label: item.value,
+        value: item.id,
       };
     });
   }

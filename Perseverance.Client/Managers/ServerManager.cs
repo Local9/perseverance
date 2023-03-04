@@ -1,6 +1,4 @@
-﻿using Perseverance.Shared.Models.Generic;
-
-namespace Perseverance.Client.Managers
+﻿namespace Perseverance.Client.Managers
 {
     public class ServerManager : Manager<ServerManager>
     {
@@ -8,20 +6,13 @@ namespace Perseverance.Client.Managers
         {
             RegisterNuiCallback("getServerProps", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
-                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getProps", Game.Player.ServerId);
+                List<PageProperty> pageProperties = await EventDispatcher.Get<List<PageProperty>>("server:getProps", Game.Player.ServerId);
                 result(pageProperties);
             }));
 
             RegisterNuiCallback("getAddresses", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
             {
-                string searchQuery = string.Empty;
-
-                if (body.ContainsKey("query"))
-                {
-                    searchQuery = body["query"].ToString();
-                }
-
-                List<TypeList> pageProperties = await EventDispatcher.Get<List<TypeList>>("server:getAddresses", Game.Player.ServerId, searchQuery);
+                List<Address> pageProperties = await EventDispatcher.Get<List<Address>>("server:getAddresses", Game.Player.ServerId);
                 result(pageProperties);
             }));
         }
