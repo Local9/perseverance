@@ -10,7 +10,7 @@
   <div>
     <hgroup>
       <!-- Replace with image from CAD -->
-      <img src="https://raw.githubusercontent.com/SnailyCAD/website/main/static/logos/SnailyCAD_logo.svg" alt="Logo" class="rounded-full mb-4" />
+      <img src="https://raw.githubusercontent.com/SnailyCAD/website/main/static/logos/SnailyCAD_logo.svg" alt="Logo" class="w-40 rounded-3xl mb-4" />
     </hgroup>
     <Login class="w-full" />
     <Button on:click={registerInBrowser} variant="default" size="md" class="flex items-center justify-center w-full gap-3 mt-5">Don't have an account?<br />Register here (opens browser)</Button>
