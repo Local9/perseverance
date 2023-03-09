@@ -4,17 +4,20 @@
     {
         public override void Begin()
         {
-            RegisterNuiCallback("getServerProps", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
-            {
-                List<PagePropsValue> pageProperties = await EventDispatcher.Get<List<PagePropsValue>>("server:getProps", Game.Player.ServerId);
-                result(pageProperties);
-            }));
+            RegisterNuiCallback("getServerProps", new Action<IDictionary<string, object>, CallbackDelegate>(OnServerGetPropsAsync));
+            RegisterNuiCallback("getAddresses", new Action<IDictionary<string, object>, CallbackDelegate>(OnServerGetAddressesAsync));
+        }
 
-            RegisterNuiCallback("getAddresses", new Action<IDictionary<string, object>, CallbackDelegate>(async (body, result) =>
-            {
-                List<Address> pageProperties = await EventDispatcher.Get<List<Address>>("server:getAddresses", Game.Player.ServerId);
-                result(pageProperties);
-            }));
+        private async void OnServerGetPropsAsync(IDictionary<string, object> body, CallbackDelegate result)
+        {
+            List<PagePropsValue> pageProperties = await EventDispatcher.Get<List<PagePropsValue>>("server:getProps", Game.Player.ServerId);
+            result(pageProperties);
+        }
+
+        private async void OnServerGetAddressesAsync(IDictionary<string, object> body, CallbackDelegate result)
+        {
+            List<Address> addresses = await EventDispatcher.Get<List<Address>>("server:getAddresses", Game.Player.ServerId);
+            result(addresses);
         }
     }
 }
