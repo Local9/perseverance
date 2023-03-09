@@ -26,14 +26,14 @@ namespace Perseverance.Server.Managers
         /// <param name="citizenId"></param>
         /// <param name="citizenFullname"></param>
         /// <returns></returns>
-        private async Task<bool> OnServerSetCitizen([FromSource] EventSource source, int serverId, string citizenId, string citizenFullname)
+        private Task<bool> OnServerSetCitizen([FromSource] EventSource source, int serverId, string citizenId, string citizenFullname)
         {
-            if (source.Handle != serverId) return false;
+            if (source.Handle != serverId) return Task.FromResult(false);
             bool result = source.User.SetCitizen(citizenId);
 
             if (!result)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             source.Player.State.Set(StateBagKey.CharacterName, citizenFullname, true);
@@ -53,7 +53,7 @@ namespace Perseverance.Server.Managers
 
             // Believe the API needs to be told something or does the active citizen need storing on the player?
 
-            return true;
+            return Task.FromResult(true);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Perseverance.Server.Managers
             try
             {
                 if (source.Handle != serverId) return null;
-                CitizenMessage result = await CitizenController.GetCitizens(source.User, query, skip);
+                CitizenMessage result = await CitizenController.GetCitizensAsync(source.User, query, skip);
 
                 source.User.SetCitizens(result.citizens);
 

@@ -13,21 +13,21 @@
         {
             if (source.Handle != serverId) return null;
 
-            return await AdminController.GetAddresses(source.User, query);
+            return await AdminController.GetAddressesAsync(source.User, query);
         }
 
         private async Task<List<Address>> OnServerGetAddressesAsync([FromSource] EventSource source, int serverId)
         {
             if (source.Handle != serverId) return null;
 
-            return await AdminController.GetAddresses(source.User);
+            return await AdminController.GetAddressesAsync(source.User);
         }
 
         private async Task<List<PagePropsValue>> OnServerGetPropsAsync([FromSource] EventSource source, int serverId)
         {
             if (source.Handle != serverId) return null;
 
-            return await AdminController.GetServerSideProperties(source.User);
+            return await AdminController.GetServerSidePropertiesAsync(source.User);
         }
     }
 }

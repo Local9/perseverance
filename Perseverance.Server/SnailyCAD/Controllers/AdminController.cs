@@ -4,7 +4,12 @@
     {
         const string SNAILY_CAD_ADMIN = "admin";
 
-        internal static async Task<List<PagePropsValue>> GetServerSideProperties(PerseveranceUser user)
+        /// <summary>
+        /// Gets a list of server side properties from the SnailyCAD API for the authenticated user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        internal static async Task<List<PagePropsValue>> GetServerSidePropertiesAsync(PerseveranceUser user)
         {
             HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, $"{SNAILY_CAD_ADMIN}/values/gender?paths=ethnicity,license,driverslicense_category", cookies: user.SnailyAuth.Cookies);
 
@@ -16,7 +21,13 @@
             return await resp.GetObjectFromResponseContentAsync<List<PagePropsValue>>();
         }
 
-        internal static async Task<List<Address>> GetAddresses(PerseveranceUser user, string searchQuery = "")
+        /// <summary>
+        /// Gets a list of addresses from the SnailyCAD API for the authenticated user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        internal static async Task<List<Address>> GetAddressesAsync(PerseveranceUser user, string searchQuery = "")
         {
             HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Get, $"{SNAILY_CAD_ADMIN}/values/address/search?query={searchQuery}", cookies: user.SnailyAuth.Cookies);
 
