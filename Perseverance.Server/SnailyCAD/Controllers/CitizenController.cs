@@ -47,6 +47,27 @@
         }
 
         /// <summary>
+        /// Sets a citizen to deceased in the SnailyCAD API for the authenticated user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="citizenId"></param>
+        /// <returns></returns>
+        internal static async Task<bool> SetCitizenDeceased(PerseveranceUser user, string citizenId)
+        {
+            Main.Logger.Debug($"Player {user.Handle} is attempting to set citizen with id '{citizenId}' to deceased.");
+
+            HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Put, $"{SNAILY_CAD_CITIZEN}/{citizenId}/deceased", cookies: user.SnailyAuth.Cookies);
+
+            if (resp is null)
+            {
+                Main.Logger.Error($"CitizenController.SetCitizenDeceased() was unable to set citizen to deceased for user {user.Handle}");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Updates a citizen in the SnailyCAD API for the authenticated user
         /// </summary>
         /// <param name="user"></param>
