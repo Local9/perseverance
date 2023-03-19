@@ -22,7 +22,7 @@ function getList(data: any, type: string) {
 }
 
 function createAddressList(data: any) {
-  const addressList: any[] = [];
+  const lst: any[] = [];
   data.forEach((element) => {
     const county = element.county;
     const postal = element.postal;
@@ -31,12 +31,26 @@ function createAddressList(data: any) {
     const addressId = address.id;
     const addressLabel = address.value;
 
-    addressList.push({
+    lst.push({
       label: `${addressLabel}, ${postal} ${county}`,
       value: `${addressLabel}, ${postal} ${county}`,
     });
   });
-  return addressList;
+  return lst;
+}
+
+function createPostalList(data: any) {
+  const lst: any[] = [];
+  data.forEach((element) => {
+    const county = element.county;
+    const postal = element.postal;
+
+    lst.push({
+      label: `${postal} ${county}`,
+      value: `${postal}`,
+    });
+  });
+  return lst;
 }
 
 export function getServerProps() {
