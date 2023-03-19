@@ -36,6 +36,7 @@ function createAddressList(data: any) {
       value: `${addressLabel}, ${postal} ${county}`,
     });
   });
+  postals.set(createPostalList(data));
   return lst;
 }
 
