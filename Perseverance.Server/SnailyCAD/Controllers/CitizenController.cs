@@ -10,7 +10,7 @@
         /// <param name="user"></param>
         /// <param name="citizen"></param>
         /// <returns></returns>
-        internal static async Task<CitizenMessage> CreateAsync(PerseveranceUser user, Citizen citizen)
+        internal static async Task<CitizenMessage> CreateAsync(PerseveranceUser user, CitizenCreate citizen)
         {
             Main.Logger.Debug($"Player {user.Handle} is attempting to create a citizen with name '{citizen.fullname}'");
 
@@ -74,19 +74,19 @@
         /// <param name="citizenId"></param>
         /// <param name="citizen"></param>
         /// <returns></returns>
-        internal static async Task<bool> UpdateAsync(PerseveranceUser user, string citizenId, Citizen citizen)
+        internal static async Task<CitizenMessage> UpdateAsync(PerseveranceUser user, CitizenCreate citizen)
         {
-            Main.Logger.Debug($"Player {user.Handle} is attempting to update a citizen with id '{citizenId}'");
+            Main.Logger.Debug($"Player {user.Handle} is attempting to update a citizen with id '{citizen.id}'");
 
-            HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Put, $"{SNAILY_CAD_CITIZEN}/{citizenId}", citizen, user.SnailyAuth.Cookies);
+            HttpResponseMessage resp = await HttpHandler.OnHttpResponseMessageAsync(HttpMethod.Put, $"{SNAILY_CAD_CITIZEN}/{citizen.id}", citizen, user.SnailyAuth.Cookies);
 
             if (resp is null)
             {
                 Main.Logger.Error($"CitizenController.Update() was unable to update citizen for user {user.Handle}");
-                return false;
+                return null;
             }
 
-            return true;
+            return await resp.GetObjectFromResponseContentAsync<CitizenMessage>();
         }
 
         /// <summary>
@@ -95,7 +95,7 @@
         /// <param name="user"></param>
         /// <param name="citizenId"></param>
         /// <returns></returns>
-        internal static async Task<Citizen> GetCitizenAsync(PerseveranceUser user, string citizenId)
+        internal static async Task<CitizenMessage> GetCitizenAsync(PerseveranceUser user, string citizenId)
         {
             Main.Logger.Debug($"Player {user.Handle} is attempting to get a citizen with id '{citizenId}'");
 
@@ -107,7 +107,9 @@
                 return null;
             }
 
-            return await resp.GetObjectFromResponseContentAsync<Citizen>();
+            CitizenMessage citizenMessage = new();
+            citizenMessage.citizen = await resp.GetObjectFromResponseContentAsync<CitizenSelect>();
+            return citizenMessage;
         }
 
         /// <summary>

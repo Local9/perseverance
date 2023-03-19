@@ -1,6 +1,4 @@
-﻿using FxEvents.Shared.EventSubsystem;
-
-namespace Perseverance.Server.Models
+﻿namespace Perseverance.Server.Models
 {
     public class PerseveranceUser
     {
@@ -8,7 +6,7 @@ namespace Perseverance.Server.Models
         internal Player Player { get => Main.PlayerList[Handle]; }
         internal SnailyCadAuthenticationDetails SnailyAuth { get; private set; }
         internal Citizen Citizen { get; private set; }
-        internal List<Citizen> Citizens { get; private set; }
+        internal List<CitizenSelect> Citizens { get; private set; }
 
         public PerseveranceUser(int handle)
         {
@@ -27,7 +25,7 @@ namespace Perseverance.Server.Models
 
         internal bool SetCitizen(string citizenId)
         {
-            Citizen citizen = Citizens.Where(x => x.id == citizenId).FirstOrDefault();
+            CitizenSelect citizen = Citizens.Where(x => x.id == citizenId).FirstOrDefault();
 
             if (citizen is null)
             {
@@ -39,7 +37,7 @@ namespace Perseverance.Server.Models
             return true;
         }
 
-        internal void SetCitizens(List<Citizen> citizens)
+        internal void SetCitizens(List<CitizenSelect> citizens)
         {
             Citizens = citizens;
         }

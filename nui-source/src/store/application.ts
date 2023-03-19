@@ -23,7 +23,7 @@ function getList(data: any, type: string) {
 
 function createAddressList(data: any) {
   const addressList: any[] = [];
-  data.forEach(element => {
+  data.forEach((element) => {
     const county = element.county;
     const postal = element.postal;
     const id = element.id;
@@ -33,7 +33,7 @@ function createAddressList(data: any) {
 
     addressList.push({
       label: `${addressLabel}, ${postal} ${county}`,
-      value: addressId,
+      value: `${addressLabel}, ${postal} ${county}`,
     });
   });
   return addressList;
@@ -46,11 +46,11 @@ export function getServerProps() {
     return;
   }
   fetchNui("getServerProps")
-  .then((returnData) => {
-    ethnicities.set(getList(returnData, "ETHNICITY"));
-    genders.set(getList(returnData, "GENDER"));
-  })
-  .catch((e) => {});
+    .then((returnData) => {
+      ethnicities.set(getList(returnData, "ETHNICITY"));
+      genders.set(getList(returnData, "GENDER"));
+    })
+    .catch((e) => {});
 }
 
 export function getAddresses() {
@@ -59,8 +59,8 @@ export function getAddresses() {
     return;
   }
   fetchNui("getAddresses")
-  .then((returnData) => {
-    addresses.set(createAddressList(returnData));
-  })
-  .catch((e) => {});
+    .then((returnData) => {
+      addresses.set(createAddressList(returnData));
+    })
+    .catch((e) => {});
 }

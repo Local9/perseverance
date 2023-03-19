@@ -6,10 +6,22 @@ namespace Perseverance.Server.Managers
     {
         public override void Begin()
         {
+            EventDispatcher.Mount("server:getCitizen", new Func<EventSource, int, string, Task<CitizenMessage>>(OnServerGetCitizenAsync));
             EventDispatcher.Mount("server:getCitizens", new Func<EventSource, int, string, int, Task<CitizenMessage>>(OnServerGetCitizensAsync));
             EventDispatcher.Mount("server:setCitizen", new Func<EventSource, int, string, string, Task<bool>>(OnServerSetCitizen));
+            EventDispatcher.Mount("server:saveCitizen", new Func<EventSource, int, CitizenCreate, Task<CitizenMessage>>(OnServerSaveCitizen));
 
             Export.Add("getActiveCitizen", new Func<int, string>(OnGetActiveCitizen));
+        }
+
+        private async Task<CitizenMessage> OnServerSaveCitizen([FromSource] EventSource source, int serverId, CitizenCreate citizen)
+        {
+            if (source.Handle != serverId) return null;
+
+            if (string.IsNullOrEmpty(citizen.id))
+                return await CitizenController.CreateAsync(source.User, citizen);
+
+            return await CitizenController.UpdateAsync(source.User, citizen);
         }
 
         private string OnGetActiveCitizen(int source)
@@ -54,6 +66,32 @@ namespace Perseverance.Server.Managers
             // Believe the API needs to be told something or does the active citizen need storing on the player?
 
             return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Called when the client is requesting a list of citizens for the current user
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="serverId"></param>
+        /// <param name="citizenId"></param>
+        /// <returns></returns>
+        private async Task<CitizenMessage> OnServerGetCitizenAsync([FromSource] EventSource source, int serverId, string citizenId = "")
+        {
+            try
+            {
+                if (source.Handle != serverId) return null;
+                CitizenMessage result = await CitizenController.GetCitizenAsync(source.User, citizenId);
+
+                source.User.SetCitizens(result.citizens);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"[CitizenManager] OnServerGetCitizenAsync() = >{ex.Message}");
+                Logger.Error($"{ex}");
+                return null;
+            }
         }
 
         /// <summary>

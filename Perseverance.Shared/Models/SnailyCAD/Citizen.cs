@@ -21,19 +21,13 @@
         public string name { get; set; }
         public string surname { get; set; }
         public string fullName { get; set; }
-        public string gender { get; set; }
-        public string ethnicity { get; set; }
         public string address { get; set; }
         public string dateOfBirth { get; set; }
         public string image { get; set; }
         public string age { get; set; }
-        public string driversLicense { get; set; }
         public string driversLicenseCategory { get; set; }
-        public string weaponLicense { get; set; }
         public string phoneNumber { get; set; }
-        public string pilotLicense { get; set; }
         public string pilotLicenseCategory { get; set; }
-        public string waterLicense { get; set; }
         public string waterLicenseCategory { get; set; }
         public string firearmLicenseCategory { get; set; }
         public string ccw { get; set; }
@@ -64,4 +58,29 @@
         public string fullname => $"{name} {surname}";
     }
 
+    /// <summary>
+    /// Citizen model for creating a citizen. CAD returns and uses different types based on select or update/create
+    /// </summary>
+    public class CitizenCreate : Citizen
+    {
+        public string gender { get; set; }
+        public string ethnicity { get; set; }
+        public string driversLicense { get; set; }
+        public string weaponLicense { get; set; }
+        public string pilotLicense { get; set; }
+        public string waterLicense { get; set; }
+    }
+
+    /// <summary>
+    /// Citizen model for a citizen. CAD returns and uses different types based on select or update/create
+    /// </summary>
+    public class CitizenSelect : Citizen
+    {
+        public PagePropsValueValue gender { get; set; }
+        public PagePropsValueValue ethnicity { get; set; }
+        public PagePropsValueValue driversLicense { get; set; }
+        public PagePropsValueValue weaponLicense { get; set; }
+        public PagePropsValueValue pilotLicense { get; set; }
+        public PagePropsValueValue waterLicense { get; set; }
+    }
 }

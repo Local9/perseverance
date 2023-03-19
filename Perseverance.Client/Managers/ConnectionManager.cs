@@ -35,9 +35,10 @@ namespace Perseverance.Client.Managers
         private async Task OnStartupAsync()
         {
             ScaleformUI.Notifications.StartLoadingMessage("PM_WAIT");
-            await Hud.FadeOut(100);
 
             await BaseScript.Delay(1000);
+
+            await Hud.FadeOut(100);
 
             EventMessage eventMessage = await EventDispatcher.Get<EventMessage>("connection:active", Game.Player.ServerId);
             Session.IsSessionReady = eventMessage.success;
@@ -111,7 +112,10 @@ namespace Perseverance.Client.Managers
         {
             if (IsSpawned)
             {
+                NuiManager.SendMessage(new { action = "setLandingVisible", data = false });
                 Instance.DetachTickHandler(OnAmbientCameraAsync);
+                NetworkStopLoadScene();
+                PopulateNow();
                 return;
             }
 

@@ -21,7 +21,8 @@
 
     public class CitizenMessage : EventMessage
     {
-        public List<Citizen> citizens { get; set; }
+        public CitizenSelect citizen { get; set; }
+        public List<CitizenSelect> citizens { get; set; }
         public int totalCount { get; set; }
     }
 }

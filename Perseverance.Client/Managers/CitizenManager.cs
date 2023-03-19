@@ -1,4 +1,5 @@
-﻿using Perseverance.Client.GameInterface;
+﻿using FxEvents.Shared;
+using Perseverance.Client.GameInterface;
 
 namespace Perseverance.Client.Managers
 {
@@ -6,9 +7,38 @@ namespace Perseverance.Client.Managers
     {
         public override void Begin()
         {
+            RegisterNuiCallback("getCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(GetCitizenAsync));
             RegisterNuiCallback("getCitizens", new Action<IDictionary<string, object>, CallbackDelegate>(GetCitizensAsync));
             RegisterNuiCallback("setCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnSetCitizenAsync));
-            RegisterNuiCallback("addCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnCreateCitizenAsync));
+            RegisterNuiCallback("saveCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnSaveCitizenAsync));
+        }
+
+        private async void GetCitizenAsync(IDictionary<string, object> body, CallbackDelegate result)
+        {
+            try
+            {
+                CitizenMessage eventMessage = await EventDispatcher.Get<CitizenMessage>("server:getCitizen", Game.Player.ServerId, body["id"]);
+
+                if (eventMessage == null)
+                {
+                    Logger.Error($"[CitizenManager] Failed to get citizen. Please try again or contact a server admin");
+                    result(new CitizenMessage
+                    {
+                        errorMessage = "Failed to get citizen"
+                    });
+                }
+
+                Logger.Debug($"[CitizenManager] Successfully got citizen");
+
+                result(eventMessage);
+            }
+            catch (Exception ex)
+            {
+                result(new EventMessage
+                {
+                    errorMessage = ex.Message
+                });
+            }
         }
 
         private async void GetCitizensAsync(IDictionary<string, object> body, CallbackDelegate result)
@@ -56,12 +86,10 @@ namespace Perseverance.Client.Managers
                 ConnectionManager.IsSpawned = true;
 
                 bool showLandingPage = GetResourceMetadata(GetCurrentResourceName(), "use_landing_page", 0) == "true";
-                bool showHudLandingPage = GetResourceMetadata(GetCurrentResourceName(), "enable_hud_landing_page_close", 0) == "true";
 
                 if (showLandingPage)
                 {
                     NuiManager.SetFocus(false, false);
-                    NuiManager.SendMessage(new { action = "setLandingVisible", data = false });
 
                     await Hud.FadeOut(1500);
 
@@ -92,8 +120,8 @@ namespace Perseverance.Client.Managers
 
                     Game.PlayerPed.Position = new Vector3(pos.X, pos.Y, groundZ);
 
-                    DisplayHud(showHudLandingPage);
-                    DisplayRadar(showHudLandingPage);
+                    DisplayHud(true);
+                    DisplayRadar(true);
 
                     await BaseScript.Delay(1000);
 
@@ -119,9 +147,23 @@ namespace Perseverance.Client.Managers
             }
         }
 
-        private async void OnCreateCitizenAsync(IDictionary<string, object> arg1, CallbackDelegate arg2)
+        private async void OnSaveCitizenAsync(IDictionary<string, object> body, CallbackDelegate result)
         {
+            try
+            {
+                CitizenCreate citizen = JsonConvert.DeserializeObject<CitizenCreate>(body.ToJson());
 
+                CitizenMessage citizenMessage = await EventDispatcher.Get<CitizenMessage>("server:saveCitizen", Game.Player.ServerId, citizen);
+
+                result(citizenMessage);
+            }
+            catch (Exception ex)
+            {
+                result(new CitizenMessage
+                {
+                    errorMessage = ex.Message
+                });
+            }
         }
     }
 }

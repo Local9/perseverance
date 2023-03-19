@@ -12,10 +12,13 @@ export function setCitizen(citizen: ICitizen) {
   fetchNui("setCitizen", { id: citizen.id, fullname: citizen.fullname })
     .then((returnData) => {
       if (returnData.success) {
-        
       }
     })
     .catch((e) => {});
+}
+
+export function getCitizen(id: string) {
+  return fetchNui("getCitizen", { id }).catch((e) => {});
 }
 
 export function getCitizens() {
@@ -31,4 +34,8 @@ export function getCitizens() {
       }
     })
     .catch((e) => {});
+}
+
+export function saveCitizen(citizen: ICitizen) {
+  return fetchNui("saveCitizen", citizen).catch((e) => {});
 }
