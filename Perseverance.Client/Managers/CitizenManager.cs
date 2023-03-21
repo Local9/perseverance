@@ -7,13 +7,42 @@ namespace Perseverance.Client.Managers
     {
         public override void Begin()
         {
-            RegisterNuiCallback("getCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(GetCitizenAsync));
-            RegisterNuiCallback("getCitizens", new Action<IDictionary<string, object>, CallbackDelegate>(GetCitizensAsync));
+            RegisterNuiCallback("getCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnGetCitizenAsync));
+            RegisterNuiCallback("getCitizens", new Action<IDictionary<string, object>, CallbackDelegate>(OnGetCitizensAsync));
             RegisterNuiCallback("setCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnSetCitizenAsync));
             RegisterNuiCallback("saveCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnSaveCitizenAsync));
+            RegisterNuiCallback("deleteCitizen", new Action<IDictionary<string, object>, CallbackDelegate>(OnDeleteCitizenAsync));
         }
 
-        private async void GetCitizenAsync(IDictionary<string, object> body, CallbackDelegate result)
+        private async void OnDeleteCitizenAsync(IDictionary<string, object> body, CallbackDelegate result)
+        {
+            try
+            {
+                CitizenMessage eventMessage = await EventDispatcher.Get<CitizenMessage>("server:deleteCitizen", Game.Player.ServerId, body["id"]);
+
+                if (eventMessage == null)
+                {
+                    Logger.Error($"[CitizenManager] Failed to get citizen. Please try again or contact a server admin");
+                    result(new CitizenMessage
+                    {
+                        errorMessage = "Failed to get citizen"
+                    });
+                }
+
+                Logger.Debug($"[CitizenManager] Successfully got citizen");
+
+                result(eventMessage);
+            }
+            catch (Exception ex)
+            {
+                result(new EventMessage
+                {
+                    errorMessage = ex.Message
+                });
+            }
+        }
+
+        private async void OnGetCitizenAsync(IDictionary<string, object> body, CallbackDelegate result)
         {
             try
             {
@@ -41,7 +70,7 @@ namespace Perseverance.Client.Managers
             }
         }
 
-        private async void GetCitizensAsync(IDictionary<string, object> body, CallbackDelegate result)
+        private async void OnGetCitizensAsync(IDictionary<string, object> body, CallbackDelegate result)
         {
             try
             {

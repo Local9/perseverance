@@ -10,8 +10,23 @@ namespace Perseverance.Server.Managers
             EventDispatcher.Mount("server:getCitizens", new Func<EventSource, int, string, int, Task<CitizenMessage>>(OnServerGetCitizensAsync));
             EventDispatcher.Mount("server:setCitizen", new Func<EventSource, int, string, string, Task<bool>>(OnServerSetCitizen));
             EventDispatcher.Mount("server:saveCitizen", new Func<EventSource, int, CitizenCreate, Task<CitizenMessage>>(OnServerSaveCitizen));
+            EventDispatcher.Mount("server:deleteCitizen", new Func<EventSource, int, string, Task<bool>>(OnServerDeleteCitizenAsync));
 
             Export.Add("getActiveCitizen", new Func<int, string>(OnGetActiveCitizen));
+        }
+        private async Task<bool> OnServerDeleteCitizenAsync([FromSource] EventSource source, int serverId, string citizenId = "")
+        {
+            try
+            {
+                if (source.Handle != serverId) return false;
+                return await CitizenController.DeleteAsync(source.User, citizenId);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"[CitizenManager] OnServerGetCitizenAsync() = >{ex.Message}");
+                Logger.Error($"{ex}");
+                return false;
+            }
         }
 
         private async Task<CitizenMessage> OnServerSaveCitizen([FromSource] EventSource source, int serverId, CitizenCreate citizen)

@@ -39,3 +39,11 @@ export function getCitizens() {
 export function saveCitizen(citizen: ICitizen) {
   return fetchNui("saveCitizen", citizen).catch((e) => {});
 }
+
+export function deleteCitizen(citizen: ICitizen) {
+  return fetchNui("deleteCitizen", { id: citizen.id }).
+  then((returnData) => {
+    getCitizens();
+  });
+  .catch((e) => {});
+}

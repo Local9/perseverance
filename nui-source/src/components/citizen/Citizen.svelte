@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Button from '@components/form/Button.svelte';
-  import Icon from '@iconify/svelte';
-  import { setCitizen } from '@store/citizen';
-  import type { ICitizen } from '../../@types/citizen';
-  import CitizenForm from './CitizenForm.svelte';
+  import Button from "@components/form/Button.svelte";
+  import Icon from "@iconify/svelte";
+  import { deleteCitizen, setCitizen } from "@store/citizen";
+  import type { ICitizen } from "../../@types/citizen";
+  import CitizenForm from "./CitizenForm.svelte";
 
   export let citizen: ICitizen;
   export let showNameplate: boolean = true;
@@ -13,7 +13,7 @@
   }
 
   function onClickDeleteCitizen() {
-    console.log(`delete citizen ${citizen.id}`);
+    deleteCitizen(citizen);
   }
 
   let showModal: boolean = false;
