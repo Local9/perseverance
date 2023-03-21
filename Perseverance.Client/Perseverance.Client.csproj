@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GameInterface\Events\" />
     <Folder Include="GameInterface\Menu\Interaction\Submenu\" />
     <Folder Include="GameInterface\Menu\Character\" />
   </ItemGroup>
