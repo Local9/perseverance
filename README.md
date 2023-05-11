@@ -16,7 +16,7 @@ To develop and test the NUI without running it in game, you can open the `nui-so
 
 ## C#
 
-- Visual Studio Community with C# Development packages installed
+- Visual Studio 2022 Community with C# Development packages installed
 - .NET Framework 4.7.2 (client) and .NET Standard 2.0 (server) packs installed
 
 For the C# this is using a System Environment Variable for the build configuration `Local` called `FIVEM_SERVER_PATH` this should point to the same location as the one in the `.env.local`, when building the project you can select the `Local` build config and this will deploy the files to your FiveM development server locally on your machine.
