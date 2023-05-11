@@ -1,16 +1,16 @@
 <script lang="ts">
-  import Button from '@components/form/Button.svelte';
-  import { storeCitizens, getCitizens } from '@store/citizen';
-  import { onMount } from 'svelte';
-  import type { ICitizen } from '../../@types/citizen';
-  import Citizen from './Citizen.svelte';
-  import { logout } from '@store/auth';
-  import CitizenForm from './CitizenForm.svelte';
+  import Button from "@components/form/Button.svelte";
+  import { storeCitizens, getCitizens } from "@store/citizen";
+  import { onMount } from "svelte";
+  import type { Citizen } from "../../@types/class/citizen";
+  import CitizenPanel from "./CitizenPanel.svelte";
+  import { logout } from "@store/auth";
+  import CitizenForm from "./CitizenForm.svelte";
 
   export let showNameplates: boolean = true;
-  let myCitizens: ICitizen[] = [];
+  let myCitizens: Citizen[] = [];
 
-  storeCitizens.subscribe((value: ICitizen[]) => {
+  storeCitizens.subscribe((value: Citizen[]) => {
     myCitizens = value;
   });
 
@@ -31,7 +31,7 @@
   {:else}
     <div class="citizens">
       {#each myCitizens as citizen}
-        <Citizen {citizen} showNameplate={showNameplates} />
+        <CitizenPanel {citizen} showNameplate={showNameplates} />
       {/each}
     </div>
   {/if}

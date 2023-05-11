@@ -14,6 +14,5 @@ export interface ICitizen {
   address: string;
   postal: string;
   ethnicity: string;
-
-  fullname: string = `${this.name} ${this.surname}`;
+  get fullname(): string;
 }

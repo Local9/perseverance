@@ -1,12 +1,12 @@
 import { writable } from "svelte/store";
 import { fetchNui } from "@utils/fetchNui";
 import { citizensData } from "../data/citizens.data";
-import type { ICitizen } from "../@types/citizen";
+import type { Citizen } from "../@types/class/citizen";
 
-export const storeCitizens = writable<ICitizen[]>([]);
-export const storeCitizen = writable<ICitizen>({});
+export const storeCitizens = writable<Citizen[]>([]);
+export const storeCitizen = writable<Citizen>();
 
-export function setCitizen(citizen: ICitizen) {
+export function setCitizen(citizen: Citizen) {
   storeCitizen.set(citizen);
 
   fetchNui("setCitizen", { id: citizen.id, fullname: citizen.fullname })
@@ -36,11 +36,11 @@ export function getCitizens() {
     .catch((e) => {});
 }
 
-export function saveCitizen(citizen: ICitizen) {
+export function saveCitizen(citizen: Citizen) {
   return fetchNui("saveCitizen", citizen).catch((e) => {});
 }
 
-export function deleteCitizen(citizen: ICitizen) {
+export function deleteCitizen(citizen: Citizen) {
   return fetchNui("deleteCitizen", { id: citizen.id })
     .then((returnData) => {
       getCitizens();

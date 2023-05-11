@@ -3,21 +3,22 @@
   import Icon from "@iconify/svelte";
   import Modal from "@shared/Modal.svelte";
   import { deleteCitizen, setCitizen } from "@store/citizen";
-  import type { ICitizen } from "../../@types/citizen";
+  import { Citizen } from "../../@types/class/citizen";
   import CitizenForm from "./CitizenForm.svelte";
 
-  export let citizen: ICitizen;
+  export let citizen: Citizen;
+  let data = new Citizen(citizen);
   export let showNameplate: boolean = true;
 
   let showModal: boolean = false;
   let showDeletionConfirmationModal: boolean = false;
 
   function onClickSetCitizen() {
-    setCitizen(citizen);
+    setCitizen(data);
   }
 
   function onClickDeleteCitizen() {
-    deleteCitizen(citizen);
+    deleteCitizen(data);
   }
 </script>
 
@@ -40,22 +41,22 @@
 <article>
   {#if showNameplate}
     <div class="nameplate">
-      {#if !citizen?.imageId}
+      {#if !data?.imageId}
         <Icon icon="game-icons:character" width="80" height="80" />
       {:else}
-        <img src={citizen?.imageId} alt="{citizen.name} {citizen.surname}" />
+        <img src={data?.imageId} alt="{data.name} {data.surname}" />
       {/if}
       <div>
         <ul>
           <li>
-            <small>SSN: {citizen.socialSecurityNumber}</small>
+            <small>SSN: {data.socialSecurityNumber}</small>
           </li>
         </ul>
       </div>
     </div>
   {/if}
   <div class="w-96 grid grid-cols-5" role="group">
-    <Button class="text-ellipsis col-span-3 inline-block rounded-l h-10 w-64 overflow-hidden whitespace-nowrap" on:click={onClickSetCitizen}>{citizen.name} {citizen.surname}</Button>
+    <Button class="text-ellipsis col-span-3 inline-block rounded-l h-10 w-64 overflow-hidden whitespace-nowrap" on:click={onClickSetCitizen}>{data.fullname}</Button>
     <Button class="inline-block rounded-none w-16" on:click={() => (showModal = true)}>Edit</Button>
     <Button class="inline-block rounded-r w-16 text-center" variant="danger" on:click={() => (showDeletionConfirmationModal = true)}>Delete</Button>
   </div>

@@ -2,14 +2,13 @@
   import Button from "@components/form/Button.svelte";
   import Modal from "@shared/Modal.svelte";
   import TextField from "@components/form/TextField.svelte";
-  import type { ICitizen } from "src/@types/citizen";
   import Select from "@components/form/inputs/Select.svelte";
   import { genders, ethnicities, getServerProps, getAddresses, addresses } from "@store/application";
   import { getCitizens, saveCitizen, getCitizen } from "@store/citizen";
-  import { afterUpdate } from "svelte";
+  import type { Citizen } from "src/@types/class/citizen";
 
   export let showModal: boolean = false;
-  export let citizen: ICitizen = {
+  export let citizen: Citizen = {
     id: undefined,
     name: undefined,
     surname: undefined,
@@ -28,7 +27,10 @@
     ethnicity: undefined,
   };
 
-  let citizenCopy: ICitizen = { ...citizen };
+  let citizenCopy: Citizen = {
+    ...citizen,
+    fullname: "",
+  };
   let citizenGenders: any[] = [];
   let citizenEthnicities: any[] = [];
   let citizenAddresses: any;
@@ -45,7 +47,7 @@
       },
       (error: any) => {
         console.error(error);
-        citizenCopy = { ...citizen };
+        citizenCopy = { ...citizen, fullname: "" };
       }
     );
     setup = true;
