@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Icon from '@iconify/svelte';
-  import Citizens from '@citizen/Citizens.svelte';
+  import Icon from "@iconify/svelte";
+  import Citizens from "@citizen/Citizens.svelte";
 
-  let activeTab = 'citizens';
+  let activeTab = "citizens";
 </script>
 
 <div class="tablet-background">
@@ -10,7 +10,7 @@
     <Icon icon="mdi:menu" class="tablet-header-icon" />
   </div>
   <div class="tablet-container">
-    {#if activeTab === 'citizens'}
+    {#if activeTab === "citizens"}
       <Citizens />
     {/if}
   </div>
@@ -24,12 +24,13 @@
     border-radius: calc(var(--tablet-height-ratio) / 24);
     display: flex;
     flex-direction: column;
+    background-color: var(--tablet-background-color);
     // justify-content: center;
     // align-items: center;
   }
 
   .tablet-background::before {
-    content: '';
+    content: "";
     background-image: url(https://i.imgur.com/51MkKwC.jpeg);
     border-radius: calc(var(--tablet-height-ratio) / 48);
     background-size: cover;
